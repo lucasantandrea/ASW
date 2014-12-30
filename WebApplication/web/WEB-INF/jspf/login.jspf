@@ -1,0 +1,25 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<%@ page import="java.util.*" %>
+
+<div id="login">
+    <% String  username=null;
+        if(session.getAttribute("username")!=null)
+        username = session.getAttribute("username").toString();
+        if(username==null){
+    %>
+    <form action="<%= request.getContextPath()%>/LoginService" method="POST">
+        <input type="text" name="username"  placeholder="Username">
+        <input type="password" name="password"  placeholder="Password">
+        <p class="submit">
+            <input type="submit" name="submit" value="Login">
+            <a class="linkRegistra" href="<%= request.getContextPath()%>/jsp/registration.jsp">Non sei ancora registrato?</a>
+        </p>
+    </form>
+    
+    <%}else{
+    %>
+    <img src="<%= request.getContextPath()%>/multimedia/user2.jpg" alt="Martello"/> <span id='userlog'><%= session.getAttribute("username")%></span>
+    <a class="linkRegistra" href="<%= request.getContextPath()%>/LogoutService">Logout</a>
+    <%}%>
+</div>

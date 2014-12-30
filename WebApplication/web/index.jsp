@@ -23,6 +23,8 @@
         <div id="container">
             <div id="navbar">
                 <%@ include file="WEB-INF/jspf/navbar.jspf" %>
+                <%@ include file="WEB-INF/jspf/login.jspf" %>
+
             </div>
             <div id="content">
                 <p>Welcome, we have to do the description...</p>
