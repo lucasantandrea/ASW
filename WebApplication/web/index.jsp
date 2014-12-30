@@ -32,9 +32,8 @@
                 <%@ include file="WEB-INF/jspf/sidebar.jspf"%> 
 
             </div>
-                
             <div id="content">
-                <p>TODO login form here!!</p>
+                <p>TODO login form here!!testcomit</p>
             </div>
             <div id="footer">
                 <%@ include file="WEB-INF/jspf/footer.jspf" %>
