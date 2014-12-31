@@ -107,8 +107,8 @@ public class RegistrationServlet extends HttpServlet {
                 Element user = xmlPersone.createElement("username");
                 Element pass = xmlPersone.createElement("password");
                 
-                nome.setTextContent(request.getParameter("firstname"));
-                cognome.setTextContent(request.getParameter("lastname"));
+                nome.setTextContent(request.getParameter("nome"));
+                cognome.setTextContent(request.getParameter("cognome"));
                 user.setTextContent(request.getParameter("user"));
                 pass.setTextContent(request.getParameter("pass"));
                 
