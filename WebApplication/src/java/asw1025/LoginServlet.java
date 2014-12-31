@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/*    
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea
+    Matricola: 0900050785
+*/
 package asw1025;
 
 import java.io.BufferedInputStream;
