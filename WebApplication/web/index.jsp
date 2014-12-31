@@ -14,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--<link rel="stylesheet" href="css/style.css" type="text/css">-->
+        <link rel="stylesheet" href="style-sheets/style.css" type="text/css">
         <title>Home</title>
     </head>
     
@@ -23,19 +23,15 @@
         <div id="container">
             <div id="navbar">
                 <%@ include file="WEB-INF/jspf/navbar.jspf" %>
-                <%@ include file="WEB-INF/jspf/login.jspf" %>
-
             </div>
             <div id="content">
-                <p>Welcome, we have to do the description...</p>
+                <p>Welcome, we have to do the description. Please start with login / registration...</p>
+                <%@ include file="WEB-INF/jspf/login.jspf" %>
             </div>
 
             <div id="sidebar">
                 <%@ include file="WEB-INF/jspf/sidebar.jspf"%> 
 
-            </div>
-            <div id="content">
-                <p>TODO login form here!!testcomit</p>
             </div>
             <div id="footer">
                 <%@ include file="WEB-INF/jspf/footer.jspf" %>

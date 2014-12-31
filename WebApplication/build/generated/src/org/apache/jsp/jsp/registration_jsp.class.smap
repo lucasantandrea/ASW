@@ -1,0 +1,27 @@
+SMAP
+registration_jsp.java
+JSP
+*S JSP
+*F
++ 0 registration.jsp
+jsp/registration.jsp
++ 1 navbar.jspf
+jsp/../WEB-INF/jspf/navbar.jspf
++ 2 sidebar.jspf
+jsp/../WEB-INF/jspf/sidebar.jspf
++ 3 footer.jspf
+jsp/../WEB-INF/jspf/footer.jspf
+*L
+1,18:56
+5#1,4:74
+18#0,6:77
+24,2:83,9
+26,2:101
+29:105,2
+30,2:107,3
+32,8:113
+5#2,4:121
+39#0,4:124
+5#3,4:128
+42#0,7:131
+*E
