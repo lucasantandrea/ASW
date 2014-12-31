@@ -23,6 +23,6 @@
     <%}else{
     %>
     <span id='userlog'><%= session.getAttribute("user")%></span>
-    <a class="linkRegistra" href="<%= request.getContextPath()%>/LogoutService">Logout</a>
+    <a class="linkRegistra" href="<%= request.getContextPath()%>/LogoutServlet">Logout</a>
     <%}%>
 </div>
