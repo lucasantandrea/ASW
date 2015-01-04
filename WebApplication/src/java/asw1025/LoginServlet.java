@@ -50,7 +50,8 @@ public class LoginServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             
-            String filePersone = getServletContext().getRealPath("") + "\\persone.xml";
+            //String filePersone = getServletContext().getRealPath("") + "\\persone.xml";
+            String filePersone = Util.getCorrectFilePath(this, "persone.xml");
             Document xmlPersone = null;
             String username = request.getParameter("user");
             String password = request.getParameter("pass");

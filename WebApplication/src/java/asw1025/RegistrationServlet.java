@@ -58,7 +58,8 @@ public class RegistrationServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             //TODO: definire real path!
-            String filePersone = getServletContext().getRealPath("") + "\\persone.xml";
+            //String filePersone = getServletContext().getRealPath("") + "\\persone.xml";
+            String filePersone = Util.getCorrectFilePath(this, "persone.xml");
             String username = request.getParameter("user");
             Document xmlPersone = null;
             DataOutputStream dos = null;

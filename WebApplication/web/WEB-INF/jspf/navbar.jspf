@@ -3,17 +3,18 @@
     Autori: Luca Santandrea
     Matricola: 0900050785
 --%>
+<%@page import="asw1025.Util"%>
 <%@ page pageEncoding="UTF-8" %>
 
 
 <h2>Code Repo</h2>
 
 <ul>
-    <li><a HREF="index.jsp">Home</a></li> 
+    <li><a HREF="<%= Util.BASE %>index.jsp">Home</a></li> 
     <% if (session.getAttribute("user")!=null) { %>
         <li><a HREF="jsp/uploadPoem.jsp">Scrivi snippet</a></li>
         <li><a HREF="jsp/research.jsp">Ricerca codice</a></li>
     <%}else{%>
-        <li><a HREF="jsp/registration.jsp">Registrazione</a></li>
+        <li><a HREF="<%= Util.BASE %>jsp/registration.jsp">Registrazione</a></li>
     <%}%>
 </ul>
