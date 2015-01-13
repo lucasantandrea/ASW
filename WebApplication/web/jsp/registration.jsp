@@ -37,7 +37,7 @@
             </div>
             <div id="content">
                 <div class="miniInsideContent">
-                    <form name="registrationForm" method="POST" class="contentBox" action="../RegistrationServlet" onsubmit="return validateForm();">
+                    <form name="registrationForm" method="POST" class="contentBox" action="<%= Util.BASE %>RegistrationServlet" onsubmit="return validateForm();">
 
                         First name: <input type="text" name="nome" value=<%if(request.getAttribute("nome")!=null){%> <%= request.getAttribute("nome")%><%} else {%>""<%}%> ><br> 
                         Last name: <input type="text" name="cognome" value=<%if(request.getAttribute("cognome")!=null){%> <%= request.getAttribute("cognome")%><%} else {%>""<%}%> ><br>

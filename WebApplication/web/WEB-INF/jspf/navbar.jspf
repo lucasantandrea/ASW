@@ -12,8 +12,9 @@
 <ul>
     <li><a HREF="<%= Util.BASE %>index.jsp">Home</a></li> 
     <% if (session.getAttribute("user")!=null) { %>
-        <li><a HREF="jsp/uploadPoem.jsp">Scrivi snippet</a></li>
-        <li><a HREF="jsp/research.jsp">Ricerca codice</a></li>
+        <li><a HREF="<%= Util.BASE %>jsp/loadSnippet.jsp">Write snippet</a></li>
+        <li><a HREF="<%= Util.BASE %>jsp/research.jsp">Research Code</a></li>
+        <li><a HREF="<%= Util.BASE %>jsp/mySnippet.jsp">My Snippet</a></li>
     <%}else{%>
         <li><a HREF="<%= Util.BASE %>jsp/registration.jsp">Registrazione</a></li>
     <%}%>

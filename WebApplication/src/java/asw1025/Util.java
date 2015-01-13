@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServlet;
 public class Util {
     // SEMAFORI MUTEX che permettono di accedere in modo esclusivo alle risorse condivise, come i file XML e la lista degli AsyncContext
     public static Semaphore mutexPersoneFile = new Semaphore(1);
-    public static Semaphore mutexPoesieFile = new Semaphore(1);
+    public static Semaphore mutexSnippetFile = new Semaphore(1);
     public static Semaphore mutexLikeFile = new Semaphore(1);
     public static Semaphore mutexAsyncContextList = new Semaphore(1);
     
