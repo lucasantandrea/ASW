@@ -1,8 +1,3 @@
-/* 
-    Esame: Applicazioni e Servizi Web 2013-14
-    Autori: Fabrizio Masini, Luca Sangiorgi
-    Matricola: 0000680876, 0000681281
-*/
 package asw1025;
 
 import java.io.Serializable;
@@ -14,9 +9,7 @@ public class SnippetData implements Serializable{
     private String code;
     private String language;
     private String date;
-    //private String like;
-    //private Boolean likeIt;   // Variabile usata per indicare che all'utente piace questa poesia
-    
+   
     public SnippetData(String id,String user,String title, String code, String language, String date) {
         this.id=id;
         this.user=user;
@@ -24,7 +17,6 @@ public class SnippetData implements Serializable{
         this.code=code;
         this.language=language;
         this.date=date;
-        //this.like=like;
     }
     
     public String getId(){

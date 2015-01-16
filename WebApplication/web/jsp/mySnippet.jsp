@@ -13,7 +13,6 @@
 <%@page import="asw1025.SnippetData"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,28 +20,17 @@
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
         <title>My Snippet</title>
     </head>
-    <%--
-        Registrazione degli eventi di Onload e OnUnload della pagina, 
-        per chiamare le funzioni Javascript per la registrazione/deregistrazione al servizio di notifiche
-    
-    <body onload="registerToReceiveNotification();" onunload="deregisterNotification();">        
-         <% 
-            // Controllo se la sessione è scaduata, in caso affermativo si ripresenta la home nella quale si deve rifare il login
-            if (session == null || session.getAttribute("user") == null) {
-                System.out.println("timeout session expired!!");
-                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);            
-            } 
-        %>
-       --%>
         <div id="container">
             <div id="navbar">
                 <%@ include file="../WEB-INF/jspf/navbar.jspf" %>
             </div>
             <div id="content">
                 <div class="miniInsideContent">
+                    <!--<form name="snippetForm" action="%=Util.BASE%>MySnippetServlet" method="POST"></form>-->
+                    
                     <!--CASO: sono presenti poesie dell'utente (loggato) nel dbsnippet-->
                     <% 
+           
                        if (request.getAttribute("mySnippet")!=null){
                        ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("mySnippet");
                        if (snippetList.size() > 0) {
@@ -73,10 +61,10 @@
                                             </form><br>
                                         </td>
                                         <td>
-                                            <form name="deletePoemForm<%=i%>" action="<%= Util.BASE %>DeleteServlet" method="POST">
+                                            <form name="deleteSnippetForm<%=i%>" action="<%= Util.BASE %>DeleteServlet" method="POST">
                                                  <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
                                                  <div id="buttonElimina" class="buttonBackground">
-                                                    <a HREF="javascript:document.deletePoemForm<%=i%>.submit()">Elimina</a>
+                                                    <a HREF="javascript:document.deleteSnippetForm<%=i%>.submit()">Elimina</a>
                                                  </div>
                                             </form><br>
                                         </td>

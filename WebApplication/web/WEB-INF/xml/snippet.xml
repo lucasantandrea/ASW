@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dbsnippet>
-    <snippet>
-        <code>
-            
-        </code>
-    </snippet>
-    
-</dbsnippet>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><dbsnippet><snippet><idSnippet>1</idSnippet><user>rete</user><title>Hello Word</title><code>public class HelloWorld {&#13;
+&#13;
+    public static void main(String[] args) {&#13;
+        System.out.println("Hello, World");&#13;
+        &#13;
+    }&#13;</code><language>Java</language><date>15-01-2015 21:06:27</date></snippet></dbsnippet>

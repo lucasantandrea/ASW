@@ -16,7 +16,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Carica snippet</title>
+        <title>Write snippet</title>
     </head>
     
     <%--
@@ -42,9 +42,9 @@
             </div>
             <div id="content">
                 <div class="miniInsideContent">
-                        <form name="uploadForm" action="<%=Util.BASE%>uploadServlet" method="POST" onsubmit="return validateForm();" class="contentBox">
+                        <form name="uploadForm" action="<%=Util.BASE%>AddSnippetServlet" method="POST" onsubmit="return validateForm();" class="contentBox">
                             
-                            
+                       <%--      
                             <!-- CASO: MODIFICA di snippet esitente -->
                             <% if(request.getParameter("id")!=null){ %>
                             Title: <input type="text" name="Title" value="<%= request.getParameter("title")%>"><br><br>
@@ -60,7 +60,7 @@
                                 <input type="hidden" name="idSnippet" value="<%= request.getParameter("id")%>"><br>
 
                             <%} else {%> 
-                           
+                           --%>
                             <!-- New snippet -->
                                 Title: <input type="text" name="Title" ><br><br>
                                 Code: <textarea rows="6" cols="100" name="Code"></textarea><br><br>
@@ -72,8 +72,7 @@
                                     <option name="PHP"  >PHP</option>                                    
                                 </select><br>
                                 <!--<input type="hidden" name="Like" value="0"><br>-->
-                                <input type="hidden" name="idSnippet" value=""><br>
-                            <%}%>
+                                <input type="hidden" name="idSnippet" value=""><br>                         
                             <input type="submit" value="Salva">
                         </form>
                 </div>

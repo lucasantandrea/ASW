@@ -12,9 +12,13 @@
 <ul>
     <li><a HREF="<%= Util.BASE %>index.jsp">Home</a></li> 
     <% if (session.getAttribute("user")!=null) { %>
+        <li>    
+            <form name="submitMyFileForm" action="<%= Util.BASE %>MySnippetServlet" method="POST">
+                <a HREF="javascript:document.submitMyFileForm.submit()">My Snippet</a>
+            </form>
+        </li>
         <li><a HREF="<%= Util.BASE %>jsp/loadSnippet.jsp">Write snippet</a></li>
         <li><a HREF="<%= Util.BASE %>jsp/research.jsp">Research Code</a></li>
-        <li><a HREF="<%= Util.BASE %>jsp/mySnippet.jsp">My Snippet</a></li>
     <%}else{%>
         <li><a HREF="<%= Util.BASE %>jsp/registration.jsp">Registrazione</a></li>
     <%}%>

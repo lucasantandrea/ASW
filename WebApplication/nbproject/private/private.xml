@@ -3,16 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/src/java/asw1025/SnippetData.java</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/web/WEB-INF/xml/persone.xml</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/web/index.jsp</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/web/jsp/mySnippet.jsp</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/src/java/asw1025/Util.java</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/web/WEB-INF/jspf/navbar.jspf</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/web/jsp/registration.jsp</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/web/jsp/loadSnippet.jsp</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/src/java/asw1025/UploadServlet.java</file>
-            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgASW1025/ASW/WebApplication/src/java/asw1025/RegistrationServlet.java</file>
+            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgettoASW1025/ASW/WebApplication/web/WEB-INF/jspf/sidebar.jspf</file>
+            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgettoASW1025/ASW/WebApplication/src/java/asw1025/DeleteServlet.java</file>
+            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgettoASW1025/ASW/WebApplication/src/java/asw1025/AddSnippetServlet.java</file>
+            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgettoASW1025/ASW/WebApplication/web/WEB-INF/xml/persone.xml</file>
+            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgettoASW1025/ASW/WebApplication/web/WEB-INF/jspf/navbar.jspf</file>
+            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgettoASW1025/ASW/WebApplication/web/index.jsp</file>
+            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgettoASW1025/ASW/WebApplication/web/jsp/mySnippet.jsp</file>
+            <file>file:/C:/Users/Francesco/Documents/NetBeansProjects/ProgettoASW1025/ASW/WebApplication/web/jsp/loadSnippet.jsp</file>
         </group>
     </open-files>
 </project-private>
