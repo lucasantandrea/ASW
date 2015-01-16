@@ -96,21 +96,29 @@ public class AddSnippetServlet extends HttpServlet {
             }                         
                                    
                 
-            Element id = xmlSnippet.createElement("idSnippet");
-            Element date = xmlSnippet.createElement("date");
+            Element id = xmlSnippet.createElement("idSnippet");          
             Element user = xmlSnippet.createElement("user");
             Element title = xmlSnippet.createElement("title");
             Element language = xmlSnippet.createElement("language");
-            Element code = xmlSnippet.createElement("code");        
-            
-            
+            Element code = xmlSnippet.createElement("code");
+            Element date_creation = xmlSnippet.createElement("date_creation");
+            Element mod = xmlSnippet.createElement("mod");
+            Element code_mod = xmlSnippet.createElement("code_mod");
+            Element date_lastmodprop = xmlSnippet.createElement("date_lastmodprop");
+            Element date_lastmod = xmlSnippet.createElement("date_lastmod");
+            Element user_mod = xmlSnippet.createElement("user_mod");
+                     
             id.setTextContent(""+idSnippet);
             user.setTextContent(""+username);
             title.setTextContent(request.getParameter("Title"));
             code.setTextContent(request.getParameter("Code"));
             language.setTextContent(request.getParameter("languageResearch"));
-            date.setTextContent(Util.convertDateToString(new Date()));
-          
+            date_creation.setTextContent(Util.convertDateToString(new Date()));
+            mod.setTextContent("");
+            code_mod.setTextContent("");
+            date_lastmodprop.setTextContent("");
+            date_lastmod.setTextContent("");
+            user_mod.setTextContent("");
             
             Element snip = xmlSnippet.createElement("snippet");
             snip.appendChild(id);
@@ -118,7 +126,12 @@ public class AddSnippetServlet extends HttpServlet {
             snip.appendChild(title);
             snip.appendChild(code);
             snip.appendChild(language);
-            snip.appendChild(date);
+            snip.appendChild(date_creation);
+            snip.appendChild(mod);
+            snip.appendChild(code_mod);
+            snip.appendChild(date_lastmodprop);
+            snip.appendChild(date_lastmod);
+            snip.appendChild(user_mod);
             
            
             xmlSnippet.getDocumentElement().appendChild(snip);

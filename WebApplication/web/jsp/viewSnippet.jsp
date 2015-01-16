@@ -1,6 +1,6 @@
 <%-- 
-    Document   : loadSnippet
-    Created on : 13-gen-2015, 16.58.12
+    Document   : viewSnippet
+    Created on : 16-gen-2015, 15.59.02
     Author     : Francesco
 --%>
 
@@ -16,7 +16,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Write snippet</title>
+        <title>View snippet</title>
     </head>
     
     <%--
@@ -42,26 +42,33 @@
             </div>
             <div id="content">
                 <div class="miniInsideContent">
-                        <form name="uploadForm" action="<%=Util.BASE%>AddSnippetServlet" method="POST" onsubmit="return validateForm();" class="contentBox">
-                            
-                       <%--      
-                            <!-- CASO: MODIFICA di snippet esitente -->
                             <% if(request.getParameter("id")!=null){ %>
-                            Title: <input type="text" name="Title" value="<%= request.getParameter("title")%>"><br><br>
-                            Code: <textarea rows="4" cols="50" name="Code" id="textArea"><%= request.getParameter("code")%></textarea><br><br>
-                                Language: <select name="languageResearch">
+                            Title: <input type="text" name="Title" value="<%= request.getParameter("title")%>" disabled><br><br>
+                            Code: <textarea rows="6" cols="100" name="Code" id="textArea" disabled><%= request.getParameter("code")%></textarea><br><br>
+                            Language: <input type="text" name="Title" value="<%= request.getParameter("language")%>" disabled><br><br>
+                                <% if(request.getParameter("mod")!=null){ %>
+                                 Code Mod: <textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%= request.getParameter("code_mod")%></textarea><br><br>
+                                 By: <input type="text" name="User_mode" value="<%= request.getParameter("user_mod")%>" disabled><br><br>
+                               
+                                <%
+                                 }
+                                %>
+                            <%--
+                                <select name="languageResearch">
                                     <option name="Java" <% if(((String)request.getParameter("language")).equals("Java")) { %> <%= "selected" %><% } %>>Java</option>
                                      <option name="Javascript"  <% if(((String)request.getParameter("language")).equals("Javascript")) { %> <%= "selected" %><% } %> >Javascript</option>     
                                     <option name="C++"  <% if(((String)request.getParameter("language")).equals("C++")) { %> <%= "selected" %><% } %> >C++</option>
                                     <option name="C#"  <% if(((String)request.getParameter("language")).equals("C#")) { %> <%= "selected" %><% } %> >C#</option>
                                     <option name="PHP"  <% if(((String)request.getParameter("language")).equals("PHP")) { %> <%= "selected" %><% } %> >PHP</option>                                
                                 </select><br>
-                                <!-- <input type="hidden" name="Like" value="<%= request.getParameter("like")%>"><br> -->
+                                --%>
                                 <input type="hidden" name="idSnippet" value="<%= request.getParameter("id")%>"><br>
 
                             <%} else {%> 
-                           --%>
-                            <!-- New snippet -->
+                          
+                           
+                                Errore di Visualizzazione.
+                                <%--
                                 Title: <input type="text" name="Title" ><br><br>
                                 Code: <textarea rows="6" cols="100" name="Code"></textarea><br><br>
                                 Language: <select name="languageResearch">
@@ -73,7 +80,11 @@
                                 </select><br>
                                 <input type="hidden" name="idSnippet" value=""><br>                         
                             <input type="submit" value="Salva">
-                        </form>
+                            --%>
+                            <%
+                              }
+                            %>
+                            
                 </div>
             </div>            
             <div id="sidebar">

@@ -148,8 +148,13 @@ public class UploadServlet extends HttpServlet {
                                 snippet.item(i).getChildNodes().item(1).getTextContent(), 
                                 snippet.item(i).getChildNodes().item(2).getTextContent(), 
                                 snippet.item(i).getChildNodes().item(3).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(4).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(5).getTextContent()); 
+                                snippet.item(i).getChildNodes().item(4).getTextContent(),
+                                snippet.item(i).getChildNodes().item(5).getTextContent(),
+                                snippet.item(i).getChildNodes().item(6).getTextContent(),
+                                snippet.item(i).getChildNodes().item(7).getTextContent(),
+                                snippet.item(i).getChildNodes().item(8).getTextContent(),
+                                snippet.item(i).getChildNodes().item(9).getTextContent(),
+                                snippet.item(i).getChildNodes().item(10).getTextContent()); 
 
                         mySnippet.add(mysnippet);
                     }

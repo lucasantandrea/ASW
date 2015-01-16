@@ -31,7 +31,7 @@
                     <!--CASO: sono presenti poesie dell'utente (loggato) nel dbsnippet-->
                     <% 
            
-                       if (request.getAttribute("mySnippet")!=null){
+                      
                        ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("mySnippet");
                        if (snippetList.size() > 0) {
                     %>
@@ -41,31 +41,36 @@
                                     <td>Title</td>
                                     <td>Language</td>
                                     <td>Data</td>
-                                    <td>Modify</td>
+                                    <td>Code</td>
                                     <td>Delete</td>
                                 </tr>
                                 <% for(int i=0; i<snippetList.size(); i++){ %>
                                     <tr>
                                         <td> <%= snippetList.get(i).getTitle()%></td>
                                         <td> <%= snippetList.get(i).getLanguage() %></td>
-                                        <td> <%= snippetList.get(i).getDate() %></td>
+                                        <td> <%= snippetList.get(i).getDate_creation() %></td>
                                         <td>
-                                            <form name="submitPoemForm<%=i%>" action="<%= Util.BASE %>jsp/loadSnippet.jsp" method="POST">
+                                            <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>jsp/viewSnippet.jsp" method="POST">
                                                  <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
-                                                 <input type="hidden" name="titolo" value="<%=snippetList.get(i).getTitle()%>">
-                                                 <input type="hidden" name="testo" value="<%=snippetList.get(i).getCode()%>">
-                                                 <input type="hidden" name="argomento" value="<%=snippetList.get(i).getLanguage()%>"> 
-                                                 <div id="buttonModifica" class="buttonBackground">
-                                                    <a HREF="javascript:document.submitPoemForm<%=i%>.submit()">Modifica</a>
+                                                 <input type="hidden" name="title" value="<%=snippetList.get(i).getTitle()%>">
+                                                 <input type="hidden" name="code" value="<%=snippetList.get(i).getCode()%>">
+                                                 <input type="hidden" name="language" value="<%=snippetList.get(i).getLanguage()%>"> 
+                                                 <%if(snippetList.get(i).getMod().equals("Y")){%>
+                                                 <input type="hidden" name="mod" value="<%=snippetList.get(i).getMod()%>">
+                                                 <input type="hidden" name="code_mod" value="<%=snippetList.get(i).getCode_mod()%>">
+                                                 <input type="hidden" name="user_mod" value="<%=snippetList.get(i).getUser_mod()%>">
+                                                  <%
+                                                   }
+                                                   %>
+                                                 <div id="buttonView" class="buttonBackground">
+                                                    <a HREF="javascript:document.submitViewForm<%=i%>.submit()">View</a>
                                                  </div>
                                             </form><br>
                                         </td>
                                         <td>
-                                            <form name="deleteSnippetForm<%=i%>" action="<%= Util.BASE %>DeleteServlet" method="POST">
+                                            <form name="deleteSnippetForm<%=i%>" action="<%= Util.BASE %>DeleteServlet" method="POST" onsubmit="return validateForm();">
                                                  <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
-                                                 <div id="buttonElimina" class="buttonBackground">
-                                                    <a HREF="javascript:document.deleteSnippetForm<%=i%>.submit()">Elimina</a>
-                                                 </div>
+                                                 <input type="submit" value="X">
                                             </form><br>
                                         </td>
                                     </tr>
@@ -75,7 +80,7 @@
                             </table>
                         </div>
                     <!--CASO: non esistono snippet dell'utente loggato-->
-                    <% }} else {%>
+                    <% } else {%>
                         <div class="contentBox">
                             You don't have snippet.. MARIO BRAVET
                         </div>
