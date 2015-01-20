@@ -21,5 +21,11 @@
         <li><a HREF="<%= Util.BASE %>jsp/research.jsp">Research Code</a></li>
     <%}else{%>
         <li><a HREF="<%= Util.BASE %>jsp/registration.jsp">Registrazione</a></li>
+        
     <%}%>
+     <li>    
+            <form name="submiTotalFileForm" action="<%= Util.BASE %>StartSnippetServlet" method="POST">
+                <a HREF="javascript:document.submiTotalFileForm.submit()">All Snippet</a>
+            </form>
+        </li>
 </ul>

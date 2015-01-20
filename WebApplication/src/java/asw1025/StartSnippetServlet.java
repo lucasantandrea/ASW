@@ -24,7 +24,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
-public class MySnippetServlet extends HttpServlet {
+public class StartSnippetServlet extends HttpServlet {
     /**
      * Handles the HTTP
      * <code>POST</code> method.
@@ -46,7 +46,6 @@ public class MySnippetServlet extends HttpServlet {
         try {
             String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
             HttpSession session = request.getSession();
-            String username = (String) session.getAttribute("user");
             Document xmlSnippet = null;
             
             File f = new File(fileSnippet);
@@ -72,10 +71,9 @@ public class MySnippetServlet extends HttpServlet {
             
             NodeList snippet = xmlSnippet.getDocumentElement().getChildNodes();
             ArrayList<SnippetData> mySnippet = new ArrayList<>();
-                // Ricerca degli snippet dell'utente indicato
-                for (int i = 0; i < snippet.getLength(); i++) {
-                    String thisUser = snippet.item(i).getChildNodes().item(1).getTextContent();
-                    if (thisUser.equals(username)) {
+                // Ricerca di tutti gli snippet inseriti
+                for (int i = snippet.getLength() - 1; i > - 1 ; i--) {
+
                         SnippetData mysnippet =new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
                                 snippet.item(i).getChildNodes().item(1).getTextContent(), 
                                 snippet.item(i).getChildNodes().item(2).getTextContent(), 
@@ -88,25 +86,24 @@ public class MySnippetServlet extends HttpServlet {
                                 snippet.item(i).getChildNodes().item(9).getTextContent(),
                                 snippet.item(i).getChildNodes().item(10).getTextContent());  
 
-                        mySnippet.add(mysnippet);
-                    }
+                        mySnippet.add(mysnippet);   
                 }
             
             // Rilascio risorsa condivisa
             Util.mutexSnippetFile.release();
             
-            request.setAttribute("mySnippet", mySnippet);
-            RequestDispatcher rd = request.getRequestDispatcher("jsp/mySnippet.jsp");
+           request.setAttribute("mySnippet", mySnippet);
+            RequestDispatcher rd = request.getRequestDispatcher("jsp/totalSnippet.jsp");
             rd.forward(request, response);
             
         }  catch (TransformerConfigurationException ex) {
-            Logger.getLogger(MySnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(MySnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
-            Logger.getLogger(MySnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(MySnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
 }

@@ -8,6 +8,10 @@
         <servlet-name>DeleteServlet</servlet-name>
         <servlet-class>asw1025.DeleteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StartSnippetServlet</servlet-name>
+        <servlet-class>asw1025.StartSnippetServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MySnippetServlet</servlet-name>
         <url-pattern>/MySnippetServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/DeleteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StartSnippetServlet</servlet-name>
+        <url-pattern>/StartSnippetServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

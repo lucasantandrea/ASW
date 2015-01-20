@@ -9,6 +9,9 @@
 <%@page import="java.util.Date"%>
 <%@page import="javax.servlet.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="asw1025.Util"%>
+<%@page import="asw1025.SnippetData"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -25,8 +28,10 @@
                 <%@ include file="WEB-INF/jspf/navbar.jspf" %>
             </div>
             <div id="content">
+              
                 <p>Welcome, we have to do the description. Please start with login / registration...</p>
                 <%@ include file="WEB-INF/jspf/login.jspf" %>
+                                 
             </div>
 
             <div id="sidebar">
