@@ -116,8 +116,8 @@ public class AddSnippetServlet extends HttpServlet {
             date_creation.setTextContent(Util.convertDateToString(new Date()));
             mod.setTextContent("");
             code_mod.setTextContent("");
-            date_lastmodprop.setTextContent("");
-            date_lastmod.setTextContent("");
+            date_lastmodprop.setTextContent(Util.convertDateToString(new Date()));
+            date_lastmod.setTextContent(Util.convertDateToString(new Date()));
             user_mod.setTextContent("");
             
             Element snip = xmlSnippet.createElement("snippet");

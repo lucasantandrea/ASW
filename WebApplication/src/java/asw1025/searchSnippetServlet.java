@@ -19,6 +19,10 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import asw1025.ManageXML;
+import java.text.ParseException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import org.w3c.dom.Document;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -48,6 +52,11 @@ public class searchSnippetServlet extends HttpServlet {
             String title = request.getParameter("title");
             String username = request.getParameter("author");
             String language = request.getParameter("languageResearch");
+            
+            
+            // Ordinamento
+            String order =  request.getParameter("orderResearch");
+            
             File f = new File(fileSnippet);
             if (!f.exists()) {
                 f.createNewFile();
@@ -142,7 +151,72 @@ public class searchSnippetServlet extends HttpServlet {
                 }
                 }
             }
-
+            // ORDINAMENTO SU ENTRAMBI I CRITERI ----------------------------------------------------------------------------------------------
+            if (!order.equals("---")) {
+                if(order.equals("Creation Data")){
+                // ORDINAMENTO PER DATA
+                Collections.sort(mySnippet,new Comparator<SnippetData>() {
+                    
+                    @Override
+                    public int compare(SnippetData o1, SnippetData o2) {
+                        
+                        Date d1=null;
+                        Date d2=null;
+                        try {
+                            
+                            d1= Util.convertStringtoDate(o1.getDate_creation());
+                            d2= Util.convertStringtoDate(o2.getDate_creation());
+                            
+                        } catch (ParseException ex) {
+                            Logger.getLogger(searchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        return d2.compareTo(d1); //ordine decrescente
+                    }
+                });
+                }
+                 if(order.equals("Owner Update Data")){
+                // ORDINAMENTO PER DATA
+                Collections.sort(mySnippet,new Comparator<SnippetData>() {
+                    
+                    @Override
+                    public int compare(SnippetData o1, SnippetData o2) {
+                        
+                        Date d1=null;
+                        Date d2=null;
+                        try {
+                            
+                            d1= Util.convertStringtoDate(o1.getDate_lasmodprop());
+                            d2= Util.convertStringtoDate(o2.getDate_lasmodprop());
+                            
+                        } catch (ParseException ex) {
+                            Logger.getLogger(searchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        return d2.compareTo(d1); //ordine decrescente
+                    }
+                });
+                }
+                  if(order.equals("Users Update Data")){
+                // ORDINAMENTO PER DATA
+                Collections.sort(mySnippet,new Comparator<SnippetData>() {
+                    
+                    @Override
+                    public int compare(SnippetData o1, SnippetData o2) {
+                        
+                        Date d1=null;
+                        Date d2=null;
+                        try {
+                            
+                            d1= Util.convertStringtoDate(o1.getDate_lasmod());
+                            d2= Util.convertStringtoDate(o2.getDate_lasmod());
+                            
+                        } catch (ParseException ex) {
+                            Logger.getLogger(searchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        return d2.compareTo(d1); //ordine decrescente
+                    }
+                });
+                }
+            }
             // Rilascio risorsa condivisa
             Util.mutexSnippetFile.release();
 

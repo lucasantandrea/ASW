@@ -5,13 +5,13 @@ int main()&#13;
 {&#13;
    cout &lt;&lt; ''Hello Wordl!'' &lt;&lt; endl;&#13;
    return 0;&#13;
-}</code><language>C++</language><date_creation>16-01-2015 17:20:07</date_creation><mod/><code_mod/><date_lastmodprop/><date_lastmod/><user_mod/></snippet><snippet><idSnippet>2</idSnippet><user>rete</user><title>Hello Word Java</title><code>public class HelloWorld {&#13;
+}</code><language>C++</language><date_creation>16-01-2015 17:20:07</date_creation><mod/><code_mod/><date_lastmodprop>16-01-2015 17:21:49</date_lastmodprop><date_lastmod>6-01-2015 17:21:49</date_lastmod><user_mod/></snippet><snippet><idSnippet>2</idSnippet><user>rete</user><title>Hello Word Java</title><code>public class HelloWorld {&#13;
 &#13;
     public static void main(String[] args) {&#13;
         System.out.println("Hello, World");&#13;
     }&#13;
-}</code><language>Java</language><date_creation>16-01-2015 17:20:55</date_creation><mod/><code_mod/><date_lastmodprop/><date_lastmod/><user_mod/></snippet><snippet><idSnippet>3</idSnippet><user>rete</user><title>Hello Word JS</title><code>&lt;script&gt;&#13;
+}</code><language>Java</language><date_creation>6-01-2015 17:20:55</date_creation><mod/><code_mod/><date_lastmodprop>16-01-2015 17:21:49</date_lastmodprop><date_lastmod>26-01-2015 17:21:49</date_lastmod><user_mod/></snippet><snippet><idSnippet>3</idSnippet><user>rete</user><title>Hello Word JS</title><code>&lt;script&gt;&#13;
 alert('Hello, World!')&#13;
- &lt;/script&gt;</code><language>JavaScript</language><date_creation>16-01-2015 17:21:49</date_creation><mod>Y</mod><code_mod>&lt;script&gt;&#13;
+ &lt;/script&gt;</code><language>JavaScript</language><date_creation>26-01-2015 17:21:49</date_creation><mod>Y</mod><code_mod>&lt;script&gt;&#13;
 alert('Hello, World!AAAAAAAAAA')&#13;
- &lt;/script&gt;</code_mod><date_lastmodprop/><date_lastmod/><user_mod>anto</user_mod></snippet></dbsnippet>
+ &lt;/script&gt;</code_mod><date_lastmodprop>26-01-2015 17:21:49</date_lastmodprop><date_lastmod>2-01-2015 17:21:49</date_lastmod><user_mod>anto</user_mod></snippet></dbsnippet>

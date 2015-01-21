@@ -41,17 +41,16 @@
                                     <td>Title</td>
                                     <td>Language</td>
                                     <td>Author</td>
-                                    <td>Creation Data</td>
-                                    <td>Last Mod</td>
                                     <td>View</td>
+                                    <td>Creation</td>
+                                    <td>Owner Update</td>
+                                    <td>Users Update</td>
                                 </tr>
                                 <% for(int i=0; i<snippetList.size(); i++){ %>
                                     <tr>
                                         <td> <%= snippetList.get(i).getTitle()%></td>
                                         <td> <%= snippetList.get(i).getLanguage() %></td>
                                         <td> <%= snippetList.get(i).getUser() %></td>
-                                        <td> <%= snippetList.get(i).getDate_creation() %></td>
-                                        <td> <%= snippetList.get(i).getDate_lasmod() %></td>
                                         <td>
                                             <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>jsp/viewSnippet.jsp" method="POST">
                                                  <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
@@ -70,6 +69,9 @@
                                                  </div>
                                             </form><br>
                                         </td>
+                                        <td> <%= snippetList.get(i).getDate_creation() %></td>
+                                        <td> <%= snippetList.get(i).getDate_lasmodprop() %></td>
+                                        <td> <%= snippetList.get(i).getDate_lasmod() %></td>
                                     </tr>
                                 <%
                                 }

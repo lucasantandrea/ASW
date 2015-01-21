@@ -40,8 +40,13 @@
                                     <option name="C++" >C++</option>
                                     <option name="C#"  >C#</option>
                                     <option name="PHP"  >PHP</option>                                    
-                                </select><br>
-                                <input type="hidden" name="idSnippet" value=""><br>                         
+                                </select><br><br>   
+                                OrderBy: <select name="orderResearch">
+                                    <option name="---" >---</option>
+                                    <option name="Creation" >Creation Data</option>Owner Update Data
+                                    <option name="OwnerUpdate"  >Owner Update Data</option>      
+                                    <option name="Modification"  >Users Update Data</option>  
+                                </select><br><br>   
                             <input type="submit" value="Find">
                         </form>
                 </div>
