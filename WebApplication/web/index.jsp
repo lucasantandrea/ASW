@@ -36,7 +36,6 @@
 
             <div id="sidebar">
                 <%@ include file="WEB-INF/jspf/sidebar.jspf"%> 
-
             </div>
             <div id="footer">
                 <%@ include file="WEB-INF/jspf/footer.jspf" %>

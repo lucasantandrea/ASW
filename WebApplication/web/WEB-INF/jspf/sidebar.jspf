@@ -3,5 +3,11 @@
     Autori: Luca Santandrea
     Matricola: 0900050785
 --%>
+<%@page import="asw1025.Util"%>
 <%@ page pageEncoding="UTF-8" %>
 <h2>SIDEBAR</h2>
+<%--
+<jsp:include page="<%=Util.BASE %>jsp/loadSnippet.jsp"/>
+ --%>                                
+            
+ 

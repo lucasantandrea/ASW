@@ -18,7 +18,7 @@
             </form>
         </li>
         <li><a HREF="<%= Util.BASE %>jsp/loadSnippet.jsp">Write snippet</a></li>
-        <li><a HREF="<%= Util.BASE %>jsp/research.jsp">Research Code</a></li>
+        <li><a HREF="<%= Util.BASE %>jsp/searchSnippet.jsp">Research Code</a></li>
     <%}else{%>
         <li><a HREF="<%= Util.BASE %>jsp/registration.jsp">Registrazione</a></li>
         

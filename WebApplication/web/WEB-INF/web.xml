@@ -12,6 +12,10 @@
         <servlet-name>StartSnippetServlet</servlet-name>
         <servlet-class>asw1025.StartSnippetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>searchSnippetServlet</servlet-name>
+        <servlet-class>asw1025.searchSnippetServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MySnippetServlet</servlet-name>
         <url-pattern>/MySnippetServlet</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>StartSnippetServlet</servlet-name>
         <url-pattern>/StartSnippetServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchSnippetServlet</servlet-name>
+        <url-pattern>/searchSnippetServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
