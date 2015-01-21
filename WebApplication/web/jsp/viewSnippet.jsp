@@ -67,7 +67,7 @@
                             <%} else {%> 
                           
                            
-                                Errore di Visualizzazione.
+                                Error
                                 <%--
                                 Title: <input type="text" name="Title" ><br><br>
                                 Code: <textarea rows="6" cols="100" name="Code"></textarea><br><br>

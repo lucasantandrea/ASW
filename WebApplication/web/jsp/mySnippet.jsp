@@ -82,7 +82,7 @@
                     <!--CASO: non esistono snippet dell'utente loggato-->
                     <% } else {%>
                         <div class="contentBox">
-                            You don't have snippet.. MARIO BRAVET
+                            You haven't loaded snippet. 
                         </div>
                     <% } %>
                 </div>

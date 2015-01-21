@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>My Snippet</title>
+        <title>Search Snippet</title>
     </head>
         <div id="container">
             <div id="navbar">
@@ -79,7 +79,7 @@
                     <!--CASO: non esistono snippet dell'utente loggato-->
                     <% } else {%>
                         <div class="contentBox">
-                            You don't have snippet.. MARIO BRAVET
+                            No snippet found.
                         </div>
                     <% } %>
                 </div>
