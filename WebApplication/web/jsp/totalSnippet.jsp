@@ -25,10 +25,8 @@
                 <%@ include file="../WEB-INF/jspf/navbar.jspf" %>
             </div>
             <div id="content">
-                <div class="miniInsideContent">
-                    <!--<form name="snippetForm" action="%=Util.BASE%>MySnippetServlet" method="POST"></form>-->
-                    
-                    <!--CASO: sono presenti poesie dell'utente (loggato) nel dbsnippet-->
+                <div class="miniInsideContent">       
+                    <!--CASO: sono presenti snippet dell'utente (loggato) nel dbsnippet-->
                     <% 
            
                       
