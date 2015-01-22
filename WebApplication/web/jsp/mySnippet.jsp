@@ -50,18 +50,8 @@
                                         <td> <%= snippetList.get(i).getLanguage() %></td>
                                         <td> <%= snippetList.get(i).getDate_creation() %></td>
                                         <td>
-                                            <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>jsp/viewSnippet.jsp" method="POST">
+                                            <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>ViewServlet" method="POST" onsubmit="return validateForm();">
                                                  <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
-                                                 <input type="hidden" name="title" value="<%=snippetList.get(i).getTitle()%>">
-                                                 <input type="hidden" name="code" value="<%=snippetList.get(i).getCode()%>">
-                                                 <input type="hidden" name="language" value="<%=snippetList.get(i).getLanguage()%>"> 
-                                                 <%if(snippetList.get(i).getMod().equals("Y")){%>
-                                                 <input type="hidden" name="mod" value="<%=snippetList.get(i).getMod()%>">
-                                                 <input type="hidden" name="code_mod" value="<%=snippetList.get(i).getCode_mod()%>">
-                                                 <input type="hidden" name="user_mod" value="<%=snippetList.get(i).getUser_mod()%>">
-                                                  <%
-                                                   }
-                                                   %>
                                                  <div id="buttonView" class="buttonBackground">
                                                     <a HREF="javascript:document.submitViewForm<%=i%>.submit()">View</a>
                                                  </div>

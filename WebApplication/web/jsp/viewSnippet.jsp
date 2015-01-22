@@ -4,11 +4,13 @@
     Author     : Francesco
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
 <%@page import="javax.servlet.*" %>
 <%@page import="asw1025.Util"%>
+<%@page import="asw1025.SnippetData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -41,14 +43,22 @@
                 <%@ include file="../WEB-INF/jspf/navbar.jspf" %>
             </div>
             <div id="content">
+                
+                 <% 
+           
+                      
+                       ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("IdSnippet");
+                       if (snippetList.size() == 1 ) {
+                    %>
+                
                 <div class="miniInsideContent">
-                            <% if(request.getParameter("id")!=null){ %>
-                            Title: <input type="text" name="Title" value="<%= request.getParameter("title")%>" disabled><br><br>
-                            Code: <textarea rows="6" cols="100" name="Code" id="textArea" disabled><%= request.getParameter("code")%></textarea><br><br>
-                            Language: <input type="text" name="Title" value="<%= request.getParameter("language")%>" disabled><br><br>
-                                <% if(request.getParameter("mod")!=null){ %>
-                                 Code Mod: <textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%= request.getParameter("code_mod")%></textarea><br><br>
-                                 By: <input type="text" name="User_mode" value="<%= request.getParameter("user_mod")%>" disabled><br><br>
+                            
+                            Title: <input type="text" name="Title" value="<%= snippetList.get(0).getTitle()%>" disabled><br><br>
+                            Code: <textarea rows="6" cols="100" name="Code" id="textArea" disabled><%=snippetList.get(0).getCode()%></textarea><br><br>
+                            Language: <input type="text" name="Title" value="<%= snippetList.get(0).getLanguage()%>" disabled><br><br>
+                                 <%if(snippetList.get(0).getMod().equals("Y")){%>
+                                 Code Mod: <textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%=snippetList.get(0).getCode_mod()%></textarea><br><br>
+                                 By: <input type="text" name="User_mode" value="<%=snippetList.get(0).getUser_mod()%>" disabled><br><br>
                                
                                 <%
                                  }
@@ -61,26 +71,15 @@
                                     <option name="C#"  <% if(((String)request.getParameter("language")).equals("C#")) { %> <%= "selected" %><% } %> >C#</option>
                                     <option name="PHP"  <% if(((String)request.getParameter("language")).equals("PHP")) { %> <%= "selected" %><% } %> >PHP</option>                                
                                 </select><br>
-                                --%>
-                                <input type="hidden" name="idSnippet" value="<%= request.getParameter("id")%>"><br>
+                            <input type="hidden" name="idSnippet" value="<%= request.getParameter("id")%>"><br>
 
+                                --%>
+                                
                             <%} else {%> 
                           
                            
                                 Error
-                                <%--
-                                Title: <input type="text" name="Title" ><br><br>
-                                Code: <textarea rows="6" cols="100" name="Code"></textarea><br><br>
-                                Language: <select name="languageResearch">
-                                    <option name="Java" >Java</option>
-                                    <option name="JavaScript"  >JavaScript</option>
-                                    <option name="C++" >C++</option>
-                                    <option name="C#"  >C#</option>
-                                    <option name="PHP"  >PHP</option>                                    
-                                </select><br>
-                                <input type="hidden" name="idSnippet" value=""><br>                         
-                            <input type="submit" value="Salva">
-                            --%>
+                               
                             <%
                               }
                             %>

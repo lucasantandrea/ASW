@@ -43,7 +43,7 @@
                                 </select><br><br>   
                                 OrderBy: <select name="orderResearch">
                                     <option name="---" >---</option>
-                                    <option name="Creation" >Creation Data</option>Owner Update Data
+                                    <option name="Creation" >Creation Data</option>
                                     <option name="OwnerUpdate"  >Owner Update Data</option>      
                                     <option name="Modification"  >Users Update Data</option>  
                                 </select><br><br>   
