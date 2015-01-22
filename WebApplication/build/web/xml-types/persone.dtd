@@ -1,6 +1,0 @@
-<!ELEMENT dbpersone (persona)*> 
-<!ELEMENT persona (nome, cognome, username, password)> 
-<!ELEMENT nome (#PCDATA)>
-<!ELEMENT cognome (#PCDATA)>
-<!ELEMENT username (#PCDATA)>
-<!ELEMENT password (#PCDATA)>

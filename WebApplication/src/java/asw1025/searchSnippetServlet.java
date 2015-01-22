@@ -49,9 +49,9 @@ public class searchSnippetServlet extends HttpServlet {
             String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
             HttpSession session = request.getSession();
             Document xmlSnippet = null;
-            String title = request.getParameter("title");
-            String username = request.getParameter("author");
-            String language = request.getParameter("languageResearch");
+            String title = request.getParameter("title").toLowerCase();
+            String username = request.getParameter("author").toLowerCase();
+            String language = request.getParameter("languageResearch").toLowerCase();
             
             
             // Ordinamento
@@ -81,28 +81,52 @@ public class searchSnippetServlet extends HttpServlet {
             NodeList snippet = xmlSnippet.getDocumentElement().getChildNodes();
             ArrayList<SnippetData> mySnippet = new ArrayList<>();
             // Ricerca degli snippet dell'utente indicato
+            boolean searchByTitle = false;
+            boolean searchByUsername = false;
+            boolean searchByLanguage = false;
+
+            if(!(title==null || title.equals(""))){
+                searchByTitle=true;
+            }
+            if(!(username==null || username.equals(""))){
+                searchByUsername=true;
+            }
+            if(!(language==null || language.equals("---"))){
+                searchByLanguage=true;
+            }
+                
             for (int i = 0; i < snippet.getLength(); i++) {
-                String thisUser = snippet.item(i).getChildNodes().item(1).getTextContent();
-                String thisTitle = snippet.item(i).getChildNodes().item(2).getTextContent();
-                String thisLen = snippet.item(i).getChildNodes().item(4).getTextContent();
-                if (!title.equals("")) {
-                    if (thisTitle.equals(title)) {
-                        SnippetData mysnippet = new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
-                                snippet.item(i).getChildNodes().item(1).getTextContent(),
-                                snippet.item(i).getChildNodes().item(2).getTextContent(),
-                                snippet.item(i).getChildNodes().item(3).getTextContent(),
-                                snippet.item(i).getChildNodes().item(4).getTextContent(),
-                                snippet.item(i).getChildNodes().item(5).getTextContent(),
-                                snippet.item(i).getChildNodes().item(6).getTextContent(),
-                                snippet.item(i).getChildNodes().item(7).getTextContent(),
-                                snippet.item(i).getChildNodes().item(8).getTextContent(),
-                                snippet.item(i).getChildNodes().item(9).getTextContent(),
-                                snippet.item(i).getChildNodes().item(10).getTextContent());
+                String thisUser = snippet.item(i).getChildNodes().item(1).getTextContent().toLowerCase();
+                String thisTitle = snippet.item(i).getChildNodes().item(2).getTextContent().toLowerCase();
+                String thisLen = snippet.item(i).getChildNodes().item(4).getTextContent().toLowerCase();
 
-                        mySnippet.add(mysnippet);
+                boolean FilterTitle=true;
+                boolean FilterUsername=true;
+                boolean FilterLanguage=true;
+                
+                //controllo se confrontare il titolo
+                if(searchByTitle==true){
+                    if(!thisTitle.contains(title)){
+                        FilterTitle=false;
                     }
-                }else{
-                if (username.equals("") && !language.equals("---") && thisLen.equals(language)) {
+                }
+                
+                //controllo se confrontare l'autore
+                if(searchByUsername==true){
+                    if(!thisUser.contains(username)){
+                        FilterUsername=false;
+                    }
+                }
+                
+                //controllo se confrontare il linguaggio
+                if(searchByLanguage==true){
+                    if(!thisLen.contains(language)){
+                        FilterLanguage=false;
+                    }
+                }
+                
+                //ricerca sulla base dei boolean valorizzati in precedenza
+                if (FilterTitle==true && FilterUsername==true && FilterLanguage == true) {
                     SnippetData mysnippet = new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
                             snippet.item(i).getChildNodes().item(1).getTextContent(),
                             snippet.item(i).getChildNodes().item(2).getTextContent(),
@@ -116,39 +140,6 @@ public class searchSnippetServlet extends HttpServlet {
                             snippet.item(i).getChildNodes().item(10).getTextContent());
 
                     mySnippet.add(mysnippet);
-                }
-                if (username != null & language.equals("---") & thisUser.equals(username)) {
-                    SnippetData mysnippet = new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
-                            snippet.item(i).getChildNodes().item(1).getTextContent(),
-                            snippet.item(i).getChildNodes().item(2).getTextContent(),
-                            snippet.item(i).getChildNodes().item(3).getTextContent(),
-                            snippet.item(i).getChildNodes().item(4).getTextContent(),
-                            snippet.item(i).getChildNodes().item(5).getTextContent(),
-                            snippet.item(i).getChildNodes().item(6).getTextContent(),
-                            snippet.item(i).getChildNodes().item(7).getTextContent(),
-                            snippet.item(i).getChildNodes().item(8).getTextContent(),
-                            snippet.item(i).getChildNodes().item(9).getTextContent(),
-                            snippet.item(i).getChildNodes().item(10).getTextContent());
-
-                    mySnippet.add(mysnippet);
-                }
-               
-
-                if (username != null & !language.equals("---") & thisUser.equals(username) & thisLen.equals(language)) {
-                    SnippetData mysnippet = new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
-                            snippet.item(i).getChildNodes().item(1).getTextContent(),
-                            snippet.item(i).getChildNodes().item(2).getTextContent(),
-                            snippet.item(i).getChildNodes().item(3).getTextContent(),
-                            snippet.item(i).getChildNodes().item(4).getTextContent(),
-                            snippet.item(i).getChildNodes().item(5).getTextContent(),
-                            snippet.item(i).getChildNodes().item(6).getTextContent(),
-                            snippet.item(i).getChildNodes().item(7).getTextContent(),
-                            snippet.item(i).getChildNodes().item(8).getTextContent(),
-                            snippet.item(i).getChildNodes().item(9).getTextContent(),
-                            snippet.item(i).getChildNodes().item(10).getTextContent());
-
-                    mySnippet.add(mysnippet);
-                }
                 }
             }
             // ORDINAMENTO SU ENTRAMBI I CRITERI ----------------------------------------------------------------------------------------------
