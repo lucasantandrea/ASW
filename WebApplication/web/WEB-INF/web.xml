@@ -13,6 +13,10 @@
         <servlet-class>asw1025.StartSnippetServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AlletViewServlet</servlet-name>
+        <servlet-class>asw1025.AppletViewServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>searchSnippetServlet</servlet-name>
         <servlet-class>asw1025.searchSnippetServlet</servlet-class>
     </servlet>

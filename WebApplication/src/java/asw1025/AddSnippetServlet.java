@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import asw1025.ManageXML;
+import asw1025_lib.ManageXML;
 import java.util.ArrayList;
 import javax.servlet.ServletContext;
 import org.w3c.dom.Document;
@@ -96,42 +96,45 @@ public class AddSnippetServlet extends HttpServlet {
             }                         
                                    
                 
-            Element id = xmlSnippet.createElement("idSnippet");          
-            Element user = xmlSnippet.createElement("user");
-            Element title = xmlSnippet.createElement("title");
-            Element language = xmlSnippet.createElement("language");
-            Element code = xmlSnippet.createElement("code");
-            Element date_creation = xmlSnippet.createElement("date_creation");
-            Element mod = xmlSnippet.createElement("mod");
-            Element code_mod = xmlSnippet.createElement("code_mod");
-            Element date_lastmodprop = xmlSnippet.createElement("date_lastmodprop");
-            Element date_lastmod = xmlSnippet.createElement("date_lastmod");
-            Element user_mod = xmlSnippet.createElement("user_mod");
+            Element idElement = xmlSnippet.createElement("idSnippet");          
+            Element creatorElement = xmlSnippet.createElement("creator");
+            Element titleElement = xmlSnippet.createElement("title");
+            Element languageElement = xmlSnippet.createElement("language");
+            Element codeElement = xmlSnippet.createElement("code");
+            Element date_creationElement = xmlSnippet.createElement("date_creation");
+            Element modElement = xmlSnippet.createElement("mod");
+            Element code_modElement = xmlSnippet.createElement("code_mod");
+            Element user_modElement = xmlSnippet.createElement("user_mod");
+            Element lastusermodElement = xmlSnippet.createElement("lastusermod");
+            Element date_lastmodpropElement = xmlSnippet.createElement("date_lastmodprop");
+            Element date_lastmodElement = xmlSnippet.createElement("date_lastmod");
                      
-            id.setTextContent(""+idSnippet);
-            user.setTextContent(""+username);
-            title.setTextContent(request.getParameter("Title"));
-            code.setTextContent(request.getParameter("Code"));
-            language.setTextContent(request.getParameter("languageResearch"));
-            date_creation.setTextContent(Util.convertDateToString(new Date()));
-            mod.setTextContent("");
-            code_mod.setTextContent("");
-            date_lastmodprop.setTextContent(Util.convertDateToString(new Date()));
-            date_lastmod.setTextContent(Util.convertDateToString(new Date()));
-            user_mod.setTextContent("");
+            idElement.setTextContent(""+idSnippet);
+            creatorElement.setTextContent(""+username);
+            titleElement.setTextContent(request.getParameter("Title"));
+            languageElement.setTextContent(request.getParameter("languageResearch"));
+            codeElement.setTextContent(request.getParameter("Code"));
+            date_creationElement.setTextContent(Util.convertDateToString(new Date()));
+            modElement.setTextContent("");
+            code_modElement.setTextContent("");
+            user_modElement.setTextContent("");
+            lastusermodElement.setTextContent("");
+            date_lastmodpropElement.setTextContent(Util.convertDateToString(new Date()));
+            date_lastmodElement.setTextContent(Util.convertDateToString(new Date()));
             
             Element snip = xmlSnippet.createElement("snippet");
-            snip.appendChild(id);
-            snip.appendChild(user);
-            snip.appendChild(title);
-            snip.appendChild(code);
-            snip.appendChild(language);
-            snip.appendChild(date_creation);
-            snip.appendChild(mod);
-            snip.appendChild(code_mod);
-            snip.appendChild(date_lastmodprop);
-            snip.appendChild(date_lastmod);
-            snip.appendChild(user_mod);
+            snip.appendChild(idElement);
+            snip.appendChild(creatorElement);
+            snip.appendChild(titleElement);
+            snip.appendChild(languageElement);
+            snip.appendChild(codeElement);
+            snip.appendChild(date_creationElement);
+            snip.appendChild(modElement);
+            snip.appendChild(code_modElement);
+            snip.appendChild(user_modElement);
+            snip.appendChild(lastusermodElement);
+            snip.appendChild(date_lastmodpropElement);
+            snip.appendChild(date_lastmodElement);
             
            
             xmlSnippet.getDocumentElement().appendChild(snip);
@@ -149,17 +152,13 @@ public class AddSnippetServlet extends HttpServlet {
             rd.forward(request, response);
                
             
-        } catch (TransformerConfigurationException ex) {
-            Logger.getLogger(AddSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(AddSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(AddSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(AddSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (TransformerException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(AddSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+   
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        
+    }
 }

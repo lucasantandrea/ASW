@@ -5,6 +5,7 @@
 */
 package asw1025;
 
+import asw1025_lib.ManageXML;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;

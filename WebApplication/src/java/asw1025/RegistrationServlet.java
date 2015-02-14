@@ -6,6 +6,7 @@
 
 package asw1025;
 
+import asw1025_lib.ManageXML;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -44,7 +45,7 @@ import org.xml.sax.SAXException;
 public class RegistrationServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * Processes requests for both HTTP <code>POST</code>
      * methods.
      *
      * @param request servlet request
@@ -52,7 +53,8 @@ public class RegistrationServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -100,7 +102,7 @@ public class RegistrationServlet extends HttpServlet {
             // Se non c'è stato conflitto di username
             if (!conflittoUsername) {
                 
-// In caso corretto, aggiunge i dati al file persone.xml
+            // In caso corretto, aggiunge i dati al file persone.xml
                 dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filePersone)));
                 Element person = xmlPersone.createElement("persona");
                 Element nome = xmlPersone.createElement("nome");
@@ -139,7 +141,8 @@ public class RegistrationServlet extends HttpServlet {
             }
             else{
                 
-                // TODO: Rilascio risorsa condivisa                
+                // TODO: Rilascio risorsa condivisa  
+                //caso in cui lo username sia già esistente
                 request.setAttribute("errorUserRegistration", username);
                 request.setAttribute("nome", request.getParameter("firstname"));
                 request.setAttribute("cognome", request.getParameter("lastname"));
@@ -150,54 +153,21 @@ public class RegistrationServlet extends HttpServlet {
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             ////////////////////////////////////////////
             /*ServletContext application = getServletContext();
             application.setAttribute("nome",request.getParameter("nome"));
             application.setAttribute("cognome",request.getParameter("cognome"));
             application.setAttribute("user",request.getParameter("user"));
             application.setAttribute("pass",request.getParameter("pass"));
-            
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Registrazione</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Risultato Registrazione</h1>");
-            out.println("<p>Dati registrazione inviati:</p>");
-            out.println("nome:" + request.getParameter(("nome")) + "<br/>");
-            out.println("cognome:" + request.getParameter(("cognome")) + "<br/>");
-            out.println("user:" + request.getParameter(("user")) + "<br/>");
-            out.println("pass:" + request.getParameter(("pass")) + "<br/>");
-            out.println("<p><a href=\"index.jsp\" >Home</a></p>");
-            out.println("</body>");
-            out.println("</html>");*/
-        } catch (TransformerConfigurationException ex) {
+            */
+        } catch (Exception ex) {
             Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (TransformerException ex) {
-            Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
+        /**
+     * Processes requests for both HTTP <code>GET</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -207,31 +177,9 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        rd.forward(request, response);
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

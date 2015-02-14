@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
         <title>My Snippet</title>
     </head>
+    <body>
         <div id="container">
             <div id="navbar">
                 <%@ include file="../WEB-INF/jspf/navbar.jspf" %>
@@ -55,7 +56,17 @@
                                                  <div id="buttonView" class="buttonBackground">
                                                     <a HREF="javascript:document.submitViewForm<%=i%>.submit()">View</a>
                                                  </div>
+                                                 
                                             </form><br>
+                                                    
+                                            <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>jsp/modify.jsp" method="POST" onsubmit="return validateForm();">
+                                                <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
+                                                <input type="hidden" name="user" value="<%=session.getAttribute("user")%>">
+                                                 <div id="buttonModify" class="buttonBackground">
+                                                    <a HREF="javascript:document.submitModifyForm<%=i%>.submit()">Edit</a>
+                                                 </div>
+                                            </form>
+                                            
                                         </td>
                                         <td>
                                             <form name="deleteSnippetForm<%=i%>" action="<%= Util.BASE %>DeleteServlet" method="POST" onsubmit="return validateForm();">

@@ -58,7 +58,7 @@
                             Language: <input type="text" name="Title" value="<%= snippetList.get(0).getLanguage()%>" disabled><br><br>
                                  <%if(snippetList.get(0).getMod().equals("Y")){%>
                                  Code Mod: <textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%=snippetList.get(0).getCode_mod()%></textarea><br><br>
-                                 By: <input type="text" name="User_mode" value="<%=snippetList.get(0).getUser_mod()%>" disabled><br><br>
+                                 By: <input type="text" name="User_mode" value="<%=snippetList.get(0).getUser_Mod()%>" disabled><br><br>
                                
                                 <%
                                  }

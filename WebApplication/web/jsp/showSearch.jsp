@@ -30,8 +30,6 @@
                     
                     <!--CASO: sono presenti poesie dell'utente (loggato) nel dbsnippet-->
                     <% 
-           
-                      
                        ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("mySnippet");
                        if (snippetList.size() > 0) {
                     %>
@@ -58,6 +56,18 @@
                                                     <a HREF="javascript:document.submitViewForm<%=i%>.submit()">View</a>
                                                  </div>
                                             </form><br>
+                                            
+                                            MANCA CONTROLLO SU UTENTE ATTUALE!!
+                                            <% if(snippetList.get(i).getUser_Mod().equals("") && snippetList.get(i).getUser().equals(session.getAttribute("user"))){ %>
+                                            <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>jsp/modify.jsp" method="POST" onsubmit="return validateForm();">
+                                                <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
+                                                <input type="hidden" name="user" value="<%=session.getAttribute("user")%>">
+                                                 <div id="buttonModify" class="buttonBackground">
+                                                    <a HREF="javascript:document.submitModifyForm<%=i%>.submit()">Edit</a>
+                                                 </div>
+                                            </form>
+                                            
+                                            <% } %>
                                         </td>
                                         <td> <%= snippetList.get(i).getDate_creation() %></td>
                                         <td> <%= snippetList.get(i).getDate_lasmodprop() %></td>

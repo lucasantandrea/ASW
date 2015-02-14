@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import asw1025.ManageXML;
+import asw1025_lib.ManageXML;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -91,7 +91,8 @@ public class DeleteServlet extends HttpServlet {
                                 snippet.item(i).getChildNodes().item(7).getTextContent(),
                                 snippet.item(i).getChildNodes().item(8).getTextContent(),
                                 snippet.item(i).getChildNodes().item(9).getTextContent(),
-                                snippet.item(i).getChildNodes().item(10).getTextContent());  
+                                snippet.item(i).getChildNodes().item(10).getTextContent(),
+                                snippet.item(i).getChildNodes().item(11).getTextContent());  
 
                         mySnippet.add(mysnippet);
                     }
@@ -103,15 +104,7 @@ public class DeleteServlet extends HttpServlet {
             request.setAttribute("mySnippet", mySnippet);
             RequestDispatcher rd = request.getRequestDispatcher("jsp/mySnippet.jsp");
             rd.forward(request, response);
-        } catch (TransformerConfigurationException ex) {
-            Logger.getLogger(DeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(DeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(DeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(DeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (TransformerException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(DeleteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
-import asw1025.ManageXML;
+import asw1025_lib.ManageXML;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
@@ -137,6 +137,7 @@ public class searchSnippetServlet extends HttpServlet {
                             snippet.item(i).getChildNodes().item(7).getTextContent(),
                             snippet.item(i).getChildNodes().item(8).getTextContent(),
                             snippet.item(i).getChildNodes().item(9).getTextContent(),
+                            snippet.item(i).getChildNodes().item(10).getTextContent(),
                             snippet.item(i).getChildNodes().item(10).getTextContent());
 
                     mySnippet.add(mysnippet);
