@@ -1,4 +1,4 @@
-package asw1025;
+package asw1025_lib;
 
 import java.io.*;
 import javax.xml.parsers.*;
@@ -18,8 +18,14 @@ public class ManageXML {
         builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
     }
 
+    //TODO: eliminare questo overriding?
     public Document newDocument() {
         return builder.newDocument();
+    }
+    public Document newDocument(String rootTag) {
+        Document newDoc = builder.newDocument(); 
+        newDoc.appendChild(newDoc.createElement(rootTag));
+        return newDoc;
     }
 
     public void transform(OutputStream out, Document document) throws TransformerException, IOException {
@@ -29,4 +35,5 @@ public class ManageXML {
     public Document parse(InputStream in) throws IOException, SAXException {
         return builder.parse(in);
     }
+
 }
