@@ -1,9 +1,9 @@
 <%-- 
-    Document   : loadSnippet
-    Created on : 13-gen-2015, 16.58.12
-    Author     : Francesco
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
 --%>
-
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -16,7 +16,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Write snippet</title>
+        <title>Scrivi nuovo snippet | Social Code</title>
     </head>
     
     <%--
@@ -35,46 +35,26 @@
             }
         %>
     --%>
-  
+    <body>
         <div id="container">
-            <div id="navbar">
-                <%@ include file="../WEB-INF/jspf/navbar.jspf" %>
-            </div>
+            <%@ include file="../WEB-INF/jspf/header.jspf" %>
             <div id="content">
-                <div class="miniInsideContent">
-                        <form name="uploadForm" action="<%=Util.BASE%>AddSnippetServlet" method="POST" onsubmit="return validateForm();" class="contentBox">
-                            
-                       <%--      
-                            <!-- CASO: MODIFICA di snippet esitente -->
-                            <% if(request.getParameter("id")!=null){ %>
-                            Title: <input type="text" name="Title" value="<%= request.getParameter("title")%>"><br><br>
-                            Code: <textarea rows="4" cols="50" name="Code" id="textArea"><%= request.getParameter("code")%></textarea><br><br>
-                                Language: <select name="languageResearch">
-                                    <option name="Java" <% if(((String)request.getParameter("language")).equals("Java")) { %> <%= "selected" %><% } %>>Java</option>
-                                     <option name="Javascript"  <% if(((String)request.getParameter("language")).equals("Javascript")) { %> <%= "selected" %><% } %> >Javascript</option>     
-                                    <option name="C++"  <% if(((String)request.getParameter("language")).equals("C++")) { %> <%= "selected" %><% } %> >C++</option>
-                                    <option name="C#"  <% if(((String)request.getParameter("language")).equals("C#")) { %> <%= "selected" %><% } %> >C#</option>
-                                    <option name="PHP"  <% if(((String)request.getParameter("language")).equals("PHP")) { %> <%= "selected" %><% } %> >PHP</option>                                
-                                </select><br>
-                                <!-- <input type="hidden" name="Like" value="<%= request.getParameter("like")%>"><br> -->
-                                <input type="hidden" name="idSnippet" value="<%= request.getParameter("id")%>"><br>
-
-                            <%} else {%> 
-                           --%>
-                            <!-- New snippet -->
-                                Title: <input type="text" name="Title" ><br><br>
-                                Code: <textarea rows="6" cols="100" name="Code"></textarea><br><br>
-                                Language: <select name="languageResearch">
-                                    <option name="Java" >Java</option>
-                                    <option name="JavaScript"  >JavaScript</option>
-                                    <option name="C++" >C++</option>
-                                    <option name="C#"  >C#</option>
-                                    <option name="PHP"  >PHP</option>                                    
-                                </select><br>
-                                <input type="hidden" name="idSnippet" value=""><br>                         
-                            <input type="submit" value="Salva">
-                        </form>
-                </div>
+                <p>Inserisci un nuovo snippet compilando il seguente form:</p>
+                <form name="uploadForm" action="<%=Util.BASE%>AddSnippetServlet" method="POST" onsubmit="return validateForm();" class="formClass">
+                    <!-- New snippet -->
+                    <p><label for="title">Titolo: </label><input type="text" name="Title" id="title" onfocus="clearForm()"></p>
+                    <p><label for="language">Linguaggio: </label><select name="languageResearch" id="code">
+                        <option name="Java" >Java</option>
+                        <option name="JavaScript"  >JavaScript</option>
+                        <option name="C++" >C++</option>
+                        <option name="C#"  >C#</option>
+                        <option name="PHP"  >PHP</option>                                    
+                    </select></p>
+                    <p><label for="code">Codice: </label><br/><textarea rows="6" cols="100" name="Code" id="code" onfocus="clearForm()"></textarea></p>
+                        <input type="hidden" name="idSnippet" value="">
+                    <input type="submit" value="Salva" class="submit">
+                </form>
+                <div id="errorDiv">Si prega di compilare tutti i campi!</div>
             </div>            
             <div id="sidebar">
                 <%@ include file="../WEB-INF/jspf/sidebar.jspf" %>
@@ -108,23 +88,32 @@
 
         setInterval("DisplaySessionTimeout()",60000);
         
+
+    </script>
+--%>
+    
+    <script>
+    
         /*
-         * Funzione che permette di controllare che siano presenti tutti i valori nei campi di registrazione
+         * Funzione che permette di controllare che siano presenti tutti i valori nei campi di inserimentoo
          */
         function validateForm(){
-            var titolo=document.forms["uploadForm"]["Titolo"].value;
-            var testo=document.forms["uploadForm"]["Testo"].value;
+            var title=document.getElementById("title").value;
+            var code=document.getElementById("code").value;    
             
-            if(titolo===null || titolo==="" || testo===null || testo==="" ){
-                
-                alert("Dati mancanti!");
-                return false;
-                
+            if(title===null || title==="" || title===null || title==="" ){
+                document.getElementById("errorDiv").style.display="block";
+                return false;               
             }else{
                 return true;
             }
         }
+        
+        //funzione che nasconde il messaggio di errore
+        function clearForm(){
+            if(document.getElementById("errorDiv").style.display!="none"){
+                document.getElementById("errorDiv").style.display="none";
+            }
+        }
     </script>
---%>
-    
 </html>

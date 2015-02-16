@@ -1,7 +1,9 @@
-<%--     
+<%-- 
     Esame ASW 2014-2015
-    Autori: Luca Santandrea
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
     Matricola: 0900050785
+    Gruppo: 1025
 --%>
 <%@ page pageEncoding="UTF-8" %>
-<h2>FOOTER</h2>
+<p><b>Social Code</b> è stata realizzata da Luca Santandrea, Matteo Mariani, Antonio Leo Folliero e Francesco Degli Angeli<br/>
+    per il corso di <b>Applicazioni e Servizi web</b> (A.A. 2014/2015)</p>

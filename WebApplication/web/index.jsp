@@ -1,7 +1,8 @@
-<%--     
+<%-- 
     Esame ASW 2014-2015
-    Autori: Luca Santandrea
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
     Matricola: 0900050785
+    Gruppo: 1025
 --%>
 
 <%@page import="java.text.DateFormat"%>
@@ -12,26 +13,29 @@
 <%@page import="asw1025.Util"%>
 <%@page import="asw1025.SnippetData"%>
 
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="style-sheets/style.css" type="text/css">
-        <title>Home</title>
+        <link rel="stylesheet" href="<%= Util.BASE %>style-sheets/style.css" type="text/css">
+        <title>Home | Social Code</title>
     </head>
     
-
     <body>
         <div id="container">
-            <div id="navbar">
-                <%@ include file="WEB-INF/jspf/navbar.jspf" %>
-            </div>
+            <%@ include file="WEB-INF/jspf/header.jspf" %>
             <div id="content">
-              
-                <p>Welcome, we have to do the description. Please start with login / registration...</p>
+                <p>Benvenuto, su questo sito è possibile condividere le proprie idee in codice con gli atri utenti.</p>
+                <p>Aggiungi i tuoi snippet o visualizza quelli degli altri utenti. Puoi anche aiutare la comunità proponendo le tue modifiche!</p>
+                <% String user=null; 
+                if(session.getAttribute("user")!=null){
+                    user = session.getAttribute("user").toString();
+                } 
+                if(user==null){ 
+                %>
+                <p>Per cominciare, esegui il login alla piattaforma:</p>
+                <% } %>
                 <%@ include file="WEB-INF/jspf/login.jspf" %>
-                                 
             </div>
 
             <div id="sidebar">

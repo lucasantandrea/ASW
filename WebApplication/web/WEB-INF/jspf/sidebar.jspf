@@ -1,11 +1,9 @@
-<%--     
+<%-- 
     Esame ASW 2014-2015
-    Autori: Luca Santandrea
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
     Matricola: 0900050785
+    Gruppo: 1025
 --%>
 <%@page import="asw1025.Util"%>
 <%@ page pageEncoding="UTF-8" %>
 <h2>SIDEBAR</h2>
-<%--
-<jsp:include page="<%=Util.BASE %>jsp/loadSnippet.jsp"/>
- --%>                                

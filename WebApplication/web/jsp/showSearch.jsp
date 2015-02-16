@@ -1,7 +1,8 @@
 <%-- 
-    Document   : mySnippet
-    Created on : 13-gen-2015, 20.46.30
-    Author     : Francesco
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
 --%>
 
 <%@page import="java.util.ArrayList"%>
@@ -18,73 +19,51 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Search Snippet</title>
+        <title>Cerca snippet | Social code</title>
     </head>
         <div id="container">
-            <div id="navbar">
-                <%@ include file="../WEB-INF/jspf/navbar.jspf" %>
-            </div>
+            <%@ include file="../WEB-INF/jspf/header.jspf" %>
             <div id="content">
-                <div class="miniInsideContent">
-                    <!--<form name="snippetForm" action="%=Util.BASE%>MySnippetServlet" method="POST"></form>-->
-                    
-                    <!--CASO: sono presenti poesie dell'utente (loggato) nel dbsnippet-->
-                    <% 
-                       ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("mySnippet");
-                       if (snippetList.size() > 0) {
-                    %>
-                        <div class="contentBox">
-                            <table border="1" class="tableMyPoemResult">
-                                <tr>
-                                    <td>Title</td>
-                                    <td>Language</td>
-                                    <td>Author</td>
-                                    <td>View</td>
-                                    <td>Creation</td>
-                                    <td>Owner Update</td>
-                                    <td>Users Update</td>
-                                </tr>
-                                <% for(int i=0; i<snippetList.size(); i++){ %>
-                                    <tr>
-                                        <td> <%= snippetList.get(i).getTitle()%></td>
-                                        <td> <%= snippetList.get(i).getLanguage() %></td>
-                                        <td> <%= snippetList.get(i).getUser() %></td>
-                                        <td>                                 
-                                            <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>ViewServlet" method="POST" onsubmit="return validateForm();">
-                                                 <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
-                                                 <div id="buttonView" class="buttonBackground">
-                                                    <a HREF="javascript:document.submitViewForm<%=i%>.submit()">View</a>
-                                                 </div>
-                                            </form><br>
-                                            
-                                            MANCA CONTROLLO SU UTENTE ATTUALE!!
-                                            <% if(snippetList.get(i).getUser_Mod().equals("") && snippetList.get(i).getUser().equals(session.getAttribute("user"))){ %>
-                                            <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>jsp/modify.jsp" method="POST" onsubmit="return validateForm();">
-                                                <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
-                                                <input type="hidden" name="user" value="<%=session.getAttribute("user")%>">
-                                                 <div id="buttonModify" class="buttonBackground">
-                                                    <a HREF="javascript:document.submitModifyForm<%=i%>.submit()">Edit</a>
-                                                 </div>
-                                            </form>
-                                            
-                                            <% } %>
-                                        </td>
-                                        <td> <%= snippetList.get(i).getDate_creation() %></td>
-                                        <td> <%= snippetList.get(i).getDate_lasmodprop() %></td>
-                                        <td> <%= snippetList.get(i).getDate_lasmod() %></td>
-                                    </tr>
-                                <%
-                                }
-                                %>
-                            </table>
-                        </div>
-                    <!--CASO: non esistono snippet dell'utente loggato-->
-                    <% } else {%>
-                        <div class="contentBox">
-                            No snippet found.
-                        </div>
-                    <% } %>
+                <!--Se sono presenti snippet dell'utente loggato nel dbsnippet-->
+                <% 
+                   ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("mySnippet");
+                   if (snippetList.size() > 0) {
+                %>
+                <p><b><%=snippetList.size()%></b> risultati:</p>
+                <% for(int i=0; i<snippetList.size(); i++){ %>
+                <div class="singleItem class<%=i%2 %>">
+                    <h2><%= snippetList.get(i).getTitle()%></h2>
+                    <p>scritto da <%= snippetList.get(i).getUser() %></p>
+                    <div class="information">
+                        <p>Linguaggio: <%= snippetList.get(i).getLanguage() %><br/>
+                        Data di creazione: <%= snippetList.get(i).getDate_creation() %><br/>
+                        Data ultima modifica: <%= snippetList.get(i).getDate_lasmodprop() %>
+                        </p>
+                    </div>
+                    <div class="actions">
+                        <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>ViewServlet" method="POST" onsubmit="return validateForm();">
+                             <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
+                             <div id="buttonView" class="buttonBackground">
+                                <a HREF="javascript:document.submitViewForm<%=i%>.submit()">Vedi</a>
+                             </div>
+                        </form>
+                        <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>jsp/modify.jsp" method="POST" onsubmit="return validateForm();">
+                            <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
+                            <input type="hidden" name="user" value="<%=session.getAttribute("user")%>">
+                             <div id="buttonModify" class="buttonBackground">
+                                <a HREF="javascript:document.submitModifyForm<%=i%>.submit()">Modifica</a>
+                             </div>
+                        </form>
+                    </div>
+                    <div class="clear"></div>
                 </div>
+                <%
+                }
+                %>
+                <!--CASO: non esistono snippet dell'utente loggato-->
+                <% } else {%>
+                <p>Non ci sono risultati.</p>
+                <% } %>
             </div>            
             <div id="sidebar">
                 <%@ include file="../WEB-INF/jspf/sidebar.jspf" %>

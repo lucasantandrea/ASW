@@ -1,0 +1,29 @@
+<%-- 
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
+--%>
+
+<%@page import="asw1025.Util"%>
+<%@ page pageEncoding="UTF-8" %>
+
+    <div id="header">
+            <h1>Social Code</h1>
+            <p>Let's share the knowledge!</p>
+    </div>
+    <div id="navbar">
+        <ul>
+            <li><a HREF="<%= Util.BASE %>index.jsp">Home</a></li> 
+            <% if (session.getAttribute("user")!=null) { %>
+                <li><a HREF="<%= Util.BASE %>MySnippetServlet">I miei snippet</a></li>
+                <li><a HREF="<%= Util.BASE %>jsp/loadSnippet.jsp">Scrivi nuovo snippet</a></li>
+                <li><a HREF="<%= Util.BASE %>jsp/searchSnippet.jsp">Cerca codice</a></li>
+                <li><a HREF="<%= Util.BASE %>LogoutServlet">Logout</a></li>
+            <%}else{%>
+                <li><a HREF="<%= Util.BASE %>jsp/registration.jsp">Registrazione</a></li>
+
+            <%}%>
+             <li><a HREF="<%= Util.BASE %>StartSnippetServlet">Tutti gli Snippet</a></li>
+        </ul>
+    </div>

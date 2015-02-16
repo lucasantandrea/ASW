@@ -4,476 +4,211 @@
     Matricola: 0900050785
 */
 
-* {
-    margin: 0px;
-    padding: 0px;
+html,body {
+    background: url('../multimedia/pattern.jpg') repeat-x center top #101A26;
+    margin: 10px 0px;
     font-family:'Arial',sans-serif;
-}
-
-body {
-    min-width: 1000px;
-    background:#999999;
-    /*background: url('../multimedia/background_page.png');*/
-    z-index: 0;
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 /*CONTAINER ---------------------------------------------------------------------------*/
 div#container {
     width: 960px;
-    margin-left: auto;
-    margin-right: auto;
-    min-height: 700px;
-    padding:10px;
+    margin: 0 auto;
+    /*min-height: 650px;*/
     background:#FFFFFF;
-    /*background: rgb(69,55,27) url('../multimedia/background_body.png') no-repeat;*/
-    z-index: 1;
-    overflow: hidden;
 }
 
-/*HEADER ---------------------------------------------------------------------------*/
-div#header {
-    position: absolute;
-    width: 760px;
-    height: 225px;
-    min-width: 760px;
-    min-height: 225px;
-    /*background: url('../multimedia/header.png') no-repeat;*/
-    background-size: contain;
-    z-index: 2;
+/*HEADER --------------------------------------------------------------------------*/
+#header{
+    padding:0.5%;
+    font-family:"Courier New", Courier, monospace;
 }
 
-#header p {
-    position: absolute;
-    top: 0px;
-    right: 10px;
-    margin-top: 1px;
-    margin-right: 0px;
-    color: white;
+#header h1{
+    margin:0px;
+}
+
+#header p{
+    margin:0px;
 }
 
 /*NAVBAR ---------------------------------------------------------------------------*/
 #navbar {
     width: 100%;
     overflow:hidden;
-    background-color:#FEFEFE;
-    /*background: url('../multimedia/navbar.png') no-repeat;*/
-    background-size: contain;
-    
     z-index: 3;
     font-size: 14px;
     border-bottom:1px solid black;
 }
 
+#navbar ul {
+    padding:0;
+    margin:10px 0px 0px 0px;
+}
+
 #navbar ul li {
     list-style-type: none;
-    display: inline;
+    display: inline-block;
 }
 
 #navbar li a {
     display: block;
-    width: fit-content;
     height: 30px;
     line-height: 30px;
-    padding: 0px 2px 0px 2px;
-    float: left;
-    width: 110px;
+    padding: 0px 5px 0px 5px;
+    min-width: 80px;
     color: #808080;
     text-decoration: none;
     text-align: center;
+    transition:0.3s;
 }
 
 #navbar li a:hover {
-    background-color:#808080;
+    background-color:#101A26;
     color:#FFFFFF;
-    
-    /*background: url('../multimedia/navbar_shape_complete.png') no-repeat;*/
     background-size: contain;  
-
-    z-index: 3;
 }
 
 /*CONTENT ---------------------------------------------------------------------------*/
 div#content{
     float: left;
-    width:66.66667%;
+    width:69.66667%;
     min-height: 450px;
-    height: fit-content;
-    z-index: 2;
+    padding:1%;
 }
 
 #content #login{
-    background:#DDD;
+    background:#D8EBF1;
+    width:300px;
+    margin:0 auto;
     padding:10px;
     margin-top:30px;
 }
 
-.miniInsideContent{
-    float: left;
-    position: absolute;
-    top: 110px;
-    width: 520px;
-    min-height: 180px;
-    padding-bottom: 30px;
-    height: fit-content;
-    
-    /*background: no-repeat url('../multimedia/content.png');*/
-    background-size: 500px 100%;
-    background-position: 10px 0px;
-    z-index: 3;
-}
-
-#appletUpload {
-    width: 460px;
-    height: 170px;
-}
-
-.poemBox {
-    max-width: 406px;
-    margin-top: 25px;
-    margin-left: 25px;
-    margin-right: auto;
-}
-
-#poemResult{
-    display: inline;
-    text-align: center;
-}
-
-#poemResult .inizioPergamena {
-    margin-top: 50px;
-    margin-left: 10px;
-}
-#poemResult .testoPergamena {
-    margin-left: 10px;
-}
-#poemResult .finePergamena {
-    margin-left: 10px;
-}
-
-.poemInfo{
-    display: block;
-    display: inline-block;    
-    float: left;
-    margin-left: 2%;
-    margin-right: 2%;
-    padding: 5px 5px 0px 5px;
-}
-
-.contentBox{
-    max-width: 406px;
-    margin-top: 25px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#content h2 { 
-    margin: 0; 
-}
-
-.inizioPergamena{
-    /*background: url("../multimedia/pergamena_top.png") no-repeat;*/
-    background-size: contain;
-    width: 520px;
-    height: 84px;
-    margin:0;
-}
-
-.testoPergamena{
-    margin:0;
-    /*background: url("../multimedia/pergamena_middle.png") repeat-y;*/
-    background-size: 520px 17px;
-    width: 520px;
-    height: fit-content;
-    
-}
-
-.finePergamena{
-    /*background: url("../multimedia/pergamena_bot.png") no-repeat;*/
-    background-size: contain;
-    width: 520px;
-    height: 67px;
-    background-repeat: no-repeat;
-    padding-top: 20px;
-}
-
-/*"Mi piace"*/
-div .finePergamena div {
-    display: inline-block;
-    width: 135px;
-    height: 45px;
-}
-
-div .finePergamena div a {
-    cursor: pointer;
-}
-
-.facebookLike {
-    /*background: url('../multimedia/facebook_like.png') no-repeat;*/
-    background-size: 100% 45px;
-    color: darkred;
-    line-height: 45px;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: right;
-}
-
-.facebookDislike {
-    /*background: url('../multimedia/facebook_dislike.png') no-repeat;*/
-    background-size: 100% 45px;
-    color: darkblue;
-    line-height: 45px;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: right;
-}
-
-#content p {
-    padding: 10px 10px 0px 10px;
-}
-
-#content pre {
-    padding-left: 40px;
-    padding-right: 40px;
-    white-space: pre-line;
-}
-
-.pTitle{
-    color: black;
-    font: x-large bolder;
-    margin-bottom: 20px;
-}
-
-#nomeargomento{
-    float: left;
-    text-align: center;
-    margin-left: 50px;
-}
-
-#ordinamento {
-    text-align: center;
-}
-
-#contentUpload{
-    margin: 20px 50px 20px 50px;
-    width: 100%;
-    height: 100%;
-}
-
-#buttonRicerca{
-    margin-top: 5px;
-    margin-left: 80%
-}
-
-textarea {
-    resize: vertical;
-    width: 350px;
-    max-width: 350px;
-    max-height: 400px;
-}
-/*Tabella MIE POESIE ----------------------------------------------------------------*/
-.tableMyPoemResult {
-    margin:0px;padding:0px;
+#content #login input{
     width:100%;
-    box-shadow: 10px 10px 5px #888888;
-    border:1px solid #000000;
+    margin-bottom:5px;
+    box-sizing:border-box;
 }
-.tableMyPoemResult table{
-    border-collapse: collapse;
-    border-spacing: 0;
-    width:100%;
-    height:100%;
-    margin:0px;padding:0px;
-}
-.tableMyPoemResult tr:hover td{      	
-	background-color:#daf97c;
-	border:0px solid #3f7f00;
-	border-width:1px 1px 1px 1px;
-        font-weight:bold;
-}
-.tableMyPoemResult tr:nth-child(odd){ 
-    background-color:#ff8e56; 
-}
-.tableMyPoemResult tr:nth-child(even){ 
-    background-color:#ffffff; 
-}
-.tableMyPoemResult td{
-    vertical-align:middle;
-    border:1px solid #000000;
-    border-width:0px 1px 1px 0px;
-    text-align:left;
-    padding:7px;
-    font-size:12px;
-    font-family:Arial;
-    font-weight:bold;
-    color:#000000;
-}
-.tableMyPoemResult tr:last-child td{
-    border-width:0px 1px 0px 0px;
-}
-.tableMyPoemResult tr td:last-child{
-    border-width:0px 0px 1px 0px;
-}
-.tableMyPoemResult tr:last-child td:last-child{
-    border-width:0px 0px 0px 0px;
-}
-.tableMyPoemResult tr:first-child td{
-    /*Gradiente -------------------------------------------------------------------------------------------------------*/
-    background:-o-linear-gradient(bottom, #d66520 5%, #bc3e00 100%);	
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d66520), color-stop(1, #bc3e00) );
-    background:-moz-linear-gradient( center top, #d66520 5%, #bc3e00 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#d66520", endColorstr="#bc3e00");	
-    background: -o-linear-gradient(top,#d66520,bc3e00);
-    /*-----------------------------------------------------------------------------------------------------------------*/
 
-    background-color:#d66520;
-    border:0px solid #000000;
+.submit{
+    background:#335570;
+    border:none;
+    color:#FFFFFF;
+    min-width:100px;
+    padding:3px 0px 3px 0px;
+}
+
+#content #login p{
+    margin-bttom:0px;
+}
+
+#content #login a{
+    color:#0000FF;
+}
+
+.formClass{
+    padding:5px;
+    background:#EEEEEE;
+    border:1px solid #808080;
+    border-radius:10px;
+}
+
+.formClass label{
+    min-width:100px;
+    display:inline-block;
+}
+
+.formClass .appletContainer{
+    width:500px;
+    margin:0 auto;
+}
+
+.formClass textarea{
+    width:100%;
+    box-sizing: border-box;
+}
+
+#errorRegistration{
+    color:#AA0000;
+}
+
+#errorDiv{
+    display:none;
+    background:#ebccd1;
+    border:1px solid #AA0000;
+    margin:10px 0px;
+    padding:5px;
     text-align:center;
-    border-width:0px 0px 1px 1px;
-    
-    font-size:16px;
-    font-weight:bold;
-    color:#ffffff;
-}
-.tableMyPoemResult tr:first-child:hover td{
-    /*Gradiente -------------------------------------------------------------------------------------------------------*/
-    background:-o-linear-gradient(bottom, #d66520 5%, #bc3e00 100%);
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d66520), color-stop(1, #bc3e00) );
-    background:-moz-linear-gradient( center top, #d66520 5%, #bc3e00 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#d66520", endColorstr="#bc3e00");
-    /*-----------------------------------------------------------------------------------------------------------------*/
-    
-    background: -o-linear-gradient(top,#d66520,bc3e00);
-    background-color:#d66520;
-}
-.tableMyPoemResult tr:first-child td:first-child{
-    border-width:0px 0px 1px 0px;
-}
-.tableMyPoemResult tr:first-child td:last-child{
-    border-width:0px 0px 1px 1px;
 }
 
-/* Button Background */
-.buttonBackground {
-    line-height: 25px;
-    text-align: center;
-    width:70px;
-    height:25px;
-    /*background: url('../multimedia/button_background.png') no-repeat;*/
-    background-size: 70px 25px;
+.singleItem{
+    padding:5px;
 }
 
-.buttonBackground:hover {
-    /*background: url('../multimedia/button_background_hover.png') no-repeat;*/
-    background-size: 70px 25px;
+.singleItem.class0{
+    background:#D8EBF1;
 }
 
-/*SIDEBAR RIGHT ---------------------------------------------------------------------------*/
+.singleItem h2, .singleItem h4{
+    margin-bottom:0px;
+}
+
+.singleItem .noBottomMargin{
+    margin-bottom:0px;
+}
+
+.singleItem textarea{
+    width:100%;
+    min-height:100px;
+    box-sizing:border-box;
+}
+
+.singleItem .information{
+    width:70%;
+    float:left;
+}
+
+.singleItem .actions{
+    margin-top:1em;
+    margin-bottom:1em;
+    width:28%;
+    padding:0 1% 0 1%;
+    float:left;
+}
+
+.singleItem .actions a{
+    padding-bottom:5px;
+    display:inline-block;
+}
+
+.singleItem .clear{
+    clear:both;
+}
+
+/*SIDEBAR DESTRA ---------------------------------------------------------------------------*/
 #sidebar
 {  
     float: right;
-    width: 32.33333%;
-    min-height: 500px;
-    
-    padding:0.5%;
-    /*background: no-repeat url('../multimedia/sidebar.png');*/
-    background-color:#DDDDDD;
-    background-size: cover;
-    z-index: 4;
-}
-
-#user {
-    width: 95%;
-}
-#password {
-    width: 95%;
-}
-
-#sidebar div{
-    padding-top: 20px;
-    margin-top: 25px;
-}
-
-#statistiche {
-    position: absolute;
-    top: 250px;
-    width: 190px;
-    height: 160px;
-    /*background: url('../multimedia/sidebar_statistiche.png') no-repeat;*/
-    background-size: 200px 160px;
-}
-
-.sidebarStatistiche {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 60px;
-    padding-left: 10px;
-}
-
-#counterUser {
-    width: 95%;
-    border-top: 1px lightgray dashed;
-}
-
-.sidebarElement {
-    width: 200px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 350px;
-    margin-bottom: 20px;
-}
-
-#loginForm {
-    display: block;
-    width: 190px;
-    height: 160px;
-    padding-left:10px;
-    /*background: url('../multimedia/sidebar_login.png') no-repeat;*/
-    background-size: 200px 160px;
-}
-#errorloginForm {
-    display: block;
-    width: 190px;
-    height: 160px;
-    padding-left:10px;
-    /*background: url('../multimedia/sidebar_errore.png') no-repeat;*/
-    background-size: 200px 160px;
-    top: 30px;
-}
-#logoutForm {
-    display: block;
-    width: 190px;
-    height: 160px;
-    padding-left:10px;
-    /*background: url('../multimedia/sidebar_benvenuto.png') no-repeat;*/
-    background-size: 200px 160px;
-}
-
-.sidebarDashedForm {
-    width: 180px;
-    margin-top: 20px;
-    border-top: 1px lightgray dashed;
+    width: 25.33333%;
+    padding:1%;
+    min-height: 450px;
+    background-color:#EFEFEF;
+    border-left:1px dashed #DFDFDF;
 }
 
 /*FOOTER ---------------------------------------------------------------------------*/
 #footer {
-    position: relative;
-    
     clear: both;
-    
-    float: left;
-    left: auto;
-    right: auto;
     width: 100%;
-    height: 35px;
+    padding:5px 0px 5px 0px;
     min-width: 100%;
-    min-height: 35px;
-    line-height: 35px;
-    /*background: url('../multimedia/footer.png') no-repeat;*/
-    background-size: cover;
-    text-align: center;
+    background-color:#6584A6;
     color: white;
-    
-    z-index: 2;
+    text-align:center;
+    font-size:11px;
+}
+
+#footer p{
+    margin:0px;
 }

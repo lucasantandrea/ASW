@@ -1,7 +1,8 @@
 <%-- 
-    Document   : mySnippet
-    Created on : 13-gen-2015, 20.46.30
-    Author     : Francesco
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
 --%>
 
 <%@page import="java.util.ArrayList"%>
@@ -18,38 +19,35 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>All Snippet</title>
+        <title>Tutti gli Snippet | Social Code</title>
     </head>
+    <body>
         <div id="container">
-            <div id="navbar">
-                <%@ include file="../WEB-INF/jspf/navbar.jspf" %>
-            </div>
+            <%@ include file="../WEB-INF/jspf/header.jspf" %>
             <div id="content">
-                <div class="miniInsideContent">       
-                    <!--CASO: sono presenti snippet dell'utente (loggato) nel dbsnippet-->
-                    <% 
-           
-                      
-                       ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("mySnippet");
-                       if (snippetList.size() > 0) {
-                    %>
-                        
-                                <% for(int i=0; i<snippetList.size(); i++){ %>
-                                    Title: <%= snippetList.get(i).getTitle()%><br><br>
-                                    Author: <%= snippetList.get(i).getUser() %><br><br>
-                                    Code: <textarea rows="6" cols="100" name="Code" id="textArea" disabled><%= snippetList.get(i).getCode()%></textarea><br><br>
-                                    Language: <%= snippetList.get(i).getLanguage() %><br><br>
-                                <% if(snippetList.get(i).getMod()!=""){ %>
-                                 Code Mod: <textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%= snippetList.get(i).getCode_mod()%></textarea><br><br>
-                                 By: <%= snippetList.get(i).getUser_mod()%><br><br>
-                               
-                                <%
-                                 }
+                <!--Se sono presenti snippet dell'utente (loggato) nel dbsnippet-->
+                <% 
+                   ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("mySnippet");
+                   if (snippetList.size() > 0) {
+                %>
+                <p>Sono presenti <%=snippetList.size() %> snippet, eccoli:</p>
+                            <% for(int i=0; i<snippetList.size(); i++){ %>
+                            <div class="singleItem class<%=i%2 %>">
+                                <h2><%= snippetList.get(i).getTitle()%></h2>
+                                scritto da <%= snippetList.get(i).getUser() %>
+                                <p>Linguaggio: <%= snippetList.get(i).getLanguage() %></p>
+                                <p class="noBottomMargin">Codice: </p><textarea name="Code" id="textArea" disabled><%= snippetList.get(i).getCode()%></textarea><br><br>
+                            <% if(snippetList.get(i).getMod().equals("Y")){ %>
+                            <h4>Proposta di modifica:</h4> <textarea name="Code_mod" id="textArea" disabled><%= snippetList.get(i).getCode_mod()%></textarea><br>
+                             modifica di: <%= snippetList.get(i).getUser_Mod()%><br><br>
+                            <%
                              }
-                       }
-                      
-                                %>
-                </div>
+                            %>
+                            </div>
+                            <%
+                         }
+                   }
+                            %>
             </div>            
             <div id="sidebar">
                 <%@ include file="../WEB-INF/jspf/sidebar.jspf" %>

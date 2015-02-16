@@ -1,7 +1,8 @@
 <%-- 
-    Document   : viewSnippet
-    Created on : 16-gen-2015, 15.59.02
-    Author     : Francesco
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
 --%>
 
 <%@page import="java.util.ArrayList"%>
@@ -18,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>View snippet</title>
+        <title>Vedi snippet | Social Code</title>
     </head>
     
     <%--
@@ -37,53 +38,34 @@
             }
         %>
     --%>
-  
+    <body>
         <div id="container">
-            <div id="navbar">
-                <%@ include file="../WEB-INF/jspf/navbar.jspf" %>
-            </div>
+            <%@ include file="../WEB-INF/jspf/header.jspf" %>
             <div id="content">
-                
-                 <% 
-           
-                      
+                <div class="formClass">
+                 <%                       
                        ArrayList<SnippetData> snippetList = (ArrayList<SnippetData>)request.getAttribute("IdSnippet");
                        if (snippetList.size() == 1 ) {
                     %>
                 
-                <div class="miniInsideContent">
                             
-                            Title: <input type="text" name="Title" value="<%= snippetList.get(0).getTitle()%>" disabled><br><br>
-                            Code: <textarea rows="6" cols="100" name="Code" id="textArea" disabled><%=snippetList.get(0).getCode()%></textarea><br><br>
-                            Language: <input type="text" name="Title" value="<%= snippetList.get(0).getLanguage()%>" disabled><br><br>
-                                 <%if(snippetList.get(0).getMod().equals("Y")){%>
-                                 Code Mod: <textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%=snippetList.get(0).getCode_mod()%></textarea><br><br>
-                                 By: <input type="text" name="User_mode" value="<%=snippetList.get(0).getUser_Mod()%>" disabled><br><br>
-                               
+                        <label>Titolo:</label><%= snippetList.get(0).getTitle()%><br><br>
+                        <label>Linguaggio:</label><%= snippetList.get(0).getLanguage()%><br><br>
+                        <label>Codice:</label><textarea rows="13" cols="100" name="Code" id="textArea" disabled><%=snippetList.get(0).getCode()%></textarea><br><br>
+                        <%if(snippetList.get(0).getMod().equals("Y")){%>
+                        <label><b>Proposta di modifica: </b></label><textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%=snippetList.get(0).getCode_mod()%></textarea><br><br>
+                        <label>By: </label><input type="text" name="User_mode" value="<%=snippetList.get(0).getUser_Mod()%>" disabled><br><br>
                                 <%
                                  }
                                 %>
-                            <%--
-                                <select name="languageResearch">
-                                    <option name="Java" <% if(((String)request.getParameter("language")).equals("Java")) { %> <%= "selected" %><% } %>>Java</option>
-                                     <option name="Javascript"  <% if(((String)request.getParameter("language")).equals("Javascript")) { %> <%= "selected" %><% } %> >Javascript</option>     
-                                    <option name="C++"  <% if(((String)request.getParameter("language")).equals("C++")) { %> <%= "selected" %><% } %> >C++</option>
-                                    <option name="C#"  <% if(((String)request.getParameter("language")).equals("C#")) { %> <%= "selected" %><% } %> >C#</option>
-                                    <option name="PHP"  <% if(((String)request.getParameter("language")).equals("PHP")) { %> <%= "selected" %><% } %> >PHP</option>                                
-                                </select><br>
-                            <input type="hidden" name="idSnippet" value="<%= request.getParameter("id")%>"><br>
-
-                                --%>
                                 
                             <%} else {%> 
-                          
                            
-                                Error
+                                <p>Si è verificato un errore, si prega di riprovare</p>
                                
                             <%
                               }
                             %>
-                            
                 </div>
             </div>            
             <div id="sidebar">

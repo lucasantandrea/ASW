@@ -3,26 +3,26 @@
 <%@ page import="java.util.*" %>
 
 <div id="login">
-    <% String  username=null;
+    <% String username=null;
         if(session.getAttribute("user")!=null){
-        username = session.getAttribute("user").toString();
+            username = session.getAttribute("user").toString();
         }    
-
         if(username==null){
           %>
     <form action="<%= request.getContextPath()%>/LoginServlet" method="POST">
         <input type="text" name="user"  placeholder="Username">
         <input type="password" name="pass"  placeholder="Password">
-        <p class="submit">
-            <input type="submit" name="submit" value="Login">
-            <a class="linkRegistra" href="<%= request.getContextPath()%>/jsp/registration.jsp">Non sei ancora registrato?</a>
-        </p>
-    </form>
-        
+        <input type="submit" name="submit" value="Login" class="submit">
+    </form>     
         
     <%}else{
     %>
-    <span id='userlog'><%= session.getAttribute("user")%></span>
-    <a class="linkRegistra" href="<%= request.getContextPath()%>/LogoutServlet">Logout</a>
+    <span id='userlog'>Sei loggato come <b><%= session.getAttribute("user")%></b></span>
+    <p><a class="linkRegistra" href="<%= request.getContextPath()%>/LogoutServlet">Logout</a></p>
+    <%}%>
+    <%         
+        if(username==null){
+    %>
+    <p><a class="linkRegistra" href="<%= request.getContextPath()%>/jsp/registration.jsp">Non sei ancora registrato?</a></p>
     <%}%>
 </div>
