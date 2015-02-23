@@ -11,7 +11,7 @@
 <%@page import="javax.servlet.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="asw1025.Util"%>
-<%@page import="asw1025_lib.SnippetData"%>
+<%@page import="asw1025.SnippetData"%>
 
 <!DOCTYPE html>
 <html>

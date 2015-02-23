@@ -1,8 +1,8 @@
 /*    
-    Esame ASW 2014-2015
-    Autori: Luca Santandrea
-    Matricola: 0900050785
-*/
+ Esame ASW 2014-2015
+ Autori: Luca Santandrea
+ Matricola: 0900050785
+ */
 package asw1025;
 
 import java.io.IOException;
@@ -18,18 +18,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Luca
+/*    
+ Esame ASW 2014-2015
+ Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+ Gruppo: 1025
  */
 @WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
 public class LogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Esegue un logout dal sito rimuovendo gli attributi dalla
+     * sessione.
      *
-     * @param request servlet request
+     * @param request servlet request: user - lo stesso che aveva inserito login
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -38,15 +40,14 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session=request.getSession();
-            
+            HttpSession session = request.getSession();
+
             // Rimozione attributi (riguardanti l'utente loggato) dalla sessione
             session.removeAttribute("user");
             session.removeAttribute("nome");
             session.removeAttribute("cognome");
-            
+
             //TODO: gestione asynccontext: rimozione per l'utente corrente
-            
             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         }

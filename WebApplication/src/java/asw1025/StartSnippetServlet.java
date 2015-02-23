@@ -1,9 +1,8 @@
 /*    
-    Esame ASW 2014-2015
-    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
-    Matricola: 0900050785
-    Gruppo: 1025
-*/
+ Esame ASW 2014-2015
+ Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+ Gruppo: 1025
+ */
 package asw1025;
 
 import java.io.BufferedInputStream;
@@ -21,21 +20,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.annotation.WebServlet;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
-import asw1025_lib.ManageXML;
-import asw1025_lib.SnippetData;
 import org.w3c.dom.Document;
 import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 
 @WebServlet(name = "StartSnippetServlet", urlPatterns = {"/StartSnippetServlet"})
 public class StartSnippetServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Permette di visualizzare tutti gli snippet del data base a tutti
+     * gli utenti compresi quelli che non sono loggati
      *
      * @param request servlet request
      * @param response servlet response
@@ -44,11 +39,11 @@ public class StartSnippetServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         try {
             String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
             Document xmlSnippet = null;
-            
+
             File f = new File(fileSnippet);
             if (!f.exists()) {
                 f.createNewFile();
@@ -58,52 +53,52 @@ public class StartSnippetServlet extends HttpServlet {
                 writer.close();
                 fileOut.close();
             }
-            
+
             ManageXML mngXML = new ManageXML();
-            
+
             //Lettura esclusiva
             Util.mutexSnippetFile.acquire();
-            
+
             // Caricamento xml
             DataInputStream dis = null;
             dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileSnippet)));
             xmlSnippet = mngXML.parse(dis);
             dis.close();
-            
+
             NodeList snippet = xmlSnippet.getDocumentElement().getChildNodes();
             ArrayList<SnippetData> mySnippet = new ArrayList<>();
-                // Ricerca di tutti gli snippet inseriti
-                for (int i = snippet.getLength() - 1; i > - 1 ; i--) {
+            // Ricerca di tutti gli snippet inseriti
+            for (int i = snippet.getLength() - 1; i > - 1; i--) {
 
-                        SnippetData mysnippet =new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
-                                snippet.item(i).getChildNodes().item(1).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(2).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(3).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(4).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(5).getTextContent(),
-                                snippet.item(i).getChildNodes().item(6).getTextContent(),
-                                snippet.item(i).getChildNodes().item(7).getTextContent(),
-                                snippet.item(i).getChildNodes().item(8).getTextContent(),
-                                snippet.item(i).getChildNodes().item(9).getTextContent(),
-                                snippet.item(i).getChildNodes().item(10).getTextContent(),
-                                snippet.item(i).getChildNodes().item(11).getTextContent());  
+                SnippetData mysnippet = new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
+                        snippet.item(i).getChildNodes().item(1).getTextContent(),
+                        snippet.item(i).getChildNodes().item(2).getTextContent(),
+                        snippet.item(i).getChildNodes().item(3).getTextContent(),
+                        snippet.item(i).getChildNodes().item(4).getTextContent(),
+                        snippet.item(i).getChildNodes().item(5).getTextContent(),
+                        snippet.item(i).getChildNodes().item(6).getTextContent(),
+                        snippet.item(i).getChildNodes().item(7).getTextContent(),
+                        snippet.item(i).getChildNodes().item(8).getTextContent(),
+                        snippet.item(i).getChildNodes().item(9).getTextContent(),
+                        snippet.item(i).getChildNodes().item(10).getTextContent(),
+                        snippet.item(i).getChildNodes().item(11).getTextContent());
 
-                        mySnippet.add(mysnippet);   
-                }
-            
+                mySnippet.add(mysnippet);
+            }
+
             // Rilascio risorsa condivisa
             Util.mutexSnippetFile.release();
-            
+
             request.setAttribute("mySnippet", mySnippet);
             RequestDispatcher rd = request.getRequestDispatcher("jsp/totalSnippet.jsp");
             rd.forward(request, response);
-            
-        }  catch (Exception ex) {
+
+        } catch (Exception ex) {
             Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
             Util.mutexSnippetFile.release();
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

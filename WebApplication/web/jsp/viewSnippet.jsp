@@ -11,7 +11,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="javax.servlet.*" %>
 <%@page import="asw1025.Util"%>
-<%@page import="asw1025_lib.SnippetData"%>
+<%@page import="asw1025.SnippetData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>

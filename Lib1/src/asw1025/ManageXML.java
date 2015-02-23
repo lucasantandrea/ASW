@@ -1,4 +1,4 @@
-package asw1025_lib;
+package asw1025;
 
 import java.io.*;
 import javax.xml.parsers.*;

@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Luca
- */
+/*    
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Gruppo: 1025
+*/
 @WebServlet(name = "CometServlet", urlPatterns = {"/CometServlet"})
 public class CometServlet extends HttpServlet {
 

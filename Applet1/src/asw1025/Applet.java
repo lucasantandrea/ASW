@@ -1,3 +1,5 @@
+package asw1025;
+
 /*    
     Esame ASW 2014-2015
     Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
@@ -6,9 +8,9 @@
 */
 
 
-import asw1025_lib.HTTPClient;
-import asw1025_lib.ManageXML;
-import asw1025_lib.SnippetData;
+import asw1025.HTTPClient;
+import asw1025.ManageXML;
+import asw1025.SnippetData;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -43,7 +45,8 @@ public class Applet extends JApplet {
     static int TextToSend=0;
     static SnippetData mysnippet;
     
-    final String BASE = "http://isi-tomcat.csr.unibo.it:8080/~luca.santandrea6/";    
+    //final String BASE = "http://isi-tomcat.csr.unibo.it:8080/~luca.santandrea6/";    
+    final String BASE = "http://localhost:8080/WebApplication/";    
     
     HTTPClient hc;
     ManageXML mx;
@@ -62,7 +65,6 @@ public class Applet extends JApplet {
             mx=new ManageXML();
             hc=new HTTPClient();
             hc.setBase(new URL(BASE));
-            //hc.setSessionId(getParameter("sessionid"));
             
             /*Caricamento del layout iniziale*/
             SwingUtilities.invokeAndWait(new Runnable() {

@@ -1,13 +1,10 @@
 /*    
-    Esame ASW 2014-2015
-    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
-    Matricola: 0900050785
-    Gruppo: 1025
-*/
+ Esame ASW 2014-2015
+ Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+ Gruppo: 1025
+ */
 package asw1025;
 
-import asw1025_lib.ManageXML;
-import asw1025_lib.SnippetData;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -30,12 +27,18 @@ import org.w3c.dom.NodeList;
 
 @WebServlet(name = "MySnippetServlet", urlPatterns = {"/MySnippetServlet"})
 public class MySnippetServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. Visualizza tutte le snippet scritte da un determinato utente,
+     * cerca nel DataBase le snippet che sono state scritte dall'utente
+     * specificato nella request e restituisce i dati necessari alla
+     * visualizazione
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request servlet request: User usato per cercare ne DB il
+     * proprietario
+     * @param response servlet response: mySnippet.jsp che visualizza le
+     * informazioni restituite dalla servlet
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -72,26 +75,26 @@ public class MySnippetServlet extends HttpServlet {
 
             NodeList snippet = xmlSnippet.getDocumentElement().getChildNodes();
             ArrayList<SnippetData> mySnippet = new ArrayList<>();
-                // Ricerca degli snippet dell'utente indicato
-                for (int i = 0; i < snippet.getLength(); i++) {
-                    String thisUser = snippet.item(i).getChildNodes().item(1).getTextContent();
-                    if (thisUser.equals(username)) {
-                        SnippetData mysnippet =new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
-                                snippet.item(i).getChildNodes().item(1).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(2).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(3).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(4).getTextContent(), 
-                                snippet.item(i).getChildNodes().item(5).getTextContent(),
-                                snippet.item(i).getChildNodes().item(6).getTextContent(),
-                                snippet.item(i).getChildNodes().item(7).getTextContent(),
-                                snippet.item(i).getChildNodes().item(8).getTextContent(),
-                                snippet.item(i).getChildNodes().item(9).getTextContent(),
-                                snippet.item(i).getChildNodes().item(10).getTextContent(),
-                                snippet.item(i).getChildNodes().item(11).getTextContent());  
+            // Ricerca degli snippet dell'utente indicato
+            for (int i = 0; i < snippet.getLength(); i++) {
+                String thisUser = snippet.item(i).getChildNodes().item(1).getTextContent();
+                if (thisUser.equals(username)) {
+                    SnippetData mysnippet = new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
+                            snippet.item(i).getChildNodes().item(1).getTextContent(),
+                            snippet.item(i).getChildNodes().item(2).getTextContent(),
+                            snippet.item(i).getChildNodes().item(3).getTextContent(),
+                            snippet.item(i).getChildNodes().item(4).getTextContent(),
+                            snippet.item(i).getChildNodes().item(5).getTextContent(),
+                            snippet.item(i).getChildNodes().item(6).getTextContent(),
+                            snippet.item(i).getChildNodes().item(7).getTextContent(),
+                            snippet.item(i).getChildNodes().item(8).getTextContent(),
+                            snippet.item(i).getChildNodes().item(9).getTextContent(),
+                            snippet.item(i).getChildNodes().item(10).getTextContent(),
+                            snippet.item(i).getChildNodes().item(11).getTextContent());
 
-                        mySnippet.add(mysnippet);
-                    }
+                    mySnippet.add(mysnippet);
                 }
+            }
 
             // Rilascio risorsa condivisa
             Util.mutexSnippetFile.release();
@@ -100,7 +103,7 @@ public class MySnippetServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("jsp/mySnippet.jsp");
             rd.forward(request, response);
 
-        }  catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(MySnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
             Util.mutexSnippetFile.release();
         }

@@ -19,7 +19,7 @@
             <div id="content">
                 <div class="formClass">
                     <div class="appletContainer">
-                        <APPLET code="Applet.class" archive="Applet.jar,Lib1.jar" width=500 height=350>
+                        <APPLET codebase="applet" code="asw1025.Applet.class" archive="Applet1.jar,Lib1.jar" width=500 height=350>
                             <param name="username" value='<%=request.getParameter("user")%>'/>
                             <param name="idSnippet" value='<%=request.getParameter("id")%>'/>    
                         </APPLET>

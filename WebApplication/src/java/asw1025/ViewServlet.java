@@ -1,7 +1,6 @@
 /*    
     Esame ASW 2014-2015
     Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
-    Matricola: 0900050785
     Gruppo: 1025
 */
 package asw1025;
@@ -26,8 +25,6 @@ import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import asw1025_lib.ManageXML;
-import asw1025_lib.SnippetData;
 import javax.servlet.annotation.WebServlet;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;

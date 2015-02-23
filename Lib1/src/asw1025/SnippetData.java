@@ -4,7 +4,7 @@
     Matricola: 0900050785
     Gruppo: 1025
 */
-package asw1025_lib;
+package asw1025;
 
 import java.io.Serializable;
 

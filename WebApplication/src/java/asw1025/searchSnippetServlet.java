@@ -1,9 +1,8 @@
 /*    
-    Esame ASW 2014-2015
-    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
-    Matricola: 0900050785
-    Gruppo: 1025
-*/
+ Esame ASW 2014-2015
+ Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+ Gruppo: 1025
+ */
 package asw1025;
 
 import java.io.BufferedInputStream;
@@ -21,37 +20,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
-import asw1025_lib.ManageXML;
-import asw1025_lib.SnippetData;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
-import javax.xml.transform.TransformerException;
 import org.w3c.dom.Document;
 import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 
 @WebServlet(name = "SearchSnippetServlet", urlPatterns = {"/SearchSnippetServlet"})
 public class SearchSnippetServlet extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>POST</code> method. Funzione che permette di
+     * restituire gli snippet dell'utente loggato che effettua la richiesta.
      *
-     * @param request servlet request
-     * @param response servlet response
+     * @param request servlet request: title,author,language usati come
+     * parametri di ricerca e order per poter ordinare il risultato
+     * @param response servlet response: dbsnippet usato per memorizzare i dati
+     * d'intereasse per la visualizzazione del risultato
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
-
-    /*
-     Funzione che permette di restituire gli snippet dell'utente loggato che effettua la richiesta.
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -71,7 +61,7 @@ public class SearchSnippetServlet extends HttpServlet {
             String username = request.getParameter("author").toLowerCase();
             String language = request.getParameter("language").toLowerCase();
             // Ordinamento
-            String order =  request.getParameter("order");
+            String order = request.getParameter("order");
 
             File f = new File(fileSnippet);
             if (!f.exists()) {
@@ -256,7 +246,6 @@ public class SearchSnippetServlet extends HttpServlet {
                 date_lastmodpropElement.setTextContent(snippetData.getDate_lastmodprop());
                 date_lastmodElement.setTextContent(snippetData.getDate_lastmod());
 
-
                 Element snippetos = answer.createElement("snippet");
 
                 snippetos.appendChild(id);
@@ -280,7 +269,7 @@ public class SearchSnippetServlet extends HttpServlet {
 
             answer.appendChild(risp);
             mngXML.transform(os, answer);
-         
+
         } catch (Exception ex) {
             Logger.getLogger(SearchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

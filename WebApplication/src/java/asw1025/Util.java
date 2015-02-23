@@ -1,10 +1,8 @@
 /*    
     Esame ASW 2014-2015
     Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
-    Matricola: 0900050785
     Gruppo: 1025
 */
-
 package asw1025;
 
 import java.text.DateFormat;
@@ -24,7 +22,8 @@ public class Util {
     public static Semaphore mutexAsyncContextList = new Semaphore(1);
     
     // Indirizzo web del sito
-    public static final String BASE = "http://isi-tomcat.csr.unibo.it:8080/~luca.santandrea6/";
+    //public static final String BASE = "http://isi-tomcat.csr.unibo.it:8080/~luca.santandrea6/";
+    public static final String BASE = "http://localhost:8080/WebApplication/";
     
     /*
         Funzione che permette di ottenere PATH nel formato corretto in base al S.O. in uso
