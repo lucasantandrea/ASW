@@ -77,46 +77,4 @@
         </div>
     </body>
     
-    <%--     TODO 
-    <script>
-        // Assunzione del valore di timeout massimo consentito dal server
-        var sessionTimeout = "<%= session.getMaxInactiveInterval()%>";
-
-        /*
-        * Funzione che viene invocata ogni minuto e controlla se la sessione è scaduta, 
-        * in tal caso ridireziona l'utente alla homepage dove potrà riloggarsi.
-        */ 
-       function DisplaySessionTimeout()
-        {
-            console.log("chiamo session timeout val: ",sessionTimeout);
-            
-            if (sessionTimeout >= 0){
-                sessionTimeout = sessionTimeout - 60;
-            }else
-            {
-                window.location = "<%= Util.BASE %>index.jsp";
-            }
-        }
-
-        setInterval("DisplaySessionTimeout()",60000);
-        
-        /*
-         * Funzione che permette di controllare che siano presenti tutti i valori nei campi di registrazione
-         */
-        function validateForm(){
-            var titolo=document.forms["uploadForm"]["Titolo"].value;
-            var testo=document.forms["uploadForm"]["Testo"].value;
-            
-            if(titolo===null || titolo==="" || testo===null || testo==="" ){
-                
-                alert("Dati mancanti!");
-                return false;
-                
-            }else{
-                return true;
-            }
-        }
-    </script>
---%>
-    
 </html>

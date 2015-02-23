@@ -18,7 +18,6 @@ public class ManageXML {
         builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
     }
 
-    //TODO: eliminare questo overriding?
     public Document newDocument() {
         return builder.newDocument();
     }

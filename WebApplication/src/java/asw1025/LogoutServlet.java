@@ -47,7 +47,6 @@ public class LogoutServlet extends HttpServlet {
             session.removeAttribute("nome");
             session.removeAttribute("cognome");
 
-            //TODO: gestione asynccontext: rimozione per l'utente corrente
             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         }

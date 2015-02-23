@@ -40,7 +40,7 @@ public class Applet extends JApplet {
     JPanel titlePanel, centerPanel,ownerPanel,ownerModificationPanel;
     static JTextArea ownerTextarea, editorTextarea;
     JTextArea editorModification,ownerCode;
-    JButton salva,annulla,copy,continua;
+    JButton salva,copy,continua;
     JLabel titleLabel,langLabel,message,done;
     static int TextToSend=0;
     static SnippetData mysnippet;
@@ -130,31 +130,6 @@ public class Applet extends JApplet {
                 }
             });
             
-            //TODO: tasto annulla (LISTENTER)
-            /*annulla.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    ManageXML mx;
-                    try {
-                        mx = new ManageXML();
-                        Document question = mx.newDocument();
-                        Element questionRoot = question.createElement("getRequest");
-                        
-                        Element id = question.createElement("id");
-                        id.setTextContent(idSnippet);
-                        questionRoot.appendChild(id);
-                    
-                    } catch (Exception ex) {
-                        Logger.getLogger(Applet.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    
-                    workingPanel.setVisible(false);
-                    message.setText("Modifica annullata");
-                    messagePanel.setVisible(true);                            
-                    continua.setText("Continua");
-                    continua.setVisible(true);
-                }
-            });*/
         } 
         catch (Exception ex) {
             System.out.println(ex);
@@ -456,7 +431,6 @@ public class Applet extends JApplet {
         ownerModificationPanel.add(BorderLayout.NORTH,new JScrollPane(editorModification));
 
         salva=new JButton("Salva");
-        /*annulla=new JButton("Annulla");*/
         copy=new JButton("Copia");
         continua=new JButton();
         
@@ -476,7 +450,6 @@ public class Applet extends JApplet {
         workingPanel.add(BorderLayout.CENTER,centerPanel);
         JPanel lastButtons=new JPanel(new GridLayout());
         lastButtons.add(salva);
-        /*lastButtons.add(annulla);*/
         workingPanel.add(BorderLayout.SOUTH,lastButtons);
         
         messagePanel.add(message);

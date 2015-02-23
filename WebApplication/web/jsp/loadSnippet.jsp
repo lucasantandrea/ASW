@@ -65,33 +65,6 @@
         </div>
     </body>
     
-    <%--     TODO 
-    <script>
-        // Assunzione del valore di timeout massimo consentito dal server
-        var sessionTimeout = "<%= session.getMaxInactiveInterval()%>";
-
-        /*
-        * Funzione che viene invocata ogni minuto e controlla se la sessione è scaduta, 
-        * in tal caso ridireziona l'utente alla homepage dove potrà riloggarsi.
-        */ 
-       function DisplaySessionTimeout()
-        {
-            console.log("chiamo session timeout val: ",sessionTimeout);
-            
-            if (sessionTimeout >= 0){
-                sessionTimeout = sessionTimeout - 60;
-            }else
-            {
-                window.location = "<%= Util.BASE %>index.jsp";
-            }
-        }
-
-        setInterval("DisplaySessionTimeout()",60000);
-        
-
-    </script>
---%>
-    
     <script>
     
         /*
