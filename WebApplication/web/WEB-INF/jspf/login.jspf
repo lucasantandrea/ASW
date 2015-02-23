@@ -3,19 +3,22 @@
 <%@ page import="java.util.*" %>
 
 <div id="login">
-    <% String username=null;
-        if(session.getAttribute("user")!=null){
-            username = session.getAttribute("user").toString();
-        }    
-        if(username==null){
-          %>
+<% String username=null;
+    if(session.getAttribute("user")!=null){
+        username = session.getAttribute("user").toString();
+    }    
+    if(username==null){
+      %>
+    <p>Accedi a Social code</p>
     <form action="<%= request.getContextPath()%>/LoginServlet" method="POST">
         <input type="text" name="user"  placeholder="Username">
         <input type="password" name="pass"  placeholder="Password">
         <input type="submit" name="submit" value="Login" class="submit">
     </form>     
-        
-    <%}else{
+    <% if(request.getAttribute("errorLogin")!=null){ %>
+        <p class="errorMessage">Username / password non corretti</p>
+    <% } 
+    }else{
     %>
     <span id='userlog'>Sei loggato come <b><%= session.getAttribute("user")%></b></span>
     <p><a class="linkRegistra" href="<%= request.getContextPath()%>/LogoutServlet">Logout</a></p>

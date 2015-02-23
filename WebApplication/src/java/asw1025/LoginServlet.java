@@ -50,8 +50,6 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            
-            //String filePersone = getServletContext().getRealPath("") + "\\persone.xml";
             String filePersone = Util.getCorrectFilePath(this, "persone.xml");
             Document xmlPersone = null;
             String username = request.getParameter("user");
@@ -94,61 +92,24 @@ public class LoginServlet extends HttpServlet {
                 }
             }
             
-            
             if (trovato) {
                 HttpSession session=request.getSession(); // Salvataggio dati relativi alla sessione
                 session.setAttribute("user", username);
                 session.setAttribute("nome", nome);
                 session.setAttribute("cognome", cognome);
-                session.removeAttribute("errrorLogin");
-                
-                //TODO: assegnamento asynccontext a ogni utente e segnalazione agli altri
+                session.removeAttribute("errorLogin");
             }
             else{
                 HttpSession session=request.getSession();   //salvataggio errore nella sessione
-                session.setAttribute("errrorLogin", "errore");
+                request.setAttribute("errorLogin", "errore");
             }
             
             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
             
-            //TODO: rilascio mutex risorse xml condivise
-            
-            /////////////////////////////////////////////////////////
-            /*
-            ServletContext application = getServletContext();
-            String user=(String)application.getAttribute("user");
-            String pass=(String)application.getAttribute("pass");
-            
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Risultato Login</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            
-            if(user!=null && pass!=null && user.equals(request.getParameter("user")) && pass.equals(request.getParameter("pass"))){
-                HttpSession session=request.getSession();
-                session.setAttribute("nome", application.getAttribute("nome")+" "+application.getAttribute("cognome"));
-            
-                out.println("<h1>Login effettuato con successo per " + application.getAttribute("nome") + " " + application.getAttribute("cognome") +"</h1>");
-            
-            }
-            else{
-                out.println("<h1>Login errata</h1>");    
-            }
-          
-            out.println("<p><a href=\"index.jsp\" >Home</a></p>");
-            out.println("</body>");
-            out.println("</html>");
-            */
-        } catch (TransformerConfigurationException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -187,7 +148,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet per la gestione del login";
     }// </editor-fold>
 
 }

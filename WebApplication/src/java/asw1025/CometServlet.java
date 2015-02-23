@@ -1,29 +1,24 @@
-/*    
-    Esame ASW 2014-2015
-    Autori: Luca Santandrea
-    Matricola: 0900050785
-*/
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package asw1025;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
-import javax.servlet.AsyncContext;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Luca
  */
-@WebServlet(name = "LogoutServlet", urlPatterns = {"/LogoutServlet"})
-public class LogoutServlet extends HttpServlet {
+@WebServlet(name = "CometServlet", urlPatterns = {"/CometServlet"})
+public class CometServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,17 +33,16 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session=request.getSession();
-            
-            // Rimozione attributi (riguardanti l'utente loggato) dalla sessione
-            session.removeAttribute("user");
-            session.removeAttribute("nome");
-            session.removeAttribute("cognome");
-            
-            //TODO: gestione asynccontext: rimozione per l'utente corrente
-            
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            rd.forward(request, response);
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CometServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CometServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -88,7 +82,7 @@ public class LogoutServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet per la gestione del logout";
+        return "Short description";
     }// </editor-fold>
 
 }

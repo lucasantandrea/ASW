@@ -1,3 +1,9 @@
+/*    
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
+*/
 package asw1025;
 
 import java.io.BufferedInputStream;
@@ -21,10 +27,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import asw1025_lib.ManageXML;
+import asw1025_lib.SnippetData;
+import javax.servlet.annotation.WebServlet;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+@WebServlet(name = "DeleteServlet", urlPatterns = {"/DeleteServlet"})
 public class DeleteServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -109,4 +118,17 @@ public class DeleteServlet extends HttpServlet {
         }
     }
     
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException{
+        response.sendRedirect(Util.BASE+"MySnippetServlet");
+    }
 }

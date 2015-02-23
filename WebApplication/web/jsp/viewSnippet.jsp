@@ -11,7 +11,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="javax.servlet.*" %>
 <%@page import="asw1025.Util"%>
-<%@page import="asw1025.SnippetData"%>
+<%@page import="asw1025_lib.SnippetData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -49,12 +49,13 @@
                     %>
                 
                             
-                        <label>Titolo:</label><%= snippetList.get(0).getTitle()%><br><br>
-                        <label>Linguaggio:</label><%= snippetList.get(0).getLanguage()%><br><br>
-                        <label>Codice:</label><textarea rows="13" cols="100" name="Code" id="textArea" disabled><%=snippetList.get(0).getCode()%></textarea><br><br>
+                        <label>Titolo:</label><%= snippetList.get(0).getTitle()%><br/><br/>
+                        <label>Linguaggio:</label><%= snippetList.get(0).getLanguage()%><br/><br/>
+                        <label>Codice:</label><textarea rows="13" cols="100" name="Code" id="textArea" disabled><%=snippetList.get(0).getCode()%></textarea><br/><br/>
                         <%if(snippetList.get(0).getMod().equals("Y")){%>
-                        <label><b>Proposta di modifica: </b></label><textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%=snippetList.get(0).getCode_mod()%></textarea><br><br>
-                        <label>By: </label><input type="text" name="User_mode" value="<%=snippetList.get(0).getUser_Mod()%>" disabled><br><br>
+                        <label><b>Proposta di modifica: </b></label><textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%=snippetList.get(0).getCode_mod()%></textarea><br/>
+                        <label>di: </label><%=snippetList.get(0).getLastusermod()%><br/>
+                        <label>data: </label><%=snippetList.get(0).getDate_lastmod() %>
                                 <%
                                  }
                                 %>
@@ -62,7 +63,6 @@
                             <%} else {%> 
                            
                                 <p>Si è verificato un errore, si prega di riprovare</p>
-                               
                             <%
                               }
                             %>

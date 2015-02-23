@@ -21,7 +21,7 @@
         <title>Cerca codice | Social Code</title>
     </head>
     <body>
-        <% 
+        <%
             // Controllo se ho un utente loggato, in caso affermativo faccio redirect alla home
             if ((session.getAttribute("user") == null)) {
                 response.sendRedirect(Util.BASE + "index.jsp");
@@ -30,12 +30,12 @@
         <div id="container"> 
             <%@ include file="../WEB-INF/jspf/header.jspf" %>
             <div id="content">           
-                <form class="formClass" action="<%=Util.BASE%>searchSnippetServlet" method="POST">
+                <form class="formClass" action="" >
 
                     <!-- New snippet -->
                     <p><label for="title">Titolo: </label><input type="text" name="title" id="title"></p>
                     <p><label for="author">Autore: </label><input type="text" name="author" id="author"></p>
-                    <p><label for="linguaggio">Linguaggio: </label><select name="languageResearch" id="linguaggio">
+                    <p><label for="language">Linguaggio: </label><select name="language" id="language">
                         <option name="---" >---</option>
                         <option name="Java" >Java</option>
                         <option name="JavaScript"  >JavaScript</option>
@@ -43,21 +43,191 @@
                         <option name="C#"  >C#</option>
                         <option name="PHP"  >PHP</option>                                    
                     </select></p>   
-                    <p><label for="ordina">Ordina per: </label><select name="orderResearch" id="ordina">
+                    <p><label for="order">Ordina per: </label><select name="order" id="order">
                         <option name="---" >---</option>
-                        <option name="Creation" >Creation Data</option>
-                        <option name="OwnerUpdate"  >Owner Update Data</option>      
-                        <option name="Modification"  >Users Update Data</option>  
+                        <option name="Creation" value="1">Data creazione</option>
+                        <option name="OwnerUpdate" value="2">Ultima modifica proprietario</option>      
+                        <option name="Modification" value="3">Ultima modifica generale</option>  
                     </select></p>
-                    <input type="submit" class="submit" value="Cerca">
+                    <input type="button" class="submit" value="Cerca" onClick="search();">
+
                 </form>
+                <div  id="result">
+
+
+                </div>
+
             </div>   
             <div id="sidebar">
                 <%@ include file="../WEB-INF/jspf/sidebar.jspf" %>
             </div>            
             <div id="footer">
                 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
-            </div>        
+            </div>   
+            <script>
+                /*
+                 * Funzione che permette di visualizzare l'xml restituito dalla servlet 
+                 */
+
+
+                function search() {
+                    var xmlhttp;
+                    if (window.XMLHttpRequest)
+                    {// code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    }
+                    else
+                    {// code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    var value1 = document.getElementById("title").value;
+                    var value2 = document.getElementById("author").value;
+                    var sel = document.getElementById('language');
+                    var value3 = (sel.options[sel.selectedIndex]).value;
+                    sel = document.getElementById('order');
+                    var value4 = (sel.options[sel.selectedIndex]).value;
+                    xmlhttp.onreadystatechange = alertContents;
+                    xmlhttp.open("POST", "<%=Util.BASE%>SearchSnippetServlet", true);
+                    console.log("<%=Util.BASE%>SearchSnippetServlet");
+                    console.log(value1+" "+value2+" "+value3);
+                    xmlhttp.setRequestHeader("Content-Type",
+                            "application/x-www-form-urlencoded");
+                    xmlhttp.send("title=" + value1 + "&author=" + value2 + "&language=" + value3 + "&order=" + value4);
+                    function alertContents() {
+                        if (xmlhttp.readyState === 4) {
+                            if (xmlhttp.status === 200) {
+                                var x = xmlhttp.responseXML.getElementsByTagName("dbsnippet")[0];
+                                //var x = xmlhttp.responseXML;
+                                //alert(x);
+                                document.getElementById("result").innerHTML = "";
+
+                                if (x.childNodes.length > 0) {
+
+                                    var numSnippet = document.createElement("P");
+                                    var numSnippetText = document.createTextNode(x.childNodes.length +" risultati:");
+                                    numSnippet.appendChild(numSnippetText);
+                                    document.getElementById('result').appendChild(numSnippet);
+
+                                    for (loop = 0; loop < x.childNodes.length; loop++) {
+                                        var snippet = x.childNodes[loop];
+                                        var idSnippet = snippet.getElementsByTagName("idSnippet")[0];
+                                        var creator = snippet.getElementsByTagName("creator")[0];
+                                        var title = snippet.getElementsByTagName("title")[0];
+                                        var language = snippet.getElementsByTagName("language")[0];
+                                        var creationDate = snippet.getElementsByTagName("date_creation")[0];
+                                        var lastMod = snippet.getElementsByTagName("date_lastmod")[0];
+                                        var lastModProp = snippet.getElementsByTagName("date_lastmodprop")[0];
+                                       
+                                        var cont = document.createElement("DIV"); 
+                                        cont.setAttribute("class","singleItem class"+loop%2);
+                                        //titolo snippet
+                                        var titolo = document.createElement("H2"); //input element
+                                        titolo.setAttribute("id", "title");
+                                        titolo.innerHTML = title.childNodes[0].nodeValue;
+                                        //autore snippet
+                                        var scrittoDa = document.createElement("P");
+                                        var scrittoDaText = document.createTextNode("Scritto da "+creator.childNodes[0].nodeValue);
+                                        scrittoDa.appendChild(scrittoDaText);
+                                        //linguaggio snippet
+                                        var linguaggio = document.createElement("P");
+                                        var linguaggioText = document.createTextNode("Linguaggio: "+language.childNodes[0].nodeValue);
+                                        linguaggio.appendChild(linguaggioText);
+                                        
+                                        //data creazione
+                                        var dataCreazione = document.createElement("P");
+                                        var dataCreazioneText = document.createTextNode("Data di creazione: "+creationDate.childNodes[0].nodeValue);
+                                        dataCreazione.appendChild(dataCreazioneText);
+                                           
+                                           
+                                        //data ultima modifica generale
+                                        var dataLastMod = document.createElement("P");
+                                        var dataLastModText = document.createTextNode("Data di ultima modifica (generale): "+lastMod.childNodes[0].nodeValue);
+                                        dataLastMod.appendChild(dataLastModText);
+                                        
+                                        //data ultima modifica proprietario
+                                        var dataLastModProp = document.createElement("P");
+                                        var dataLastModPropText = document.createTextNode("Data di ultima modifica (proprietario): "+lastModProp.childNodes[0].nodeValue);
+                                        dataLastModProp.appendChild(dataLastModPropText);
+                                        //form visualizza snippet
+                                        var formV = document.createElement("form");
+                                        formV.setAttribute("name", "submitViewForm"+loop);
+                                        formV.setAttribute("action", "<%= Util.BASE %>ViewServlet");
+                                        formV.setAttribute("method", "POST");
+                                        var inputIdSnippet = document.createElement("INPUT");
+                                        inputIdSnippet.setAttribute("type", "hidden");
+                                        inputIdSnippet.setAttribute("name", "id");
+                                        inputIdSnippet.setAttribute("value", idSnippet.childNodes[0].nodeValue);
+                                        
+                                        var aV = document.createElement("A"); 
+                                      
+                                        aV.href = "javascript:document.submitViewForm"+loop+".submit()";
+                                        aV.text = "Vedi";
+                                        
+                                        formV.appendChild(inputIdSnippet);
+                                        formV.appendChild(aV);
+                                        
+                                        //form modifica snippet
+                                        var formMod = document.createElement("form");
+                                        formMod.setAttribute("name", "submitModifyForm"+loop);
+                                        formMod.setAttribute("action", "<%= Util.BASE %>EditServlet");
+                                        formMod.setAttribute("method", "POST");
+                                        var inputIdSnippet2 = document.createElement("INPUT");
+                                        inputIdSnippet2.setAttribute("type", "hidden");
+                                        inputIdSnippet2.setAttribute("name", "id");
+                                        inputIdSnippet2.setAttribute("value", idSnippet.childNodes[0].nodeValue);
+                                        
+                                        var inputUser = document.createElement("INPUT");
+                                        inputUser.setAttribute("type", "hidden");
+                                        inputUser.setAttribute("name", "user");
+                                        inputUser.setAttribute("value", "<%=session.getAttribute("user")%>");
+                                        
+                                        var aM = document.createElement("A"); 
+                                        
+                                        aM.href = "javascript:document.submitModifyForm"+loop+".submit()"; 
+                                        aM.text = "Modifica";
+                                        
+                                        formMod.appendChild(inputIdSnippet2);
+                                        formMod.appendChild(inputUser);
+                                        formMod.appendChild(aM);
+
+                                        cont.appendChild(titolo);
+                                        cont.appendChild(scrittoDa);
+                                        var info = document.createElement("DIV");
+                                        info.setAttribute("class","information");                                    
+                                        info.appendChild(linguaggio);
+                                        info.appendChild(dataCreazione);
+                                        info.appendChild(dataLastMod);
+                                        info.appendChild(dataLastModProp);
+                                        cont.appendChild(info);
+                                        
+                                        var actions = document.createElement("DIV");
+                                        actions.setAttribute("class","actions");                                    
+                                        actions.appendChild(formV);
+                                        actions.appendChild(formMod);
+                                        cont.appendChild(actions);
+                                      
+                                        var clear = document.createElement("DIV");
+                                        clear.setAttribute("class","clear");   
+                                        cont.appendChild(clear);
+                                        document.getElementById('result').appendChild(cont);
+
+                                    }
+
+                                }
+                                else {
+                                    var noSnippet = document.createElement("P");
+                                    var noSnippetText = document.createTextNode("Nessun risultato trovato.");
+                                    noSnippet.appendChild(noSnippetText);
+                                    document.getElementById('result').appendChild(noSnippet);
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            </script>
         </div>
     </body>
 </html>

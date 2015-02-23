@@ -1,7 +1,8 @@
 /*    
     Esame ASW 2014-2015
-    Autori: Luca Santandrea
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
     Matricola: 0900050785
+    Gruppo: 1025
 */
 
 package asw1025;
@@ -37,10 +38,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-/**
- *
- * @author Luca
- */
+
 @WebServlet(name = "RegistrationServlet", urlPatterns = {"/RegistrationServlet"})
 public class RegistrationServlet extends HttpServlet {
 
@@ -59,8 +57,6 @@ public class RegistrationServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            //TODO: definire real path!
-            //String filePersone = getServletContext().getRealPath("") + "\\persone.xml";
             String filePersone = Util.getCorrectFilePath(this, "persone.xml");
             String username = request.getParameter("user");
             Document xmlPersone = null;
@@ -78,8 +74,7 @@ public class RegistrationServlet extends HttpServlet {
             
             ManageXML mngXML = new ManageXML();  
             
-            //TODO: manca mutex per lettura esclusiva del file!!
-            
+            Util.mutexSnippetFile.acquire();
             
             // Caricamento xml
             DataInputStream dis = null;
@@ -102,7 +97,7 @@ public class RegistrationServlet extends HttpServlet {
             // Se non c'è stato conflitto di username
             if (!conflittoUsername) {
                 
-            // In caso corretto, aggiunge i dati al file persone.xml
+                // In caso corretto, aggiunge i dati al file persone.xml
                 dos = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(filePersone)));
                 Element person = xmlPersone.createElement("persona");
                 Element nome = xmlPersone.createElement("nome");
@@ -123,49 +118,35 @@ public class RegistrationServlet extends HttpServlet {
                 mngXML.transform(dos, xmlPersone);
                 dos.close();  
                 
-                // Salvataggio username relativo alla sessione
+                // Salvataggio username relativo alla sessione (login automatico)
                 HttpSession session=request.getSession();   
                 session.setAttribute("user", username);
                 session.setAttribute("nome", request.getParameter("nome"));
                 session.setAttribute("cognome", request.getParameter("cognome"));
                 request.removeAttribute("errorUserRegistration");
-                session.removeAttribute("errrorLogin");
                 
-                ServletContext application=getServletContext();
-                Map<String,AsyncContext> hashMapAsyncContexts;
-                
-                //TODO: assegnamento asynccontext a ogni utente e segnalazione agli altri
-                
+                //forwaring alla pagina iniziale
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
             }
             else{
                 
-                // TODO: Rilascio risorsa condivisa  
-                //caso in cui lo username sia già esistente
+                //mostro errore se username già esistente
                 request.setAttribute("errorUserRegistration", username);
-                request.setAttribute("nome", request.getParameter("firstname"));
-                request.setAttribute("cognome", request.getParameter("lastname"));
+                request.setAttribute("nome", request.getParameter("nome"));
+                request.setAttribute("cognome", request.getParameter("cognome"));
                 RequestDispatcher rd = request.getRequestDispatcher("jsp/registration.jsp");
                 rd.forward(request, response);
             }
-            
-            
-            
-            
-            ////////////////////////////////////////////
-            /*ServletContext application = getServletContext();
-            application.setAttribute("nome",request.getParameter("nome"));
-            application.setAttribute("cognome",request.getParameter("cognome"));
-            application.setAttribute("user",request.getParameter("user"));
-            application.setAttribute("pass",request.getParameter("pass"));
-            */
+            Util.mutexSnippetFile.release();
+
         } catch (Exception ex) {
             Logger.getLogger(RegistrationServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mutexSnippetFile.release();
         } 
     }
 
-        /**
+    /**
      * Processes requests for both HTTP <code>GET</code>
      * methods.
      *
@@ -177,9 +158,7 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-        rd.forward(request, response);
+        response.sendRedirect(Util.BASE+"index.jsp");
     }
 
 }

@@ -11,7 +11,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="javax.servlet.*" %>
 <%@page import="asw1025.Util"%>
-<%@page import="asw1025.SnippetData"%>
+<%@page import="asw1025_lib.SnippetData"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,7 +47,7 @@
                         <div class="information">
                         <p>Linguaggio: <%= snippetList.get(i).getLanguage() %><br/>
                         Data di creazione: <%= snippetList.get(i).getDate_creation() %><br/>
-                        Data ultima modifica: <%= snippetList.get(i).getDate_lasmodprop() %>
+                        Data ultima modifica: <%= snippetList.get(i).getDate_lastmodprop() %>
                         </p>
                         
                         </div>
@@ -58,7 +58,7 @@
                                    <a HREF="javascript:document.submitViewForm<%=i%>.submit()">Vedi</a>
                                 </div>
                             </form>
-                            <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>jsp/modify.jsp" method="POST" onsubmit="return validateForm();">
+                            <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>EditServlet" method="POST" onsubmit="return validateForm();">
                                 <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
                                 <input type="hidden" name="user" value="<%=session.getAttribute("user")%>">
                                  <div id="buttonModify" class="buttonBackground">
@@ -74,7 +74,7 @@
                         <% 
                             if(snippetList.get(i).getMod().equals("Y")){
                         %>
-                        <b>Questo snippet contiene una modifica di <%= snippetList.get(i).getUser_Mod() %>, del <%= snippetList.get(i).getDate_lasmod() %></b>
+                        Questo snippet contiene una modifica di <b><%= snippetList.get(i).getLastusermod() %></b>, del <b><%= snippetList.get(i).getDate_lastmod() %></b>
                         <%
                             }
                         %>

@@ -1,11 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/*    
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
+*/
 package asw1025;
 
 import asw1025_lib.ManageXML;
+import asw1025_lib.SnippetData;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.File;
@@ -26,13 +28,8 @@ import javax.servlet.http.HttpSession;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-/**
- *
- * @author Luca
- */
 @WebServlet(name = "MySnippetServlet", urlPatterns = {"/MySnippetServlet"})
 public class MySnippetServlet extends HttpServlet {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,12 +41,14 @@ public class MySnippetServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //Se non c'è un utente loggato faccio redirect alla home page
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("user");
+
         try {
             String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
-            HttpSession session = request.getSession();
-            String username = (String) session.getAttribute("user");
             Document xmlSnippet = null;
-            
+
             File f = new File(fileSnippet);
             if (!f.exists()) {
                 f.createNewFile();
@@ -59,18 +58,18 @@ public class MySnippetServlet extends HttpServlet {
                 writer.close();
                 fileOut.close();
             }
-            
+
             ManageXML mngXML = new ManageXML();
-            
+
             //Lettura esclusiva
             Util.mutexSnippetFile.acquire();
-            
+
             // Caricamento xml
             DataInputStream dis = null;
             dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileSnippet)));
             xmlSnippet = mngXML.parse(dis);
             dis.close();
-            
+
             NodeList snippet = xmlSnippet.getDocumentElement().getChildNodes();
             ArrayList<SnippetData> mySnippet = new ArrayList<>();
                 // Ricerca degli snippet dell'utente indicato
@@ -93,16 +92,17 @@ public class MySnippetServlet extends HttpServlet {
                         mySnippet.add(mysnippet);
                     }
                 }
-            
+
             // Rilascio risorsa condivisa
             Util.mutexSnippetFile.release();
-            
+
             request.setAttribute("mySnippet", mySnippet);
             RequestDispatcher rd = request.getRequestDispatcher("jsp/mySnippet.jsp");
             rd.forward(request, response);
-            
+
         }  catch (Exception ex) {
             Logger.getLogger(MySnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mutexSnippetFile.release();
         }
     }
 
@@ -142,7 +142,7 @@ public class MySnippetServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Snippet per la visualizzazione degli elementi creati dall'utente loggato";
     }// </editor-fold>
 
 }

@@ -1,4 +1,10 @@
-package asw1025;
+/*    
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
+*/
+package asw1025_lib;
 
 import java.io.Serializable;
 
@@ -38,10 +44,10 @@ public class SnippetData implements Serializable{
     public void setId(String id){
         this.id=id;
     }
-    public String getUser(){
+    public String getCreator(){
         return creator;
     }
-    public void setUser(String user){
+    public void setCreator(String user){
         this.creator=user;
     }
     public String getTitle(){
@@ -86,17 +92,22 @@ public class SnippetData implements Serializable{
     public void setUser_Mod(String mod) {
         this.user_mod = mod;
     }
-    public String getDate_lasmodprop() {
+    public String getLastusermod() {
+        return lastusermod;
+    }
+    public void setLastusermod(String mod) {
+        this.lastusermod = mod;
+    }
+    public String getDate_lastmodprop() {
         return date_lastmodprop;
     }
-    public void setDate_lasmodprop(String date_lastmodprop) {
+    public void setDate_lastmodprop(String date_lastmodprop) {
         this.date_lastmodprop = date_lastmodprop;
     }
-    public String getDate_lasmod() {
+    public String getDate_lastmod() {
         return date_lastmod;
     }
-    public void setDate_lasmod(String date_lastmod) {
+    public void setDate_lastmod(String date_lastmod) {
         this.date_lastmod = date_lastmod;
     }
 }
-

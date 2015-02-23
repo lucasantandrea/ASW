@@ -42,15 +42,15 @@
                 <p>Inserisci un nuovo snippet compilando il seguente form:</p>
                 <form name="uploadForm" action="<%=Util.BASE%>AddSnippetServlet" method="POST" onsubmit="return validateForm();" class="formClass">
                     <!-- New snippet -->
-                    <p><label for="title">Titolo: </label><input type="text" name="Title" id="title" onfocus="clearForm()"></p>
-                    <p><label for="language">Linguaggio: </label><select name="languageResearch" id="code">
+                    <p><label for="title">Titolo: </label><input type="text" name="title" id="title" onfocus="clearForm()"></p>
+                    <p><label for="language">Linguaggio: </label><select name="language" id="code">
                         <option name="Java" >Java</option>
                         <option name="JavaScript"  >JavaScript</option>
                         <option name="C++" >C++</option>
                         <option name="C#"  >C#</option>
                         <option name="PHP"  >PHP</option>                                    
                     </select></p>
-                    <p><label for="code">Codice: </label><br/><textarea rows="6" cols="100" name="Code" id="code" onfocus="clearForm()"></textarea></p>
+                    <p><label for="code">Codice: </label><br/><textarea rows="6" cols="100" name="code" id="code" onfocus="clearForm()"></textarea></p>
                         <input type="hidden" name="idSnippet" value="">
                     <input type="submit" value="Salva" class="submit">
                 </form>

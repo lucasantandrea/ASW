@@ -11,7 +11,7 @@
 <%@page import="javax.servlet.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="asw1025.Util"%>
-<%@page import="asw1025.SnippetData"%>
+<%@page import="asw1025_lib.SnippetData"%>
 
 <!DOCTYPE html>
 <html>
@@ -22,9 +22,10 @@
     </head>
     
     <body>
+        <%= Util.BASE %>
         <div id="container">
             <%@ include file="WEB-INF/jspf/header.jspf" %>
-            <div id="content">
+            <div id="content" class="home">
                 <p>Benvenuto, su questo sito è possibile condividere le proprie idee in codice con gli atri utenti.</p>
                 <p>Aggiungi i tuoi snippet o visualizza quelli degli altri utenti. Puoi anche aiutare la comunità proponendo le tue modifiche!</p>
                 <% String user=null; 
@@ -38,9 +39,7 @@
                 <%@ include file="WEB-INF/jspf/login.jspf" %>
             </div>
 
-            <div id="sidebar">
-                <%@ include file="WEB-INF/jspf/sidebar.jspf"%> 
-            </div>
+
             <div id="footer">
                 <%@ include file="WEB-INF/jspf/footer.jspf" %>
             </div>           

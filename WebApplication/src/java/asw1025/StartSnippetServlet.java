@@ -1,4 +1,9 @@
-
+/*    
+    Esame ASW 2014-2015
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
+    Matricola: 0900050785
+    Gruppo: 1025
+*/
 package asw1025;
 
 import java.io.BufferedInputStream;
@@ -17,35 +22,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.WebServlet;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import asw1025_lib.ManageXML;
+import asw1025_lib.SnippetData;
 import org.w3c.dom.Document;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
+@WebServlet(name = "StartSnippetServlet", urlPatterns = {"/StartSnippetServlet"})
 public class StartSnippetServlet extends HttpServlet {
     /**
-     * Handles the HTTP
-     * <code>POST</code> method.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    /*
-        Funzione che permette di restituire gli snippet dell'utente loggato che effettua la richiesta.
-    */
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         try {
             String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
-            HttpSession session = request.getSession();
             Document xmlSnippet = null;
             
             File f = new File(fileSnippet);
@@ -93,18 +94,52 @@ public class StartSnippetServlet extends HttpServlet {
             // Rilascio risorsa condivisa
             Util.mutexSnippetFile.release();
             
-           request.setAttribute("mySnippet", mySnippet);
+            request.setAttribute("mySnippet", mySnippet);
             RequestDispatcher rd = request.getRequestDispatcher("jsp/totalSnippet.jsp");
             rd.forward(request, response);
             
-        }  catch (TransformerConfigurationException ex) {
+        }  catch (Exception ex) {
             Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(StartSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+            Util.mutexSnippetFile.release();
+        }
     }
+    
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Snippet per ottenere tutti gli snippet attuali";
+    }// </editor-fold>
 }

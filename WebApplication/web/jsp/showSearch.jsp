@@ -11,7 +11,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="javax.servlet.*" %>
 <%@page import="asw1025.Util"%>
-<%@page import="asw1025.SnippetData"%>
+<%@page import="asw1025_lib.SnippetData"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -33,11 +33,12 @@
                 <% for(int i=0; i<snippetList.size(); i++){ %>
                 <div class="singleItem class<%=i%2 %>">
                     <h2><%= snippetList.get(i).getTitle()%></h2>
-                    <p>scritto da <%= snippetList.get(i).getUser() %></p>
+                    <p>scritto da <%= snippetList.get(i).getCreator()%></p>
                     <div class="information">
                         <p>Linguaggio: <%= snippetList.get(i).getLanguage() %><br/>
                         Data di creazione: <%= snippetList.get(i).getDate_creation() %><br/>
-                        Data ultima modifica: <%= snippetList.get(i).getDate_lasmodprop() %>
+                        Data ultima modifica (proprietario): <%= snippetList.get(i).getDate_lastmodprop() %><br/>
+                        Data ultima modifica (generale): <%= snippetList.get(i).getDate_lastmod() %>
                         </p>
                     </div>
                     <div class="actions">
@@ -47,7 +48,7 @@
                                 <a HREF="javascript:document.submitViewForm<%=i%>.submit()">Vedi</a>
                              </div>
                         </form>
-                        <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>jsp/modify.jsp" method="POST" onsubmit="return validateForm();">
+                        <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>EditServlet" method="POST" onsubmit="return validateForm();">
                             <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
                             <input type="hidden" name="user" value="<%=session.getAttribute("user")%>">
                              <div id="buttonModify" class="buttonBackground">

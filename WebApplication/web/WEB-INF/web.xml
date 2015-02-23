@@ -13,12 +13,8 @@
         <servlet-class>asw1025.StartSnippetServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AlletViewServlet</servlet-name>
-        <servlet-class>asw1025.AppletViewServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>searchSnippetServlet</servlet-name>
-        <servlet-class>asw1025.searchSnippetServlet</servlet-class>
+        <servlet-name>SearchSnippetServlet</servlet-name>
+        <servlet-class>asw1025.SearchSnippetServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewServlet</servlet-name>
@@ -37,8 +33,8 @@
         <url-pattern>/StartSnippetServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>searchSnippetServlet</servlet-name>
-        <url-pattern>/searchSnippetServlet</url-pattern>
+        <servlet-name>SearchSnippetServlet</servlet-name>
+        <url-pattern>/SearchSnippetServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewServlet</servlet-name>

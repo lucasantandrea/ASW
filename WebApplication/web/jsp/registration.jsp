@@ -34,14 +34,13 @@
             <div id="content">
                 <p>Compila il form seguente per completare la registrazione.</p>
                 <form name="registrationForm" method="POST" class="formClass" action="<%= Util.BASE %>RegistrationServlet" onsubmit="return validateForm();">
-
                     <p><label for="nome">Nome: </label><input type="text" name="nome" id="nome" value=<%if(request.getAttribute("nome")!=null){%> <%= request.getAttribute("nome")%><%} else {%>""<%}%> onfocus="clearForm()"></p>
                     <p><label for="cognome">Cognome: </label><input type="text" name="cognome" id="cognome" value=<%if(request.getAttribute("cognome")!=null){%> <%= request.getAttribute("cognome")%><%} else {%>""<%}%> onfocus="clearForm()"></p>
                     <p><label for="user">Username: </label><input type="text" name="user" id="user" onfocus="clearForm()">
                     <%
                     // Controllo se l'username immesso è univoco
                     if(request.getAttribute("errorUserRegistration")!=null){ %>
-                        <span id="errorRegistration">Username "<%= request.getAttribute("errorUserRegistration") %>" gia' utilizzato!</span>
+                        <span class="errorMessage">Username "<%= request.getAttribute("errorUserRegistration") %>" gia' utilizzato!</span>
                     <% } %></p>
                     <p><label for="pass">Password: </label><input type="password" name="pass" id="pass" onfocus="clearForm()"></p>
                     <p><input type="submit" value="Conferma" class="submit"></p>

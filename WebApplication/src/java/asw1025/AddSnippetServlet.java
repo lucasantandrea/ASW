@@ -1,7 +1,8 @@
 /*    
     Esame ASW 2014-2015
-    Autori: Luca Santandrea
+    Autori: Luca Santandrea, Matteo Mariani, Antonio Leo Folliero, Francesco Degli Angeli
     Matricola: 0900050785
+    Gruppo: 1025
 */
 package asw1025;
 
@@ -35,7 +36,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-@WebServlet(urlPatterns = {"/AddSnippetServlet"})
+@WebServlet(name = "AddSnippetServlet", urlPatterns = {"/AddSnippetServlet"})
 public class AddSnippetServlet extends HttpServlet {
     
     /**
@@ -111,9 +112,9 @@ public class AddSnippetServlet extends HttpServlet {
                      
             idElement.setTextContent(""+idSnippet);
             creatorElement.setTextContent(""+username);
-            titleElement.setTextContent(request.getParameter("Title"));
-            languageElement.setTextContent(request.getParameter("languageResearch"));
-            codeElement.setTextContent(request.getParameter("Code"));
+            titleElement.setTextContent(request.getParameter("title"));
+            languageElement.setTextContent(request.getParameter("language"));
+            codeElement.setTextContent(request.getParameter("code").replace("&#13;","\r\n"));
             date_creationElement.setTextContent(Util.convertDateToString(new Date()));
             modElement.setTextContent("");
             code_modElement.setTextContent("");
@@ -126,8 +127,8 @@ public class AddSnippetServlet extends HttpServlet {
             snip.appendChild(idElement);
             snip.appendChild(creatorElement);
             snip.appendChild(titleElement);
-            snip.appendChild(languageElement);
             snip.appendChild(codeElement);
+            snip.appendChild(languageElement);
             snip.appendChild(date_creationElement);
             snip.appendChild(modElement);
             snip.appendChild(code_modElement);
@@ -136,29 +137,36 @@ public class AddSnippetServlet extends HttpServlet {
             snip.appendChild(date_lastmodpropElement);
             snip.appendChild(date_lastmodElement);
             
-           
             xmlSnippet.getDocumentElement().appendChild(snip);
-            
             
             dos=new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fileSnippet)));
             mngXML.transform(dos, xmlSnippet);
                   
-              
             // Rilascio risora condivisa
             Util.mutexSnippetFile.release();
                      
-            
             RequestDispatcher rd = request.getRequestDispatcher("MySnippetServlet");
             rd.forward(request, response);
                
             
         } catch (Exception ex) {
             Logger.getLogger(AddSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mutexSnippetFile.release();
         }
     }
    
+    /**
+     * Processes requests for both HTTP <code>GET</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException{
-        
+            throws ServletException, IOException {
+        response.sendRedirect(Util.BASE+"index.jsp");
     }
 }

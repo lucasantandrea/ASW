@@ -33,8 +33,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-@WebServlet(name = "ViewServlet", urlPatterns = {"/ViewServlet"})
-public class ViewServlet extends HttpServlet {
+@WebServlet(name = "EditServlet", urlPatterns = {"/EditServlet"})
+public class EditServlet extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -95,7 +95,7 @@ public class ViewServlet extends HttpServlet {
             Util.mutexSnippetFile.release();
       
             request.setAttribute("IdSnippet", IdSnippet);
-            RequestDispatcher rd = request.getRequestDispatcher("jsp/viewSnippet.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("jsp/modify.jsp");
             rd.forward(request, response);
         } catch (Exception ex) {
             Logger.getLogger(ViewServlet.class.getName()).log(Level.SEVERE, null, ex);
