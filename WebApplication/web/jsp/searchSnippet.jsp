@@ -113,7 +113,7 @@
                 function alertContents() {
                     if (xmlhttp.readyState === 4) {
                         if (xmlhttp.status === 200) {
-                            var x = xmlhttp.responseXML.getElementsByTagName("dbsnippet")[0];
+                            var x = xmlhttp.responseXML.getElementsByTagName("dbSnippet")[0];
                             document.getElementById("result").innerHTML = "";
                             if (x.childNodes.length > 0) {
                                 var numSnippet = document.createElement("P");

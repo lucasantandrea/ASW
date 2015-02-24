@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import asw1025.ManageXML;
 import asw1025.SnippetData;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
@@ -46,51 +48,58 @@ public class SearchSnippetServlet extends HttpServlet {
      Funzione che permette di restituire gli snippet dell'utente loggato che effettua la richiesta.
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse resnpose)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        InputStream is = request.getInputStream();
+        HttpSession session = request.getSession();
+        response.setContentType("text/xml;charset=UTF-8");
+        OutputStream os = response.getOutputStream();      
+            
         try {
-            String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
-
             ManageXML mngXML = new ManageXML();
-            HttpSession session = request.getSession();
-            OutputStream os = resnpose.getOutputStream();
-            InputStream is = request.getInputStream();
-            Document xmlSnippet = null;
             Document data = mngXML.parse(is);
             is.close();
-            String title = data.getDocumentElement().getChildNodes().item(0).getTextContent().toLowerCase();
-            String username = data.getDocumentElement().getChildNodes().item(1).getTextContent().toLowerCase();
-            String language = data.getDocumentElement().getChildNodes().item(2).getTextContent().toLowerCase();
-            String order = data.getDocumentElement().getChildNodes().item(3).getTextContent().toLowerCase();
+            
+            Document answer= operations(data,session,mngXML);
+            mngXML.transform(os, answer);
+            os.close();
+        }
+        catch (Exception e){ 
+            System.out.println(e);
+        }
 
-            File f = new File(fileSnippet);
-            if (!f.exists()) {
-                f.createNewFile();
-                FileOutputStream fileOut = new FileOutputStream(f, false);
-                PrintWriter writer = new PrintWriter(f);
-                writer.write("<dbsnippet></dbsnippet>");
-                writer.close();
-                fileOut.close();
-            }
+    }
 
-            //Lettura esclusiva
-            Util.mutexSnippetFile.acquire();
 
-            // Caricamento xml
+    private Document operations(Document data, HttpSession session, ManageXML mngXML) {
+        Document answer = mngXML.newDocument();
+        Element rootResponse= answer.createElement("dbSnippet");
+        
+        String title = data.getDocumentElement().getChildNodes().item(0).getTextContent().toLowerCase();
+        String username = data.getDocumentElement().getChildNodes().item(1).getTextContent().toLowerCase();
+        String language = data.getDocumentElement().getChildNodes().item(2).getTextContent().toLowerCase();
+        String order = data.getDocumentElement().getChildNodes().item(3).getTextContent().toLowerCase();
+        
+        try{
+            // Lettura esclusiva
+            Util.mutexSnippetFile.acquire();    
+            //lettura da file xml
+            String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
+            Document xmlSnippet = null;
+            
             DataInputStream dis = null;
             dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileSnippet)));
-
             xmlSnippet = mngXML.parse(dis);
             dis.close();
-
+            
             NodeList snippet = xmlSnippet.getDocumentElement().getChildNodes();
             ArrayList<SnippetData> mySnippet = new ArrayList<>();
             // Ricerca degli snippet dell'utente indicato
             boolean searchByTitle = false;
             boolean searchByUsername = false;
             boolean searchByLanguage = false;
-
+            
             if (!(title == null || title.equals(""))) {
                 searchByTitle = true;
             }
@@ -149,6 +158,7 @@ public class SearchSnippetServlet extends HttpServlet {
                     mySnippet.add(mysnippet);
                 }
             }
+            
             // ORDINAMENTO SU ENTRAMBI I CRITERI ----------------------------------------------------------------------------------------------
             if (!order.equals("---")) {
                 if (order.equals("Creation Data")) {
@@ -215,11 +225,7 @@ public class SearchSnippetServlet extends HttpServlet {
                     });
                 }
             }
-
-            // Creazione e invio XML di risposta con la lista di Snippet ricercate
-            Document answer = mngXML.newDocument();
-            Element risp = answer.createElement("dbsnippet");
-
+            
             for (SnippetData snippetData : mySnippet) {
 
                 Element id = answer.createElement("idSnippet");
@@ -263,18 +269,19 @@ public class SearchSnippetServlet extends HttpServlet {
                 snippetos.appendChild(dateLastModPropElement);
                 snippetos.appendChild(dateLastModElement);
 
-                risp.appendChild(snippetos);
+                rootResponse.appendChild(snippetos);
             }
-
-            // Rilascio risorsa condivisa
+            
+            answer.appendChild(rootResponse);
             Util.mutexSnippetFile.release();
-
-            answer.appendChild(risp);
-            mngXML.transform(os, answer);
-
-        } catch (Exception ex) {
-            Logger.getLogger(SearchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        catch (Exception ex) {
+            rootResponse.setTextContent("error");
+            answer.appendChild(rootResponse);
+            Logger.getLogger(ModifyServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Util.mutexSnippetFile.release();
+        }
+        
+        return answer;
     }
 }
