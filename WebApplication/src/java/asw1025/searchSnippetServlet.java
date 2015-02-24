@@ -20,48 +20,49 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import asw1025.ManageXML;
+import asw1025.SnippetData;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import javax.servlet.AsyncContext;
 import javax.servlet.annotation.WebServlet;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
-@WebServlet(name = "SearchSnippetServlet", urlPatterns = {"/SearchSnippetServlet"})
+@WebServlet(name = "SearchSnippetServlet", urlPatterns = {"/SearchSnippetServlet"}, asyncSupported = true)
 public class SearchSnippetServlet extends HttpServlet {
 
-    /**
-     * Handles the HTTP <code>POST</code> method. Funzione che permette di
-     * restituire gli snippet dell'utente loggato che effettua la richiesta.
-     *
-     * @param request servlet request: title,author,language usati come
-     * parametri di ricerca e order per poter ordinare il risultato
-     * @param response servlet response: dbsnippet usato per memorizzare i dati
-     * d'intereasse per la visualizzazione del risultato
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+   
+    /*
+     Funzione che permette di restituire gli snippet dell'utente loggato che effettua la richiesta.
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse resnpose)
             throws ServletException, IOException {
 
         try {
             String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
-            HttpSession session = request.getSession();
-            //response.setContentType("text/xml;charset=UTF-8");
-            OutputStream os = response.getOutputStream();
-            //InputStream is = request.getInputStream();
-            Document xmlSnippet = null;
 
             ManageXML mngXML = new ManageXML();
-
-            String title = request.getParameter("title").toLowerCase();
-            String username = request.getParameter("author").toLowerCase();
-            String language = request.getParameter("language").toLowerCase();
-            // Ordinamento
-            String order = request.getParameter("order");
+            HttpSession session = request.getSession();
+            OutputStream os = resnpose.getOutputStream();
+            InputStream is = request.getInputStream();
+            Document xmlSnippet = null;
+            Document data = mngXML.parse(is);
+            is.close();
+            String title = data.getDocumentElement().getChildNodes().item(0).getTextContent().toLowerCase();
+            String username = data.getDocumentElement().getChildNodes().item(1).getTextContent().toLowerCase();
+            String language = data.getDocumentElement().getChildNodes().item(2).getTextContent().toLowerCase();
+            String order = data.getDocumentElement().getChildNodes().item(3).getTextContent().toLowerCase();
 
             File f = new File(fileSnippet);
             if (!f.exists()) {
@@ -79,6 +80,7 @@ public class SearchSnippetServlet extends HttpServlet {
             // Caricamento xml
             DataInputStream dis = null;
             dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileSnippet)));
+
             xmlSnippet = mngXML.parse(dis);
             dis.close();
 
@@ -124,7 +126,7 @@ public class SearchSnippetServlet extends HttpServlet {
 
                 //controllo se confrontare il linguaggio
                 if (searchByLanguage == true) {
-                    if (!thisLen.contains(language)) {
+                    if (!thisLen.equals(language)) {
                         FilterLanguage = false;
                     }
                 }
@@ -242,7 +244,7 @@ public class SearchSnippetServlet extends HttpServlet {
                 modElement.setTextContent(snippetData.getMod());
                 codeModElement.setTextContent(snippetData.getCodeMod());
                 userModElement.setTextContent(snippetData.getUserMod());
-                lastUserModElement.setTextContent(snippetData.getLastUserMod());
+                lastUserModElement.setTextContent(snippetData.getMod());
                 dateLastModPropElement.setTextContent(snippetData.getDateLastModProp());
                 dateLastModElement.setTextContent(snippetData.getDateLastMod());
 
@@ -273,5 +275,6 @@ public class SearchSnippetServlet extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(SearchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 }
