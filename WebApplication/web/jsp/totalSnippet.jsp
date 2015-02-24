@@ -36,9 +36,11 @@
                                 <h2><%= snippetList.get(i).getTitle()%></h2>
                                 scritto da <%= snippetList.get(i).getCreator() %>
                                 <p>Linguaggio: <%= snippetList.get(i).getLanguage() %></p>
-                                <p class="noBottomMargin">Codice: </p><textarea name="code" id="textArea" disabled><%= snippetList.get(i).getCode()%></textarea><br/><br/>
+                                <p class="noBottomMargin">Codice: </p>
+                                <textarea name="code" id="textArea" disabled><%= snippetList.get(i).getCode()%></textarea><br/><br/>
                             <% if(snippetList.get(i).getMod().equals("Y")){ %>
-                            <h4>Proposta di modifica:</h4> <textarea name="codeMod" id="textArea" disabled><%= snippetList.get(i).getCodeMod()%></textarea><br/>
+                            <h4>Proposta di modifica:</h4> 
+                            <textarea name="codeMod" id="textArea" disabled><%= snippetList.get(i).getCodeMod()%></textarea><br/>
                              modifica di: <%= snippetList.get(i).getLastUserMod()%><br/><br/>
                             <%
                              }

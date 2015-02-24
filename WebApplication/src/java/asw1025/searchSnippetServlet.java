@@ -106,7 +106,7 @@ public class SearchSnippetServlet extends HttpServlet {
             if (!(username == null || username.equals(""))) {
                 searchByUsername = true;
             }
-            if (!(language == null || language.equals("---"))) {
+            if (!(language == null || language.equals("0"))) {
                 searchByLanguage = true;
             }
 
@@ -160,8 +160,8 @@ public class SearchSnippetServlet extends HttpServlet {
             }
             
             // ORDINAMENTO SU ENTRAMBI I CRITERI ----------------------------------------------------------------------------------------------
-            if (!order.equals("---")) {
-                if (order.equals("Creation Data")) {
+            if (!order.equals("0")) {
+                if (order.equals("1")) {
                     // ORDINAMENTO PER DATA
                     Collections.sort(mySnippet, new Comparator<SnippetData>() {
 
@@ -182,7 +182,7 @@ public class SearchSnippetServlet extends HttpServlet {
                         }
                     });
                 }
-                if (order.equals("Owner Update Data")) {
+                else if (order.equals("2")) {
                     // ORDINAMENTO PER DATA
                     Collections.sort(mySnippet, new Comparator<SnippetData>() {
 
@@ -203,7 +203,7 @@ public class SearchSnippetServlet extends HttpServlet {
                         }
                     });
                 }
-                if (order.equals("Users Update Data")) {
+                else if (order.equals("3")) {
                     // ORDINAMENTO PER DATA
                     Collections.sort(mySnippet, new Comparator<SnippetData>() {
 
