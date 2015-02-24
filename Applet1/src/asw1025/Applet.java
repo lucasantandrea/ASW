@@ -18,8 +18,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JApplet;
 import javax.swing.JButton;
@@ -29,8 +27,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -42,8 +38,8 @@ public class Applet extends JApplet {
     JTextArea editorModification,ownerCode;
     JButton salva,copy,continua;
     JLabel titleLabel,langLabel,message,done;
-    static int TextToSend=0;
-    static SnippetData mysnippet;
+    static int textToSend=0;
+    static SnippetData mySnippet;
     
     //final String BASE = "http://isi-tomcat.csr.unibo.it:8080/~luca.santandrea6/";    
     final String BASE = "http://localhost:8080/WebApplication/";    
@@ -144,9 +140,9 @@ public class Applet extends JApplet {
 
     /**
      * funzione utilizzata per il load dello snippet (chiama il servizio web)
-     * @param SecondCall booleano da impostare a true se si tratta di una seconda chiamata (non deve aggiungere nuovamente elementi grafici)
+     * @param secondCall booleano da impostare a true se si tratta di una seconda chiamata (non deve aggiungere nuovamente elementi grafici)
      */
-    private void loadSnippet(final boolean SecondCall){
+    private void loadSnippet(final boolean secondCall){
         try {                                                               
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
@@ -170,7 +166,7 @@ public class Applet extends JApplet {
                     }
                     else if(answer.getDocumentElement().getChildNodes().item(0).getTextContent().equals("Y")){
                         /*parsing della risposta ricevuta*/
-                        mysnippet =new SnippetData(answer.getDocumentElement().getChildNodes().item(1).getTextContent(), 
+                        mySnippet =new SnippetData(answer.getDocumentElement().getChildNodes().item(1).getTextContent(), 
                         answer.getDocumentElement().getChildNodes().item(2).getTextContent(), 
                         answer.getDocumentElement().getChildNodes().item(3).getTextContent(), 
                         answer.getDocumentElement().getChildNodes().item(4).getTextContent(), 
@@ -186,21 +182,21 @@ public class Applet extends JApplet {
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
-                                titleLabel.setText(mysnippet.getTitle());
-                                ownerTextarea.setText(mysnippet.getCode());
-                                langLabel.setText(mysnippet.getLanguage());
+                                titleLabel.setText(mySnippet.getTitle());
+                                ownerTextarea.setText(mySnippet.getCode());
+                                langLabel.setText(mySnippet.getLanguage());
                             }
                         });
 
                         //modifico la visualizzazione in base all'utente
-                        if(mysnippet.getCreator().equals(username)){
+                        if(mySnippet.getCreator().equals(username)){
                             //se sono autore e il testo è modificato, mostro l'ultima modifica
                             SwingUtilities.invokeLater(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if(mysnippet.getMod().equals("Y")){  
-                                        editorModification.setText(mysnippet.getCode_mod());
-                                        String editorTitle="Proposta di modifica ("+mysnippet.getLastusermod()+")";                                                
+                                    if(mySnippet.getMod().equals("Y")){  
+                                        editorModification.setText(mySnippet.getCodeMod());
+                                        String editorTitle="Proposta di modifica ("+mySnippet.getLastUserMod()+")";                                                
                                         TitledBorder editorBorder = BorderFactory.createTitledBorder(editorTitle);
                                         editorModification.setBorder(editorBorder);
                                         editorModification.setVisible(true);
@@ -213,7 +209,7 @@ public class Applet extends JApplet {
                                     centerPanel.add(BorderLayout.NORTH,ownerPanel);
                                 }
                             });
-                            TextToSend=1;
+                            textToSend=1;
                         }
                         else{
                             //caso in cui non sono l'autore
@@ -221,7 +217,7 @@ public class Applet extends JApplet {
                                 @Override
                                 public void run() {
                                     ownerTextarea.setVisible(false);
-                                    ownerCode.setText(mysnippet.getCode());
+                                    ownerCode.setText(mySnippet.getCode());
 
                                     centerPanel.add(BorderLayout.NORTH,new JScrollPane(ownerCode));
                                     centerPanel.add(BorderLayout.CENTER,new JScrollPane(editorTextarea));
@@ -231,17 +227,17 @@ public class Applet extends JApplet {
                                     String editorTitle="Proposta di modifica";
                                     TitledBorder editorBorder = BorderFactory.createTitledBorder(editorTitle);
                                     editorTextarea.setBorder(editorBorder);
-                                    if(mysnippet.getLastusermod().equals(username)){
-                                        editorTextarea.setText(mysnippet.getCode_mod());   
+                                    if(mySnippet.getLastUserMod().equals(username)){
+                                        editorTextarea.setText(mySnippet.getCodeMod());   
                                     }
                                 }
                             });
-                            TextToSend=2;
+                            textToSend=2;
                         }
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
-                                if(SecondCall){
+                                if(secondCall){
                                     workingPanel.setVisible(true);
                                     messagePanel.setVisible(false);   
                                 }
@@ -318,68 +314,68 @@ public class Applet extends JApplet {
                 questionRoot.appendChild(idSnippetElement);
 
                 Element creatorElement = question.createElement("creator");
-                creatorElement.setTextContent(mysnippet.getCreator());
+                creatorElement.setTextContent(mySnippet.getCreator());
                 questionRoot.appendChild(creatorElement);
 
                 Element titleElement = question.createElement("title");
-                titleElement.setTextContent(mysnippet.getTitle());
+                titleElement.setTextContent(mySnippet.getTitle());
                 questionRoot.appendChild(titleElement);
 
                 Element codeElement = question.createElement("code");
-                codeElement.setTextContent(mysnippet.getCode());
+                codeElement.setTextContent(mySnippet.getCode());
                 questionRoot.appendChild(codeElement);
 
                 Element languageElement = question.createElement("language");
-                languageElement.setTextContent(mysnippet.getLanguage());
+                languageElement.setTextContent(mySnippet.getLanguage());
                 questionRoot.appendChild(languageElement);
 
-                Element date_creationElement = question.createElement("date_creation");
-                date_creationElement.setTextContent(mysnippet.getDate_creation());
-                questionRoot.appendChild(date_creationElement);
+                Element dateCreationElement = question.createElement("dateCreation");
+                dateCreationElement.setTextContent(mySnippet.getDateCreation());
+                questionRoot.appendChild(dateCreationElement);
 
                 Element modElement = question.createElement("mod");
-                modElement.setTextContent(mysnippet.getMod());
+                modElement.setTextContent(mySnippet.getMod());
                 questionRoot.appendChild(modElement);
 
-                Element code_modElement = question.createElement("code_mod");
-                code_modElement.setTextContent(mysnippet.getCode_mod());
-                questionRoot.appendChild(code_modElement);
+                Element codeModElement = question.createElement("codeMod");
+                codeModElement.setTextContent(mySnippet.getCodeMod());
+                questionRoot.appendChild(codeModElement);
 
-                Element user_modElement = question.createElement("user_mod");
-                user_modElement.setTextContent(mysnippet.getUser_Mod());
-                questionRoot.appendChild(user_modElement);
+                Element userModElement = question.createElement("userMod");
+                userModElement.setTextContent(mySnippet.getUserMod());
+                questionRoot.appendChild(userModElement);
 
                 Element lastusermodElement = question.createElement("lastusermod");
-                lastusermodElement.setTextContent(mysnippet.getLastusermod());
+                lastusermodElement.setTextContent(mySnippet.getLastUserMod());
                 questionRoot.appendChild(lastusermodElement);                        
 
-                Element date_lastmodpropElement = question.createElement("date_lastmodprop");
-                date_lastmodpropElement.setTextContent(mysnippet.getDate_lastmod());
-                questionRoot.appendChild(date_lastmodpropElement);                        
+                Element dateLastModProp = question.createElement("dateLastModProp");
+                dateLastModProp.setTextContent(mySnippet.getDateLastMod());
+                questionRoot.appendChild(dateLastModProp);                        
 
-                Element date_lastmodElement = question.createElement("date_lastmod");
-                date_lastmodElement.setTextContent(mysnippet.getDate_lastmod());
-                questionRoot.appendChild(date_lastmodElement);                                                
+                Element dateLastModElement = question.createElement("dateLastMod");
+                dateLastModElement.setTextContent(mySnippet.getDateLastMod());
+                questionRoot.appendChild(dateLastModElement);                                                
 
                 questionRoot.appendChild(idSnippetElement);
                 questionRoot.appendChild(creatorElement);
                 questionRoot.appendChild(titleElement);
                 questionRoot.appendChild(codeElement);
                 questionRoot.appendChild(languageElement);
-                questionRoot.appendChild(date_creationElement);
+                questionRoot.appendChild(dateCreationElement);
                 questionRoot.appendChild(modElement);
-                questionRoot.appendChild(code_modElement);
-                questionRoot.appendChild(user_modElement);
+                questionRoot.appendChild(codeModElement);
+                questionRoot.appendChild(userModElement);
                 questionRoot.appendChild(lastusermodElement);
-                questionRoot.appendChild(date_lastmodpropElement);
-                questionRoot.appendChild(date_lastmodElement);
+                questionRoot.appendChild(dateLastModProp);
+                questionRoot.appendChild(dateLastModElement);
 
                 Element content = question.createElement("content");
                 Element usernameElement = question.createElement("username");
                         
-                if(TextToSend==1){
+                if(textToSend==1){
                     content.setTextContent(ownerTextarea.getText());
-                }else if (TextToSend==2){
+                }else if (textToSend==2){
                     content.setTextContent(editorTextarea.getText());
                 }
                 usernameElement.setTextContent(username);

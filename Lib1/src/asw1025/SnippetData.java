@@ -14,28 +14,28 @@ public class SnippetData implements Serializable{
     private String title;
     private String code;
     private String language;
-    private String date_creation;
+    private String dateCreation;
     private String mod;
-    private String code_mod;
-    private String user_mod;
-    private String lastusermod;
-    private String date_lastmodprop;
-    private String date_lastmod;    
+    private String codeMod;
+    private String userMod;
+    private String lastUserMod;
+    private String dateLastModProp;
+    private String dateLastMod;    
     
    
-    public SnippetData(String id,String creator,String title, String code, String language, String date_creation, String mod, String code_mod, String user_mod, String lastusermod, String date_lastmodprop, String date_lastmod) {
+    public SnippetData(String id,String creator,String title, String code, String language, String dateCreation, String mod, String codeMod, String userMod, String lastUserMod, String dateLastModProp, String dateLastMod) {
         this.id=id;
         this.creator=creator;
         this.title=title;
         this.code=code;
         this.language=language;
-        this.date_creation=date_creation;
+        this.dateCreation=dateCreation;
         this.mod = mod;
-        this.code_mod = code_mod;
-        this.user_mod = user_mod;
-        this.lastusermod = lastusermod;
-        this.date_lastmodprop = date_lastmodprop;
-        this.date_lastmod = date_lastmod;
+        this.codeMod = codeMod;
+        this.userMod = userMod;
+        this.lastUserMod = lastUserMod;
+        this.dateLastModProp = dateLastModProp;
+        this.dateLastMod = dateLastMod;
     }
     
     public String getId(){
@@ -68,11 +68,11 @@ public class SnippetData implements Serializable{
     public void setLanguage(String language){
         this.language=language;
     }
-    public String getDate_creation(){
-        return date_creation;
+    public String getDateCreation(){
+        return dateCreation;
     }
-    public void setDate_creation(String date){
-        this.date_creation=date;
+    public void setDateCreation(String date){
+        this.dateCreation=date;
     }
     public String getMod() {
         return mod;
@@ -80,34 +80,34 @@ public class SnippetData implements Serializable{
     public void setMod(String mod) {
         this.mod = mod;
     }
-    public String getCode_mod() {
-        return code_mod;
+    public String getCodeMod() {
+        return codeMod;
     }
-    public void setCode_mod(String code_mod) {
-        this.code_mod = code_mod;
+    public void setCodeMod(String codeMod) {
+        this.codeMod = codeMod;
     }
-    public String getUser_Mod() {
-        return user_mod;
+    public String getUserMod() {
+        return userMod;
     }
-    public void setUser_Mod(String mod) {
-        this.user_mod = mod;
+    public void setUserMod(String mod) {
+        this.userMod = mod;
     }
-    public String getLastusermod() {
-        return lastusermod;
+    public String getLastUserMod() {
+        return lastUserMod;
     }
-    public void setLastusermod(String mod) {
-        this.lastusermod = mod;
+    public void setLastUserMod(String mod) {
+        this.lastUserMod = mod;
     }
-    public String getDate_lastmodprop() {
-        return date_lastmodprop;
+    public String getDateLastModProp() {
+        return dateLastModProp;
     }
-    public void setDate_lastmodprop(String date_lastmodprop) {
-        this.date_lastmodprop = date_lastmodprop;
+    public void setDateLastModProp(String dateLastModProp) {
+        this.dateLastModProp = dateLastModProp;
     }
-    public String getDate_lastmod() {
-        return date_lastmod;
+    public String getDateLastMod() {
+        return dateLastMod;
     }
-    public void setDate_lastmod(String date_lastmod) {
-        this.date_lastmod = date_lastmod;
+    public void setDateLastMod(String dateLastMod) {
+        this.dateLastMod = dateLastMod;
     }
 }

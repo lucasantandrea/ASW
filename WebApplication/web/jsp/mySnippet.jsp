@@ -19,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>I Miei Snippet | Social Code</title>
+        <title>I Miei Snippet | Snippet share</title>
     </head>
     <body>
         
@@ -46,8 +46,8 @@
                         <h2><%= snippetList.get(i).getTitle()%></h2>
                         <div class="information">
                         <p>Linguaggio: <%= snippetList.get(i).getLanguage() %><br/>
-                        Data di creazione: <%= snippetList.get(i).getDate_creation() %><br/>
-                        Data ultima modifica: <%= snippetList.get(i).getDate_lastmodprop() %>
+                        Data di creazione: <%= snippetList.get(i).getDateCreation() %><br/>
+                        Data ultima modifica: <%= snippetList.get(i).getDateLastModProp() %>
                         </p>
                         
                         </div>
@@ -74,7 +74,7 @@
                         <% 
                             if(snippetList.get(i).getMod().equals("Y")){
                         %>
-                        Questo snippet contiene una modifica di <b><%= snippetList.get(i).getLastusermod() %></b>, del <b><%= snippetList.get(i).getDate_lastmod() %></b>
+                        Questo snippet contiene una modifica di <b><%= snippetList.get(i).getLastUserMod() %></b>, del <b><%= snippetList.get(i).getDateLastMod() %></b>
                         <%
                             }
                         %>

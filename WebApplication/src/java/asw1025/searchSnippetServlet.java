@@ -160,8 +160,8 @@ public class SearchSnippetServlet extends HttpServlet {
                             Date d2 = null;
                             try {
 
-                                d1 = Util.convertStringtoDate(o1.getDate_creation());
-                                d2 = Util.convertStringtoDate(o2.getDate_creation());
+                                d1 = Util.convertStringtoDate(o1.getDateCreation());
+                                d2 = Util.convertStringtoDate(o2.getDateCreation());
 
                             } catch (ParseException ex) {
                                 Logger.getLogger(SearchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,8 +181,8 @@ public class SearchSnippetServlet extends HttpServlet {
                             Date d2 = null;
                             try {
 
-                                d1 = Util.convertStringtoDate(o1.getDate_lastmodprop());
-                                d2 = Util.convertStringtoDate(o2.getDate_lastmodprop());
+                                d1 = Util.convertStringtoDate(o1.getDateLastModProp());
+                                d2 = Util.convertStringtoDate(o2.getDateLastModProp());
 
                             } catch (ParseException ex) {
                                 Logger.getLogger(SearchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,8 +202,8 @@ public class SearchSnippetServlet extends HttpServlet {
                             Date d2 = null;
                             try {
 
-                                d1 = Util.convertStringtoDate(o1.getDate_lastmod());
-                                d2 = Util.convertStringtoDate(o2.getDate_lastmod());
+                                d1 = Util.convertStringtoDate(o1.getDateLastMod());
+                                d2 = Util.convertStringtoDate(o2.getDateLastMod());
 
                             } catch (ParseException ex) {
                                 Logger.getLogger(SearchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -225,26 +225,26 @@ public class SearchSnippetServlet extends HttpServlet {
                 Element titleElement = answer.createElement("title");
                 Element codeElement = answer.createElement("code");
                 Element languageElement = answer.createElement("language");
-                Element date_creationElement = answer.createElement("date_creation");
+                Element dateCreationElement = answer.createElement("dateCreation");
                 Element modElement = answer.createElement("mod");
-                Element code_modElement = answer.createElement("code_mod");
-                Element user_modElement = answer.createElement("user_mod");
-                Element lastusermodElement = answer.createElement("lastusermod");
-                Element date_lastmodpropElement = answer.createElement("date_lastmodprop");
-                Element date_lastmodElement = answer.createElement("date_lastmod");
+                Element codeModElement = answer.createElement("codeMod");
+                Element userModElement = answer.createElement("userMod");
+                Element lastUserModElement = answer.createElement("lastUserMod");
+                Element dateLastModPropElement = answer.createElement("dateLastModProp");
+                Element dateLastModElement = answer.createElement("dateLastMod");
 
                 id.setTextContent(snippetData.getId());
                 creatorElement.setTextContent(snippetData.getCreator());
                 titleElement.setTextContent(snippetData.getTitle());
                 codeElement.setTextContent(snippetData.getCode());
                 languageElement.setTextContent(snippetData.getLanguage());
-                date_creationElement.setTextContent(snippetData.getDate_creation());
+                dateCreationElement.setTextContent(snippetData.getDateCreation());
                 modElement.setTextContent(snippetData.getMod());
-                code_modElement.setTextContent(snippetData.getCode_mod());
-                user_modElement.setTextContent(snippetData.getUser_Mod());
-                lastusermodElement.setTextContent(snippetData.getMod());
-                date_lastmodpropElement.setTextContent(snippetData.getDate_lastmodprop());
-                date_lastmodElement.setTextContent(snippetData.getDate_lastmod());
+                codeModElement.setTextContent(snippetData.getCodeMod());
+                userModElement.setTextContent(snippetData.getUserMod());
+                lastUserModElement.setTextContent(snippetData.getLastUserMod());
+                dateLastModPropElement.setTextContent(snippetData.getDateLastModProp());
+                dateLastModElement.setTextContent(snippetData.getDateLastMod());
 
                 Element snippetos = answer.createElement("snippet");
 
@@ -253,13 +253,13 @@ public class SearchSnippetServlet extends HttpServlet {
                 snippetos.appendChild(titleElement);
                 snippetos.appendChild(codeElement);
                 snippetos.appendChild(languageElement);
-                snippetos.appendChild(date_creationElement);
+                snippetos.appendChild(dateCreationElement);
                 snippetos.appendChild(modElement);
-                snippetos.appendChild(code_modElement);
-                snippetos.appendChild(user_modElement);
-                snippetos.appendChild(lastusermodElement);
-                snippetos.appendChild(date_lastmodpropElement);
-                snippetos.appendChild(date_lastmodElement);
+                snippetos.appendChild(codeModElement);
+                snippetos.appendChild(userModElement);
+                snippetos.appendChild(lastUserModElement);
+                snippetos.appendChild(dateLastModPropElement);
+                snippetos.appendChild(dateLastModElement);
 
                 risp.appendChild(snippetos);
             }

@@ -11,14 +11,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.Semaphore;
 import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServlet;
 
 
 public class Util {
     // SEMAFORI MUTEX che permettono di accedere in modo esclusivo alle risorse condivise, come i file XML e la lista degli AsyncContext
     public static Semaphore mutexPersoneFile = new Semaphore(1);
     public static Semaphore mutexSnippetFile = new Semaphore(1);
-    public static Semaphore mutexLikeFile = new Semaphore(1);
     public static Semaphore mutexAsyncContextList = new Semaphore(1);
     
     // Indirizzo web del sito
@@ -45,9 +43,4 @@ public class Util {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         return dateFormat.parse(date);
     }
-    
-    public static Boolean compareTwoDateSameDay (Date date1, Date date2) {
-        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
-        return fmt.format(date1).equals(fmt.format(date2));
-    }   
 }

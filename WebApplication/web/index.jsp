@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%= Util.BASE %>style-sheets/style.css" type="text/css">
-        <title>Home | Social Code</title>
+        <title>Home | Snippet share</title>
     </head>
     
     <body>

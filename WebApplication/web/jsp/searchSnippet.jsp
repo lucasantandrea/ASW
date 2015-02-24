@@ -18,7 +18,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Cerca codice | Social Code</title>
+        <title>Cerca codice | Snippet share</title>
     </head>
     <body>
         <%
@@ -114,9 +114,9 @@
                                         var creator = snippet.getElementsByTagName("creator")[0];
                                         var title = snippet.getElementsByTagName("title")[0];
                                         var language = snippet.getElementsByTagName("language")[0];
-                                        var creationDate = snippet.getElementsByTagName("date_creation")[0];
-                                        var lastMod = snippet.getElementsByTagName("date_lastmod")[0];
-                                        var lastModProp = snippet.getElementsByTagName("date_lastmodprop")[0];
+                                        var creationDate = snippet.getElementsByTagName("dateCreation")[0];
+                                        var lastMod = snippet.getElementsByTagName("dateLastMod")[0];
+                                        var lastModProp = snippet.getElementsByTagName("dateLastModProp")[0];
                                        
                                         var cont = document.createElement("DIV"); 
                                         cont.setAttribute("class","singleItem class"+loop%2);

@@ -19,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Cerca snippet | Social code</title>
+        <title>Cerca snippet | Snippet share</title>
     </head>
         <div id="container">
             <%@ include file="../WEB-INF/jspf/header.jspf" %>
@@ -36,9 +36,9 @@
                     <p>scritto da <%= snippetList.get(i).getCreator()%></p>
                     <div class="information">
                         <p>Linguaggio: <%= snippetList.get(i).getLanguage() %><br/>
-                        Data di creazione: <%= snippetList.get(i).getDate_creation() %><br/>
-                        Data ultima modifica (proprietario): <%= snippetList.get(i).getDate_lastmodprop() %><br/>
-                        Data ultima modifica (generale): <%= snippetList.get(i).getDate_lastmod() %>
+                        Data di creazione: <%= snippetList.get(i).getDateCreation() %><br/>
+                        Data ultima modifica (proprietario): <%= snippetList.get(i).getDateLastModProp() %><br/>
+                        Data ultima modifica (generale): <%= snippetList.get(i).getDateLastMod() %>
                         </p>
                     </div>
                     <div class="actions">

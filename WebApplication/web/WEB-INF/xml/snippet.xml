@@ -5,12 +5,12 @@ int main()&#13;
 {&#13;
    cout &lt;&lt; ''Hello Wordl!'' &lt;&lt; endl;&#13;
    return 0;&#13;
-}</code><language>C++</language><date_creation>16-01-2015 17:20:07</date_creation><mod>N</mod><code_mod/><user_mod/><lastusermod/><date_lastmodprop>16-01-2015 17:21:49</date_lastmodprop><date_lastmod>6-01-2015 17:21:49</date_lastmod></snippet><snippet><idSnippet>2</idSnippet><creator>rete</creator><title>Hello Word Java</title><code>public class HelloWorld {&#13;
+}</code><language>C++</language><dateCreation>16-01-2015 17:20:07</dateCreation><mod>N</mod><codeMod/><userMod/><lastUserMod/><dateLastModProp>16-01-2015 17:21:49</dateLastModProp><dateLastMod>6-01-2015 17:21:49</dateLastMod></snippet><snippet><idSnippet>2</idSnippet><creator>rete</creator><title>Hello Word Java</title><code>public class HelloWorld {&#13;
 &#13;
     public static void main(String[] args) {&#13;
         System.out.println("Hello, World");&#13;
     }&#13;
-}</code><language>Java</language><date_creation>6-01-2015 17:20:55</date_creation><mod>N</mod><code_mod/><user_mod/><lastusermod/><date_lastmodprop>16-01-2015 17:21:49</date_lastmodprop><date_lastmod>26-01-2015 17:21:49</date_lastmod></snippet><snippet><idSnippet>3</idSnippet><creator>rete</creator><title>Hello Word JS</title><code>&lt;script&gt;&#13;
-alert('Hello, World!')&#13; &lt;/script&gt;</code><language>JavaScript</language><date_creation>26-01-2015 17:21:49</date_creation><mod>Y</mod><code_mod>&lt;script&gt;&#13;
+}</code><language>Java</language><dateCreation>6-01-2015 17:20:55</dateCreation><mod>N</mod><codeMod/><userMod/><lastUserMod/><dateLastModProp>16-01-2015 17:21:49</dateLastModProp><dateLastMod>26-01-2015 17:21:49</dateLastMod></snippet><snippet><idSnippet>3</idSnippet><creator>rete</creator><title>Hello Word JS</title><code>&lt;script&gt;&#13;
+alert('Hello, World!')&#13; &lt;/script&gt;</code><language>JavaScript</language><dateCreation>26-01-2015 17:21:49</dateCreation><mod>Y</mod><codeMod>&lt;script&gt;&#13;
 alert('Hello, World!AAAAAAAAAA')&#13;
- &lt;/script&gt;</code_mod><user_mod></user_mod><lastusermod>anto</lastusermod><date_lastmodprop>26-01-2015 17:21:49</date_lastmodprop><date_lastmod>2-01-2015 17:21:49</date_lastmod></snippet></dbsnippet>
+ &lt;/script&gt;</codeMod><userMod></userMod><lastUserMod>anto</lastUserMod><dateLastModProp>26-01-2015 17:21:49</dateLastModProp><dateLastMod>2-01-2015 17:21:49</dateLastMod></snippet></dbsnippet>

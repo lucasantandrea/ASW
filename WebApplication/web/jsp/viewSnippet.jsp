@@ -19,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Vedi snippet | Social Code</title>
+        <title>Vedi snippet | Snippet share</title>
     </head>
     
     <%--
@@ -51,11 +51,11 @@
                             
                         <label>Titolo:</label><%= snippetList.get(0).getTitle()%><br/><br/>
                         <label>Linguaggio:</label><%= snippetList.get(0).getLanguage()%><br/><br/>
-                        <label>Codice:</label><textarea rows="13" cols="100" name="Code" id="textArea" disabled><%=snippetList.get(0).getCode()%></textarea><br/><br/>
+                        <label>Codice:</label><textarea rows="13" cols="100" name="code" id="textArea" disabled><%=snippetList.get(0).getCode()%></textarea><br/><br/>
                         <%if(snippetList.get(0).getMod().equals("Y")){%>
-                        <label><b>Proposta di modifica: </b></label><textarea rows="6" cols="100" name="Code_mod" id="textArea" disabled><%=snippetList.get(0).getCode_mod()%></textarea><br/>
-                        <label>di: </label><%=snippetList.get(0).getLastusermod()%><br/>
-                        <label>data: </label><%=snippetList.get(0).getDate_lastmod() %>
+                        <label><b>Proposta di modifica: </b></label><textarea rows="6" cols="100" name="codeMod" id="textArea" disabled><%=snippetList.get(0).getCodeMod()%></textarea><br/>
+                        <label>di: </label><%=snippetList.get(0).getLastUserMod()%><br/>
+                        <label>data: </label><%=snippetList.get(0).getDateLastMod() %>
                                 <%
                                  }
                                 %>

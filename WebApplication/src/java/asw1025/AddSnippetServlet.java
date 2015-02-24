@@ -99,26 +99,26 @@ public class AddSnippetServlet extends HttpServlet {
             Element titleElement = xmlSnippet.createElement("title");
             Element languageElement = xmlSnippet.createElement("language");
             Element codeElement = xmlSnippet.createElement("code");
-            Element date_creationElement = xmlSnippet.createElement("date_creation");
+            Element dateCreationElement = xmlSnippet.createElement("dateCreation");
             Element modElement = xmlSnippet.createElement("mod");
-            Element code_modElement = xmlSnippet.createElement("code_mod");
-            Element user_modElement = xmlSnippet.createElement("user_mod");
-            Element lastusermodElement = xmlSnippet.createElement("lastusermod");
-            Element date_lastmodpropElement = xmlSnippet.createElement("date_lastmodprop");
-            Element date_lastmodElement = xmlSnippet.createElement("date_lastmod");
+            Element codeModElement = xmlSnippet.createElement("codeMod");
+            Element userModElement = xmlSnippet.createElement("userMod");
+            Element lastUserModElement = xmlSnippet.createElement("lastusermod");
+            Element dateLastModPropElement = xmlSnippet.createElement("dateLastModProp");
+            Element dateLastModElement = xmlSnippet.createElement("dateLastmod");
 
             idElement.setTextContent("" + idSnippet);
             creatorElement.setTextContent("" + username);
             titleElement.setTextContent(request.getParameter("title"));
             languageElement.setTextContent(request.getParameter("language"));
             codeElement.setTextContent(request.getParameter("code").replace("&#13;", "\r\n"));
-            date_creationElement.setTextContent(Util.convertDateToString(new Date()));
+            dateCreationElement.setTextContent(Util.convertDateToString(new Date()));
             modElement.setTextContent("");
-            code_modElement.setTextContent("");
-            user_modElement.setTextContent("");
-            lastusermodElement.setTextContent("");
-            date_lastmodpropElement.setTextContent(Util.convertDateToString(new Date()));
-            date_lastmodElement.setTextContent(Util.convertDateToString(new Date()));
+            codeModElement.setTextContent("");
+            userModElement.setTextContent("");
+            lastUserModElement.setTextContent("");
+            dateLastModPropElement.setTextContent(Util.convertDateToString(new Date()));
+            dateLastModElement.setTextContent(Util.convertDateToString(new Date()));
 
             Element snip = xmlSnippet.createElement("snippet");
             snip.appendChild(idElement);
@@ -126,13 +126,13 @@ public class AddSnippetServlet extends HttpServlet {
             snip.appendChild(titleElement);
             snip.appendChild(codeElement);
             snip.appendChild(languageElement);
-            snip.appendChild(date_creationElement);
+            snip.appendChild(dateCreationElement);
             snip.appendChild(modElement);
-            snip.appendChild(code_modElement);
-            snip.appendChild(user_modElement);
-            snip.appendChild(lastusermodElement);
-            snip.appendChild(date_lastmodpropElement);
-            snip.appendChild(date_lastmodElement);
+            snip.appendChild(codeModElement);
+            snip.appendChild(userModElement);
+            snip.appendChild(lastUserModElement);
+            snip.appendChild(dateLastModPropElement);
+            snip.appendChild(dateLastModElement);
 
             xmlSnippet.getDocumentElement().appendChild(snip);
 

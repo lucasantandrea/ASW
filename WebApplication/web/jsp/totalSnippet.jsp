@@ -19,7 +19,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Tutti gli Snippet | Social Code</title>
+        <title>Tutti gli Snippet | Snippet share</title>
     </head>
     <body>
         <div id="container">
@@ -36,10 +36,10 @@
                                 <h2><%= snippetList.get(i).getTitle()%></h2>
                                 scritto da <%= snippetList.get(i).getCreator() %>
                                 <p>Linguaggio: <%= snippetList.get(i).getLanguage() %></p>
-                                <p class="noBottomMargin">Codice: </p><textarea name="Code" id="textArea" disabled><%= snippetList.get(i).getCode()%></textarea><br/><br/>
+                                <p class="noBottomMargin">Codice: </p><textarea name="code" id="textArea" disabled><%= snippetList.get(i).getCode()%></textarea><br/><br/>
                             <% if(snippetList.get(i).getMod().equals("Y")){ %>
-                            <h4>Proposta di modifica:</h4> <textarea name="Code_mod" id="textArea" disabled><%= snippetList.get(i).getCode_mod()%></textarea><br/>
-                             modifica di: <%= snippetList.get(i).getLastusermod()%><br/><br/>
+                            <h4>Proposta di modifica:</h4> <textarea name="codeMod" id="textArea" disabled><%= snippetList.get(i).getCodeMod()%></textarea><br/>
+                             modifica di: <%= snippetList.get(i).getLastUserMod()%><br/><br/>
                             <%
                              }
                             %>

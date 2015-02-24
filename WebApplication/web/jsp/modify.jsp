@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
-        <title>Modifica snippet | Social Code</title>
+        <title>Modifica snippet | Snippet share</title>
     </head>
     <body>
         <div id="container">

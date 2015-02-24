@@ -97,7 +97,7 @@ public class ModifyServlet extends HttpServlet {
                         
                         if (mysnippet.getId().equals(idSnippet)) {
                             //se non disponibile alla modifica
-                            if(!mysnippet.getUser_Mod().equals("") && !mysnippet.getUser_Mod().equals(userRequester)){
+                            if(!mysnippet.getUserMod().equals("") && !mysnippet.getUserMod().equals(userRequester)){
                                 Element availableElement = answer.createElement("available");
                                 availableElement.setTextContent("N");
                                 rootResponse.appendChild(availableElement);
@@ -110,13 +110,13 @@ public class ModifyServlet extends HttpServlet {
                                 Element titleElement = answer.createElement("title");
                                 Element codeElement = answer.createElement("code");
                                 Element languageElement = answer.createElement("language");
-                                Element date_creationElement = answer.createElement("date_creation");
+                                Element dateCreationElement = answer.createElement("dateCreation");
                                 Element modElement = answer.createElement("mod");
-                                Element code_modElement = answer.createElement("code_mod");
-                                Element user_modElement = answer.createElement("user_mod");
-                                Element lastusermodElement = answer.createElement("lastusermod");
-                                Element date_lastmodpropElement = answer.createElement("date_lastmodprop");
-                                Element date_lastmodElement = answer.createElement("date_lastmod");
+                                Element codeModElement = answer.createElement("codeMod");
+                                Element userModElement = answer.createElement("userMod");
+                                Element lastUserModElement = answer.createElement("lastUserMod");
+                                Element dateLastModPropElement = answer.createElement("dateLastModProp");
+                                Element dateLastModElement = answer.createElement("dateLastMod");
 
                                 availableElement.setTextContent("Y");                                
                                 idSnippetElement.setTextContent(mysnippet.getId());
@@ -124,13 +124,13 @@ public class ModifyServlet extends HttpServlet {
                                 titleElement.setTextContent(mysnippet.getTitle());
                                 codeElement.setTextContent(mysnippet.getCode());
                                 languageElement.setTextContent(mysnippet.getLanguage());
-                                date_creationElement.setTextContent(mysnippet.getDate_creation());
+                                dateCreationElement.setTextContent(mysnippet.getDateCreation());
                                 modElement.setTextContent(mysnippet.getMod());
-                                code_modElement.setTextContent(mysnippet.getCode_mod());
-                                user_modElement.setTextContent(mysnippet.getUser_Mod());
-                                lastusermodElement.setTextContent(mysnippet.getLastusermod());
-                                date_lastmodpropElement.setTextContent(mysnippet.getDate_lastmodprop());
-                                date_lastmodElement.setTextContent(mysnippet.getDate_lastmod());
+                                codeModElement.setTextContent(mysnippet.getCodeMod());
+                                userModElement.setTextContent(mysnippet.getUserMod());
+                                lastUserModElement.setTextContent(mysnippet.getLastUserMod());
+                                dateLastModPropElement.setTextContent(mysnippet.getDateLastModProp());
+                                dateLastModElement.setTextContent(mysnippet.getDateLastMod());
 
                                 rootResponse.appendChild(availableElement);
                                 rootResponse.appendChild(idSnippetElement);
@@ -138,13 +138,13 @@ public class ModifyServlet extends HttpServlet {
                                 rootResponse.appendChild(titleElement);
                                 rootResponse.appendChild(codeElement);
                                 rootResponse.appendChild(languageElement);
-                                rootResponse.appendChild(date_creationElement);
+                                rootResponse.appendChild(dateCreationElement);
                                 rootResponse.appendChild(modElement);
-                                rootResponse.appendChild(code_modElement);
-                                rootResponse.appendChild(user_modElement);
-                                rootResponse.appendChild(lastusermodElement);
-                                rootResponse.appendChild(date_lastmodpropElement);
-                                rootResponse.appendChild(date_lastmodElement);
+                                rootResponse.appendChild(codeModElement);
+                                rootResponse.appendChild(userModElement);
+                                rootResponse.appendChild(lastUserModElement);
+                                rootResponse.appendChild(dateLastModPropElement);
+                                rootResponse.appendChild(dateLastModElement);
                                 
                                 //imposta l'utente corrente come modificatore del record                                
                                 xmlSnippet.getChildNodes().item(0).getChildNodes().item(i).getChildNodes().item(8).setTextContent(userRequester);
@@ -181,33 +181,33 @@ public class ModifyServlet extends HttpServlet {
                     Element codeElement = xmlSnippet.createElement("code");
                     Element languageElement = xmlSnippet.createElement("language");
                     languageElement.setTextContent(mysnippet.getLanguage());
-                    Element date_creationElement = xmlSnippet.createElement("date_creation");
-                    date_creationElement.setTextContent(mysnippet.getDate_creation());
+                    Element dateCreationElement = xmlSnippet.createElement("dateCreation");
+                    dateCreationElement.setTextContent(mysnippet.getDateCreation());
                     Element modElement = xmlSnippet.createElement("mod");
-                    Element code_modElement = xmlSnippet.createElement("code_mod");
-                    Element lastusermodElement = xmlSnippet.createElement("lastusermod");
-                    Element date_lastmodpropElement = xmlSnippet.createElement("date_lastmodprop");
+                    Element codeModElement = xmlSnippet.createElement("codeMod");
+                    Element lastUserModElement = xmlSnippet.createElement("lastUserMod");
+                    Element dateLastModPropElement = xmlSnippet.createElement("dateLastModProp");
                     
                     //controllo se è una proposta di modifica o una modifica dell'autore
                     if(mysnippet.getCreator().equals(requestAuthor)){
                         codeElement.setTextContent(content);
-                        code_modElement.setTextContent(mysnippet.getCode_mod());    
+                        codeModElement.setTextContent(mysnippet.getCodeMod());    
                         modElement.setTextContent(mysnippet.getMod());
-                        lastusermodElement.setTextContent(mysnippet.getLastusermod());
-                        date_lastmodpropElement.setTextContent(Util.convertDateToString(new Date()));
+                        lastUserModElement.setTextContent(mysnippet.getLastUserMod());
+                        dateLastModPropElement.setTextContent(Util.convertDateToString(new Date()));
                     }else{
                         codeElement.setTextContent(mysnippet.getCode());
-                        code_modElement.setTextContent(content);
+                        codeModElement.setTextContent(content);
                         modElement.setTextContent("Y");
-                        lastusermodElement.setTextContent(requestAuthor);
-                        date_lastmodpropElement.setTextContent(mysnippet.getDate_lastmodprop());
+                        lastUserModElement.setTextContent(requestAuthor);
+                        dateLastModPropElement.setTextContent(mysnippet.getDateLastModProp());
                     }
                     
-                    Element user_modElement = xmlSnippet.createElement("user_mod");
+                    Element userModElement = xmlSnippet.createElement("userMod");
                     //imposto a vuoto per liberare il "lock" del record
-                    user_modElement.setTextContent("");
-                    Element date_lastmodElement = xmlSnippet.createElement("date_lastmod");
-                    date_lastmodElement.setTextContent(Util.convertDateToString(new Date()));
+                    userModElement.setTextContent("");
+                    Element dateLastModElement = xmlSnippet.createElement("dateLastMod");
+                    dateLastModElement.setTextContent(Util.convertDateToString(new Date()));
                     
                     //Sovrascrivo record nel database xml
                     Element singleSnippet=xmlSnippet.createElement("snippet");
@@ -216,13 +216,13 @@ public class ModifyServlet extends HttpServlet {
                     singleSnippet.appendChild(titleElement);
                     singleSnippet.appendChild(codeElement);
                     singleSnippet.appendChild(languageElement);
-                    singleSnippet.appendChild(date_creationElement);
+                    singleSnippet.appendChild(dateCreationElement);
                     singleSnippet.appendChild(modElement);
-                    singleSnippet.appendChild(code_modElement);
-                    singleSnippet.appendChild(user_modElement);
-                    singleSnippet.appendChild(lastusermodElement);
-                    singleSnippet.appendChild(date_lastmodpropElement);
-                    singleSnippet.appendChild(date_lastmodElement);
+                    singleSnippet.appendChild(codeModElement);
+                    singleSnippet.appendChild(userModElement);
+                    singleSnippet.appendChild(lastUserModElement);
+                    singleSnippet.appendChild(dateLastModPropElement);
+                    singleSnippet.appendChild(dateLastModElement);
 
                     for (int i = 0; i < snippet.getLength(); i++) {
                         if (snippet.item(i).getChildNodes().item(0).getTextContent().equals(""+mysnippet.getId())) {

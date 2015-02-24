@@ -9,7 +9,7 @@
     }    
     if(username==null){
       %>
-    <p>Accedi a Social code</p>
+    <p>Accedi a Snippet share</p>
     <form action="<%= request.getContextPath()%>/LoginServlet" method="POST">
         <input type="text" name="user"  placeholder="Username">
         <input type="password" name="pass"  placeholder="Password">
