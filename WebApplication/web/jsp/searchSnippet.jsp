@@ -35,7 +35,7 @@
                     <p><label for="title">Titolo: </label><input type="text" name="title" id="title"></p>
                     <p><label for="author">Autore: </label><input type="text" name="author" id="author"></p>
                     <p><label for="language">Linguaggio: </label><select name="language" id="language">
-                            <option name="---" >---</option>
+                            <option value="0" >---</option>
                             <option name="Java" >Java</option>
                             <option name="JavaScript"  >JavaScript</option>
                             <option name="C++" >C++</option>
@@ -43,7 +43,7 @@
                             <option name="PHP"  >PHP</option>                                    
                         </select></p>   
                     <p><label for="order">Ordina per: </label><select name="order" id="order">
-                            <option name="---" >---</option>
+                            <option value="0" >---</option>
                             <option name="Creation" value="1">Data creazione</option>
                             <option name="OwnerUpdate" value="2">Ultima modifica proprietario</option>      
                             <option name="Modification" value="3">Ultima modifica generale</option>  
@@ -114,6 +114,7 @@
                     if (xmlhttp.readyState === 4) {
                         if (xmlhttp.status === 200) {
                             var x = xmlhttp.responseXML.getElementsByTagName("dbSnippet")[0];
+                            console.log(x);
                             document.getElementById("result").innerHTML = "";
                             if (x.childNodes.length > 0) {
                                 var numSnippet = document.createElement("P");

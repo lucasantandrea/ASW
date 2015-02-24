@@ -10,7 +10,6 @@
 <%@page import="javax.servlet.*" %>
 <%@page import="asw1025.Util"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,23 +17,6 @@
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
         <title>Scrivi nuovo snippet | Snippet share</title>
     </head>
-    
-    <%--
-        Registrazione degli eventi di Onload e OnUnload della pagina, 
-        per chiamare le funzioni Javascript per la registrazione/deregistrazione al servizio di notifiche,
-        e per il controllo del scadenza della sessione.
-    
-    <body  onload="DisplaySessionTimeout(); registerToReceiveNotification();" onunload="deregisterNotification();">
-        
-        <% 
-            // Controllo se la sessione è scaduata, in caso affermativo si ripresenta la home nella quale si deve rifare il login
-            if (session == null || session.getAttribute("user") == null) {
-                System.out.println("timeout session expired!!");
-                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-                rd.forward(request, response);            
-            }
-        %>
-    --%>
     <body>
         <div id="container">
             <%@ include file="../WEB-INF/jspf/header.jspf" %>
@@ -42,16 +24,24 @@
                 <p>Inserisci un nuovo snippet compilando il seguente form:</p>
                 <form name="uploadForm" action="<%=Util.BASE%>AddSnippetServlet" method="POST" onsubmit="return validateForm();" class="formClass">
                     <!-- New snippet -->
-                    <p><label for="title">Titolo: </label><input type="text" name="title" id="title" onfocus="clearForm()"></p>
-                    <p><label for="language">Linguaggio: </label><select name="language" id="code">
-                        <option name="Java" >Java</option>
-                        <option name="JavaScript"  >JavaScript</option>
-                        <option name="C++" >C++</option>
-                        <option name="C#"  >C#</option>
-                        <option name="PHP"  >PHP</option>                                    
-                    </select></p>
-                    <p><label for="code">Codice: </label><br/><textarea rows="6" cols="100" name="code" id="code" onfocus="clearForm()"></textarea></p>
-                        <input type="hidden" name="idSnippet" value="">
+                    <p>
+                        <label for="title">Titolo: </label><input type="text" name="title" id="title" onfocus="clearForm()">
+                    </p>
+                    <p>
+                        <label for="language">Linguaggio: </label>
+                        <select name="language" id="code">
+                            <option name="Java" >Java</option>
+                            <option name="JavaScript"  >JavaScript</option>
+                            <option name="C++" >C++</option>
+                            <option name="C#"  >C#</option>
+                            <option name="PHP"  >PHP</option>                                    
+                        </select>
+                    </p>
+                    <p>
+                        <label for="code">Codice: </label><br/>
+                        <textarea rows="6" cols="100" name="code" id="code" onfocus="clearForm()"></textarea>
+                    </p>
+                    <input type="hidden" name="idSnippet" value="">
                     <input type="submit" value="Salva" class="submit">
                 </form>
                 <div id="errorDiv">Si prega di compilare tutti i campi!</div>
@@ -64,16 +54,13 @@
             </div>
         </div>
     </body>
-    
     <script>
-    
-        /*
+         /*
          * Funzione che permette di controllare che siano presenti tutti i valori nei campi di inserimentoo
          */
         function validateForm(){
             var title=document.getElementById("title").value;
             var code=document.getElementById("code").value;    
-            
             if(title===null || title==="" || title===null || title==="" ){
                 document.getElementById("errorDiv").style.display="block";
                 return false;               
@@ -81,7 +68,6 @@
                 return true;
             }
         }
-        
         //funzione che nasconde il messaggio di errore
         function clearForm(){
             if(document.getElementById("errorDiv").style.display!="none"){
