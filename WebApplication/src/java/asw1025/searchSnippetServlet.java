@@ -278,7 +278,7 @@ public class SearchSnippetServlet extends HttpServlet {
         catch (Exception ex) {
             rootResponse.setTextContent("error");
             answer.appendChild(rootResponse);
-            Logger.getLogger(ModifyServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchSnippetServlet.class.getName()).log(Level.SEVERE, null, ex);
             Util.mutexSnippetFile.release();
         }
         

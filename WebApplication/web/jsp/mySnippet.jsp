@@ -52,20 +52,20 @@
                         
                         </div>
                         <div class="actions">
-                            <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>ViewServlet" method="POST" onsubmit="return validateForm();">
+                            <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>ViewServlet" method="POST">
                                 <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
                                 <div id="buttonView" class="buttonBackground">
                                    <a HREF="javascript:document.submitViewForm<%=i%>.submit()">Vedi</a>
                                 </div>
                             </form>
-                            <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>EditServlet" method="POST" onsubmit="return validateForm();">
+                            <form name="submitModifyForm<%=i%>" action="<%= Util.BASE %>EditServlet" method="POST">
                                 <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
                                 <input type="hidden" name="user" value="<%=session.getAttribute("user")%>">
                                  <div id="buttonModify" class="buttonBackground">
                                     <a HREF="javascript:document.submitModifyForm<%=i%>.submit()">Modifica</a>
                                  </div>
                             </form>
-                            <form name="deleteSnippetForm<%=i%>" action="<%= Util.BASE %>DeleteServlet" method="POST" onsubmit="return validateForm();">
+                            <form name="deleteSnippetForm<%=i%>" action="<%= Util.BASE %>DeleteServlet" method="POST">
                                  <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
                                  <a HREF="javascript:document.deleteSnippetForm<%=i%>.submit()" onclick="return confirm('Vuoi veramente eliminare questo snippet?');">Elimina</a>
                             </form>

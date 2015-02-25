@@ -29,7 +29,7 @@
                     </p>
                     <p>
                         <label for="language">Linguaggio: </label>
-                        <select name="language" id="code">
+                        <select name="language" id="language">
                             <option name="Java" >Java</option>
                             <option name="JavaScript"  >JavaScript</option>
                             <option name="C++" >C++</option>
@@ -53,7 +53,7 @@
                 <%@ include file="../WEB-INF/jspf/footer.jspf" %>
             </div>
         </div>
-    </body>
+
     <script>
          /*
          * Funzione che permette di controllare che siano presenti tutti i valori nei campi di inserimentoo
@@ -61,7 +61,7 @@
         function validateForm(){
             var title=document.getElementById("title").value;
             var code=document.getElementById("code").value;    
-            if(title===null || title==="" || title===null || title==="" ){
+            if(title===null || title==="" || code===null || code==="" ){
                 document.getElementById("errorDiv").style.display="block";
                 return false;               
             }else{
@@ -75,4 +75,5 @@
             }
         }
     </script>
+    </body>
 </html>
