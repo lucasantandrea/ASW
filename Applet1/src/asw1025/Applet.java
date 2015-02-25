@@ -296,95 +296,83 @@ public class Applet extends JApplet {
 	Element questionRoot;
 	switch(tipoRequest){
 		case "getRequest":
-		questionRoot= question.createElement("getRequest");
-			
-                Element id = question.createElement("id");
-                id.setTextContent(idSnippet);
-                questionRoot.appendChild(id);
+                    questionRoot= question.createElement("getRequest");
 
-                Element user = question.createElement("user");
-                user.setTextContent(username);
-                questionRoot.appendChild(user);
+                    Element id = question.createElement("id");
+                    id.setTextContent(idSnippet);
+                    questionRoot.appendChild(id);
+
+                    Element user = question.createElement("user");
+                    user.setTextContent(username);
+                    questionRoot.appendChild(user);
 		break;
-		case "setRequest":
-		questionRoot= question.createElement("setRequest");
-                
-                Element idSnippetElement = question.createElement("idSnippet");
-                idSnippetElement.setTextContent(idSnippet);
-                questionRoot.appendChild(idSnippetElement);
+                case "setRequest":
+                    questionRoot= question.createElement("setRequest");
 
-                Element creatorElement = question.createElement("creator");
-                creatorElement.setTextContent(mySnippet.getCreator());
-                questionRoot.appendChild(creatorElement);
+                    Element idSnippetElement = question.createElement("idSnippet");
+                    idSnippetElement.setTextContent(idSnippet);
+                    questionRoot.appendChild(idSnippetElement);
 
-                Element titleElement = question.createElement("title");
-                titleElement.setTextContent(mySnippet.getTitle());
-                questionRoot.appendChild(titleElement);
+                    Element creatorElement = question.createElement("creator");
+                    creatorElement.setTextContent(mySnippet.getCreator());
+                    questionRoot.appendChild(creatorElement);
 
-                Element codeElement = question.createElement("code");
-                codeElement.setTextContent(mySnippet.getCode());
-                questionRoot.appendChild(codeElement);
+                    Element titleElement = question.createElement("title");
+                    titleElement.setTextContent(mySnippet.getTitle());
+                    questionRoot.appendChild(titleElement);
 
-                Element languageElement = question.createElement("language");
-                languageElement.setTextContent(mySnippet.getLanguage());
-                questionRoot.appendChild(languageElement);
+                    Element codeElement = question.createElement("code");
+                    codeElement.setTextContent(mySnippet.getCode());
+                    questionRoot.appendChild(codeElement);
 
-                Element dateCreationElement = question.createElement("dateCreation");
-                dateCreationElement.setTextContent(mySnippet.getDateCreation());
-                questionRoot.appendChild(dateCreationElement);
+                    Element languageElement = question.createElement("language");
+                    languageElement.setTextContent(mySnippet.getLanguage());
+                    questionRoot.appendChild(languageElement);
 
-                Element modElement = question.createElement("mod");
-                modElement.setTextContent(mySnippet.getMod());
-                questionRoot.appendChild(modElement);
+                    Element dateCreationElement = question.createElement("dateCreation");
+                    dateCreationElement.setTextContent(mySnippet.getDateCreation());
+                    questionRoot.appendChild(dateCreationElement);
 
-                Element codeModElement = question.createElement("codeMod");
-                codeModElement.setTextContent(mySnippet.getCodeMod());
-                questionRoot.appendChild(codeModElement);
+                    Element modElement = question.createElement("mod");
+                    modElement.setTextContent(mySnippet.getMod());
+                    questionRoot.appendChild(modElement);
 
-                Element userModElement = question.createElement("userMod");
-                userModElement.setTextContent(mySnippet.getUserMod());
-                questionRoot.appendChild(userModElement);
+                    Element codeModElement = question.createElement("codeMod");
+                    codeModElement.setTextContent(mySnippet.getCodeMod());
+                    questionRoot.appendChild(codeModElement);
 
-                Element lastusermodElement = question.createElement("lastusermod");
-                lastusermodElement.setTextContent(mySnippet.getLastUserMod());
-                questionRoot.appendChild(lastusermodElement);                        
+                    Element userModElement = question.createElement("userMod");
+                    userModElement.setTextContent(mySnippet.getUserMod());
+                    questionRoot.appendChild(userModElement);
 
-                Element dateLastModProp = question.createElement("dateLastModProp");
-                dateLastModProp.setTextContent(mySnippet.getDateLastMod());
-                questionRoot.appendChild(dateLastModProp);                        
+                    Element lastusermodElement = question.createElement("lastusermod");
+                    lastusermodElement.setTextContent(mySnippet.getLastUserMod());
+                    questionRoot.appendChild(lastusermodElement);                        
 
-                Element dateLastModElement = question.createElement("dateLastMod");
-                dateLastModElement.setTextContent(mySnippet.getDateLastMod());
-                questionRoot.appendChild(dateLastModElement);                                                
+                    Element dateLastModProp = question.createElement("dateLastModProp");
+                    dateLastModProp.setTextContent(mySnippet.getDateLastMod());
+                    questionRoot.appendChild(dateLastModProp);                        
 
-                questionRoot.appendChild(idSnippetElement);
-                questionRoot.appendChild(creatorElement);
-                questionRoot.appendChild(titleElement);
-                questionRoot.appendChild(codeElement);
-                questionRoot.appendChild(languageElement);
-                questionRoot.appendChild(dateCreationElement);
-                questionRoot.appendChild(modElement);
-                questionRoot.appendChild(codeModElement);
-                questionRoot.appendChild(userModElement);
-                questionRoot.appendChild(lastusermodElement);
-                questionRoot.appendChild(dateLastModProp);
-                questionRoot.appendChild(dateLastModElement);
+                    Element dateLastModElement = question.createElement("dateLastMod");
+                    dateLastModElement.setTextContent(mySnippet.getDateLastMod());
+                    questionRoot.appendChild(dateLastModElement);                                                
 
-                Element content = question.createElement("content");
-                Element usernameElement = question.createElement("username");
-                        
-                if(textToSend==1){
-                    content.setTextContent(ownerTextarea.getText());
-                }else if (textToSend==2){
-                    content.setTextContent(editorTextarea.getText());
-                }
-                usernameElement.setTextContent(username);
 
-                questionRoot.appendChild(content);
-                questionRoot.appendChild(usernameElement);
+                    Element content = question.createElement("content");
+                    Element usernameElement = question.createElement("username");
+
+                    if(textToSend==1){
+                        content.setTextContent(ownerTextarea.getText());
+                    }else if (textToSend==2){
+                        content.setTextContent(editorTextarea.getText());
+                    }
+                    usernameElement.setTextContent(username);
+
+                    questionRoot.appendChild(content);
+                    questionRoot.appendChild(usernameElement);
 		break;
                 default:
-                questionRoot= question.createElement("getRequest");      
+                    questionRoot= question.createElement("getRequest");      
                 break;
 	}
 	

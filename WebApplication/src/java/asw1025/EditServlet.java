@@ -40,53 +40,7 @@ public class EditServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
-            HttpSession session = request.getSession();
-            Document xmlSnippet = null;
-            String username = (String) session.getAttribute("user");
-            String idSnippet = request.getParameter("id");
 
-            ManageXML mngXML = new ManageXML();
-
-            // Lettura esclusiva
-            Util.mutexSnippetFile.acquire();
-
-            // Caricamento xml Snippet
-            DataInputStream dis = null;
-            dis = new DataInputStream(new BufferedInputStream(new FileInputStream(fileSnippet)));
-            xmlSnippet = mngXML.parse(dis);
-            dis.close();
-
-            NodeList snippet = xmlSnippet.getDocumentElement().getChildNodes();
-            ArrayList<SnippetData> IdSnippet = new ArrayList<>();
-
-            // RICERCA negli Snippet e del nodo snippet da visualizzare
-            for (int i = 0; i < snippet.getLength(); i++) {
-                String id = snippet.item(i).getChildNodes().item(0).getTextContent();
-                String thisUser = snippet.item(i).getChildNodes().item(1).getTextContent();
-
-                if (id.equals(idSnippet)) {
-                    SnippetData mysnippet = new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
-                            snippet.item(i).getChildNodes().item(1).getTextContent(),
-                            snippet.item(i).getChildNodes().item(2).getTextContent(),
-                            snippet.item(i).getChildNodes().item(3).getTextContent(),
-                            snippet.item(i).getChildNodes().item(4).getTextContent(),
-                            snippet.item(i).getChildNodes().item(5).getTextContent(),
-                            snippet.item(i).getChildNodes().item(6).getTextContent(),
-                            snippet.item(i).getChildNodes().item(7).getTextContent(),
-                            snippet.item(i).getChildNodes().item(8).getTextContent(),
-                            snippet.item(i).getChildNodes().item(9).getTextContent(),
-                            snippet.item(i).getChildNodes().item(10).getTextContent(),
-                            snippet.item(i).getChildNodes().item(11).getTextContent());
-
-                    IdSnippet.add(mysnippet);
-                    break;
-                }
-            }
-
-            Util.mutexSnippetFile.release();
-
-            request.setAttribute("IdSnippet", IdSnippet);
             RequestDispatcher rd = request.getRequestDispatcher("jsp/modify.jsp");
             rd.forward(request, response);
         } catch (Exception ex) {
