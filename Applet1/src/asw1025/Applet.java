@@ -345,7 +345,7 @@ public class Applet extends JApplet {
                     userModElement.setTextContent(mySnippet.getUserMod());
                     questionRoot.appendChild(userModElement);
 
-                    Element lastusermodElement = question.createElement("lastusermod");
+                    Element lastusermodElement = question.createElement("lastUserMod");
                     lastusermodElement.setTextContent(mySnippet.getLastUserMod());
                     questionRoot.appendChild(lastusermodElement);                        
 
