@@ -36,6 +36,7 @@
                     <p><label for="author">Autore: </label><input type="text" name="author" id="author"></p>
                     <p><label for="language">Linguaggio: </label><select name="language" id="language">
                             <option value="0" >---</option>
+<<<<<<< HEAD
                             <option name="java" >Java</option>
                             <option name="javascript"  >JavaScript</option>
                             <option name="c++" >C++</option>
@@ -47,6 +48,19 @@
                             <option name="creation" value="1">Data creazione</option>
                             <option name="ownerUpdate" value="2">Ultima modifica proprietario</option>      
                             <option name="modification" value="3">Ultima modifica generale</option>  
+=======
+                            <option name="Java" >Java</option>
+                            <option name="JavaScript"  >JavaScript</option>
+                            <option name="C++" >C++</option>
+                            <option name="C#"  >C#</option>
+                            <option name="PHP"  >PHP</option>                                    
+                        </select></p>   
+                    <p><label for="order">Ordina per: </label><select name="order" id="order">
+                            <option value="0" >---</option>
+                            <option name="Creation" value="1">Data creazione</option>
+                            <option name="OwnerUpdate" value="2">Ultima modifica proprietario</option>      
+                            <option name="Modification" value="3">Ultima modifica generale</option>  
+>>>>>>> be03aceee077edad931ba1cb1f1919a77c6af033
                         </select></p>
                     <input type="button" class="submit" value="Cerca" onClick="search();">
 
