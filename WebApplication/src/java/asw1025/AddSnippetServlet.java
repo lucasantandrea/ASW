@@ -113,7 +113,7 @@ public class AddSnippetServlet extends HttpServlet {
             languageElement.setTextContent(request.getParameter("language"));
             codeElement.setTextContent(request.getParameter("code").replace("&#13;", "\r\n"));
             dateCreationElement.setTextContent(Util.convertDateToString(new Date()));
-            modElement.setTextContent("");
+            modElement.setTextContent("N");
             codeModElement.setTextContent("");
             userModElement.setTextContent("");
             lastUserModElement.setTextContent("");
