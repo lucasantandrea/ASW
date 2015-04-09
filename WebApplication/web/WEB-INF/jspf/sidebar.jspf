@@ -6,3 +6,149 @@
 <%@page import="asw1025.Util"%>
 <%@ page pageEncoding="UTF-8" %>
 <%@ include file="login.jspf" %>
+<!--<script>
+    var messagesWaiting = false;
+    function getMessages(){
+        if(!messagesWaiting){
+            console.log("attendo messaggi...");
+            messagesWaiting=true;
+            var xmlhttp = new XMLHttpRequest();
+            /*
+             * AJAX: Definizione della chiamata ASINCRONA
+             */
+            xmlhttp.open("GET", "<%= Util.BASE %>mycomet?t="+(new Date().getTime().toString()), true);
+            // Definizione della funzione eseguita quando si riceve una notifica
+            xmlhttp.onreadystatechange=function(){
+                
+                // Risposta completa (4=OK) con successo (200=OK)
+                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                    console.log("ciaooo");
+                    if(xmlhttp.responseText!=""){      //tornerebbe vuoto nel caso in cui il client non sia loggato
+                        // Dividiamo la risposta ricevuta, per avere il numero di utenti e i nomi in due variabili separate
+                        var res = xmlhttp.responseXML;
+                        //var res_split = res.split("?");
+                        //document.getElementById("lblutentiCounter").innerHTML= res_split[0];
+                        //document.getElementById("lblutentiLoggati").innerHTML= res_split[1];    
+                        messagesWaiting=false;
+                        console.log("ricevuta lista utenti!!!");
+                        console.log(res);
+                    }
+                // Risposta completa (4=OK) con errori
+                }else if(xmlhttp.readyState==4 && xmlhttp.status!=200){
+                    console.log("non 4-200!! "+xmlhttp.status);
+                }
+            }
+            xmlhttp.send();
+            console.log("invio richiesta GET"+xmlhttp.readyState);
+        }
+    }
+    // Intervallo di invocazione della funzione registerToReceiveNotification()
+    setInterval("getMessages()", 1000);    
+    
+    getMessages();
+</script>-->
+
+<!-- Versione 2 <script>
+    var messagesWaiting = false;
+    function getMessages(){
+        if(!messagesWaiting){
+            console.log("attendo messaggi...");
+            messagesWaiting=true;
+            var data;
+            var xmlhttp = new XMLHttpRequest();
+            /*
+             * AJAX: Definizione della chiamata ASINCRONA
+             */
+            xmlhttp.open("POST", "<%= Util.BASE %>myfinalcomet", true);
+            // Definizione della funzione eseguita quando si riceve una notifica
+            xmlhttp.onreadystatechange=function(){
+                // Risposta completa (4=OK) con successo (200=OK)
+                if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+                    console.log("ciaooo");
+                    if(xmlhttp.responseText!=""){      //tornerebbe vuoto nel caso in cui il client non sia loggato
+                        // Dividiamo la risposta ricevuta, per avere il numero di utenti e i nomi in due variabili separate
+                        var res = xmlhttp.responseXML;
+                        //var res_split = res.split("?");
+                        //document.getElementById("lblutentiCounter").innerHTML= res_split[0];
+                        //document.getElementById("lblutentiLoggati").innerHTML= res_split[1];    
+                        messagesWaiting=false;
+                        console.log("ricevuta lista utenti!!!");
+                        console.log(res);
+                    }
+                // Risposta completa (4=OK) con errori
+                }else if(xmlhttp.readyState==4 && xmlhttp.status!=200){
+                    console.log("non 4-200!! "+xmlhttp.status);
+                }
+            }
+            var data = document.implementation.createDocument(null, "pop", null);                     
+            
+            <% String str=session.getAttribute("user").toString();%>
+            var msg = data.createTextNode("<%=str %>");                
+            console.log(msg);
+            xmlhttp.send(data);
+            console.log("invio richiesta POST"+xmlhttp.readyState);
+        }
+    }
+    // Intervallo di invocazione della funzione registerToReceiveNotification()
+    setInterval("getMessages()", 1000);    
+    getMessages();
+</script>-->
+
+            <div id="contentuno"></div>
+            <div id="timeout"></div>
+<script>    
+            var i = 0;
+            var contentElement = document.getElementById("contentuno");
+            var timeoutElement = document.getElementById("timeout");                            
+            var msg = "";
+            var xmlhttp2,answer,to,data;
+            var xmlhttp2,answer,to,data;
+            function getMessages(){
+                    xmlhttp2 = new XMLHttpRequest();
+                    xmlhttp2.open("POST", "<%=Util.BASE%>MyFinalComet", true);
+                    xmlhttp2.onreadystatechange=function(){
+                        if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {                            
+                            answer = xmlhttp2.responseXML;
+                            if (answer.documentElement.tagName == "push") {
+                                var x = answer.getElementsByTagName("push")[0];
+                                if (x.childNodes.length > 0) {
+                                    contentElement.innerHTML="";                
+                                    var p = document.createElement("p");
+                                    p.appendChild(document.createTextNode("Snippet attualmente in modifica: "));
+                                    var ul = document.createElement("ul");
+                                    for (loop = 0; loop < x.childNodes.length; loop++) {
+                                        var snippet = x.childNodes[loop];                
+                                        console.log(snippet);
+                                        var title = snippet.getElementsByTagName("title")[0].childNodes[0].nodeValue;
+                                        var usermod = snippet.getElementsByTagName("userMod")[0].childNodes[0].nodeValue;
+                                        console.log(title + "("+usermod+")");
+                                        //contentElement.innerHTML+=title + " ("+usermod+")";
+                                        var li = document.createElement("li");
+                                        li.appendChild(document.createTextNode(title + " ("+usermod+")"));
+                                        ul.appendChild(li);
+                                    }
+                                    contentElement.appendChild(document.createElement("hr"));                
+                                    contentElement.appendChild(p);
+                                    contentElement.appendChild(ul);
+                                }
+                                else{
+                                    contentElement.innerHTML="";
+                                }
+                            }
+                            else {                    
+                                // nel caso arrivi un output o un errore, mantengo console per il debug
+                                console.log(answer.documentElement.tagName+(++i));
+                            }
+                            getMessages();
+                        }
+                    };
+                    data = document.implementation.createDocument(null, "pop", null);                     
+                    <% String struno=session.getAttribute("user").toString();%>
+                    var msg = data.createTextNode("<%=struno %>");   
+                    data.documentElement.appendChild(msg);
+                    console.log(data);
+                    xmlhttp2.send(data);
+            }
+            getMessages();
+</script>
+                

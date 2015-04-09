@@ -18,6 +18,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
         <title>Cerca codice | Snippet share</title>
+        <script type="text/javascript" src="../multimedia/jquery.min.js"></script>
     </head>
     <body>
         <%
@@ -182,7 +183,9 @@
                                         codiceMod.setAttribute("name", "codeMod");
                                         codiceMod.setAttribute("id", "textAreaMod" + loop);
                                         codiceMod.disabled = true;
-                                        codiceMod.innerHTML = codeMod.childNodes[0].nodeValue;
+                                        if (codeMod.childNodes[0]!=undefined){
+                                            codiceMod.innerHTML = codeMod.childNodes[0].nodeValue;
+                                        }
                                         //autore modifica
                                         var autoreModP = document.createElement("P");
                                         var autoreModPText = document.createTextNode("di: " + lastUserMod.childNodes[0].nodeValue);
@@ -223,7 +226,7 @@
                                     btnView.setAttribute("type", "button");
                                     btnView.setAttribute("value", "Vedi");
                                     btnView.setAttribute("id", "btn" + loop);
-                                    btnView.setAttribute("onclick", "hide(cd" + loop + ".id, btn" + loop + ".id);");
+                                    btnView.setAttribute("onclick", "showDivToggle(cd" + loop + ".id, btn" + loop + ".id);");
                                     btnView.appendChild(btnViewText);
 
                                     //Struttura visualizzazione snippet
@@ -274,23 +277,19 @@
 
                 }
 
-                function hide(idCnt, idBtn) {
-                    var div = document.getElementById(idCnt);
-
-                    if (div.style.display !== 'none') {
-                        div.style.display = 'none';
-                        var btn = document.getElementById(idBtn);
-                        btn.value = "Vedi";
-                        btn.textContent = "Vedi";
+                function showDivToggle(idCnt, idBtn) {
+                    var div=$("#"+idCnt);
+                    var btn = $("#"+idBtn);
+                    
+                    if(!div.is(":visible")){
+                        btn.text("Riduci");
                     }
-                    else {
-                        div.style.display = 'block';
-                        var btn = document.getElementById(idBtn);
-                        btn.value = "Riduci";
-                        btn.textContent = "Riduci";
-                    }
-
-
+                        
+                    div.fadeToggle(function(){
+                        if(!div.is(":visible")){
+                            btn.text("Vedi");
+                        }
+                    });
                 }
             </script>
         </div>
