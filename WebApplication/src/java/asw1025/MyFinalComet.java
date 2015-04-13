@@ -24,7 +24,6 @@ import org.w3c.dom.*;
 public class MyFinalComet extends HttpServlet {
 
     private HashMap<String, Object> hcontexts = new HashMap<String, Object>();
-    private LinkedList<AsyncContext> contexts = new LinkedList<AsyncContext>();
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -57,33 +56,18 @@ public class MyFinalComet extends HttpServlet {
             case "push":
                 System.out.println("push received");
                 synchronized (this) {
-                    list = (LinkedList<AsyncContext>) hcontexts.get(userToUnlock); // TODO: il nodo!            
-                    /*for (AsyncContext asyncContext : contexts) {
-                        OutputStream aos = asyncContext.getResponse().getOutputStream();
-                        mngXML.transform(aos, data);
-                        //QUI CAMBIO LA RISPOSTA!!!
-                        //Document data2 = mngXML.newDocument();        
-                        //Element rootResponse= data2.createElement("something");
-                        //Element singleSnippet=data2.createElement("snippet");
-                        //rootResponse.appendChild(singleSnippet);
-                        //data2.appendChild(rootResponse);
-                        aos.close();
-                        asyncContext.complete();
-                    }
-                    contexts.clear();*/
+                    list = (LinkedList<AsyncContext>) hcontexts.get(userToUnlock);
                     
                     for (AsyncContext asyncContext : list) {        
                         if(asyncContext.getResponse()!=null){
                             OutputStream aos = asyncContext.getResponse().getOutputStream();
-                            Document topass=myfunction(mngXML,userToUnlock);
+                            Document topass=getModifiedSnippet(mngXML,userToUnlock);
                             mngXML.transform(aos,topass);
                             aos.close();
                             asyncContext.complete();
                         }
                     }
                     hcontexts.remove(userToUnlock);
-                    //list.clear();
-                    //hcontexts.remove("rete");
                 }
                 Document answer = mngXML.newDocument("ok");
                 OutputStream os = response.getOutputStream();
@@ -91,9 +75,7 @@ public class MyFinalComet extends HttpServlet {
                 os.close();
                 break;
             case "pop":
-                //System.out.println("pop received");
-                
-                
+                                
                 String user = (String) session.getAttribute("user");
                 System.out.println("pop received from: " + user);
                 synchronized (this) {
@@ -107,7 +89,6 @@ public class MyFinalComet extends HttpServlet {
                         }
                     } 
                 }
-                
                 
                 AsyncContext asyncContext = request.startAsync();
                 asyncContext.setTimeout(10 * 1000);
@@ -129,10 +110,6 @@ public class MyFinalComet extends HttpServlet {
                                 
                                 LinkedList<AsyncContext>  mylist = (LinkedList<AsyncContext>) hcontexts.get(user);
                                 
-                                /*if ((confirm = contexts.contains(asyncContext))) {
-                                    contexts.remove(asyncContext);
-                                }*/
-                                
                                 //controllo che la lista non sia nulla (se ho rimosso da hcontexts in seguito a push)
                                 System.out.println(hcontexts.size());
                                 if (mylist != null) {                                
@@ -153,25 +130,34 @@ public class MyFinalComet extends HttpServlet {
                     }
                 });
                 synchronized (this) {
-                    contexts.add(asyncContext);
                     list.add(asyncContext);
                     hcontexts.put(user,list);
                 }
                 break;
+                
+            case "firstCall":              
+            System.out.println("firstCall");
+            user = (String) session.getAttribute("user");
+            Document answerFirst=getModifiedSnippet(mngXML,user);
+            OutputStream osFirst = response.getOutputStream();
+            mngXML.transform(osFirst, answerFirst);
+            osFirst.close();
+            break;
+                    
         }
     }
 
-    private Document myfunction(ManageXML mngXML, String userRequester){        
+    //funzione che ritorna un document degli elementi modificati attualmente dallo userRequester
+    private Document getModifiedSnippet(ManageXML mngXML, String userRequester){        
         Document answer= null;
         answer = mngXML.newDocument();
         try {     
             answer = mngXML.newDocument();
             Element rootResponse= answer.createElement("push");
-            //HttpSession session = request.getSession();
             
             try {
                 // Lettura esclusiva
-                //Util.mutexSnippetFile.acquire();
+                Util.mutexSnippetFile.acquire();
                 
                 //lettura da file xml
                 String fileSnippet = Util.getCorrectFilePath(this, "snippet.xml");
@@ -184,12 +170,7 @@ public class MyFinalComet extends HttpServlet {
                 
                 NodeList snippet = xmlSnippet.getDocumentElement().getChildNodes();
                 
-                //TODO: qui devo passargli l'utente corretto!! ovvero quello proprietario del file, che va a sbloccare i suoi context bloccati nella comet!
-                //String userRequester = "rete";
-                //session.getAttribute("user").toString();
-                
                 // Ricerca negli Snippet del proprietario che sono modificati al momento
-                //TODO: DEVO CREARE L'XML IN MODO TALE CHE SIA UNA LISTA DI MODIFICATI!
                 for (int i = 0; i < snippet.getLength(); i++) {
                     SnippetData mysnippet = new SnippetData(snippet.item(i).getChildNodes().item(0).getTextContent(),
                             snippet.item(i).getChildNodes().item(1).getTextContent(),
@@ -219,10 +200,6 @@ public class MyFinalComet extends HttpServlet {
                             singleSnippet.appendChild(userModElement);
                             
                             rootResponse.appendChild(singleSnippet);
-                            
-                            
-                            //break;
-                            //answer.appendChild(rootResponse);
                         }
                     }
                 }
@@ -234,13 +211,13 @@ public class MyFinalComet extends HttpServlet {
                 answer.appendChild(rootResponse);
                 
                 
-                //Util.mutexSnippetFile.release();
+                Util.mutexSnippetFile.release();
                 
             } catch (Exception ex) {
                 rootResponse.setTextContent("error");
                 answer.appendChild(rootResponse);
                 Logger.getLogger(ModifyServlet.class.getName()).log(Level.SEVERE, null, ex);
-                //Util.mutexSnippetFile.release();
+                Util.mutexSnippetFile.release();
             }
             return answer;
         } catch (Exception ex) {
