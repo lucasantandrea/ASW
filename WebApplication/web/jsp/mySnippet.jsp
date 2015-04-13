@@ -52,7 +52,7 @@
                         
                         </div>
                         <div class="actions">
-                            <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>ViewServlet" method="POST">
+                            <form name="submitViewForm<%=i%>" action="<%= Util.BASE %>DisplayServlet" method="POST">
                                 <input type="hidden" name="id" value="<%=snippetList.get(i).getId()%>">
                                 <div id="buttonView" class="buttonBackground">
                                    <a HREF="javascript:document.submitViewForm<%=i%>.submit()">Vedi</a>

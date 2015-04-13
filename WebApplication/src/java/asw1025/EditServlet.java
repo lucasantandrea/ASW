@@ -44,7 +44,7 @@ public class EditServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("jsp/modify.jsp");
             rd.forward(request, response);
         } catch (Exception ex) {
-            Logger.getLogger(ViewServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DisplayServlet.class.getName()).log(Level.SEVERE, null, ex);
             Util.mutexSnippetFile.release();
         }
     }
