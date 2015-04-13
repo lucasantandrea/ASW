@@ -6,7 +6,6 @@
 */
 package asw1025;
 
-import static asw1025.ModifyServlet.hc;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
@@ -20,8 +19,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import org.w3c.dom.*;
 
-@WebServlet(name = "MyFinalComet", urlPatterns = {"/MyFinalComet"},asyncSupported=true)
-public class MyFinalComet extends HttpServlet {
+@WebServlet(name = "Comet", urlPatterns = {"/Comet"},asyncSupported=true)
+public class Comet extends HttpServlet {
 
     private HashMap<String, Object> hcontexts = new HashMap<String, Object>();
 
@@ -106,7 +105,7 @@ public class MyFinalComet extends HttpServlet {
                             
                             HttpServletRequest reqAsync = (HttpServletRequest) asyncContext.getRequest();
                             String user = (String) reqAsync.getSession().getAttribute("user");
-                            synchronized (MyFinalComet.this) {
+                            synchronized (Comet.this) {
                                 
                                 LinkedList<AsyncContext>  mylist = (LinkedList<AsyncContext>) hcontexts.get(user);
                                 

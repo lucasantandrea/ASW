@@ -16,7 +16,7 @@
     var xmlhttp2,answer,to,data;
     function getMessages(){
             xmlhttp2 = new XMLHttpRequest();
-            xmlhttp2.open("POST", "<%=Util.BASE%>MyFinalComet", true);
+            xmlhttp2.open("POST", "<%=Util.BASE%>Comet", true);
             xmlhttp2.onreadystatechange=function(){
                 if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {                            
                     answer = xmlhttp2.responseXML;
