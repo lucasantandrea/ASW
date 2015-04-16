@@ -70,6 +70,7 @@ public class ModifyServlet extends HttpServlet {
         Element rootResponse= answer.createElement("snippet");
         boolean sendNotification=false;
         String userToNotify="";
+        LinkedList<Document> logoutList = new LinkedList<Document>();
         
         try {
             // Lettura esclusiva
@@ -172,7 +173,7 @@ public class ModifyServlet extends HttpServlet {
                             
                         }
                     }
-                    break;
+                break;
                 case "setRequest":
                     //parametri in arrivo dalla request
                     SnippetData mysnippet = new SnippetData(rootRequest.getChildNodes().item(0).getTextContent(),
@@ -254,9 +255,32 @@ public class ModifyServlet extends HttpServlet {
                     rootResponse.setTextContent("ok");
                     
                     sendNotification=true;
-                    userToNotify=mysnippet.getCreator();
+                    userToNotify=mysnippet.getCreator();                    
+                break;
+                case "cleanRequest":
+                    String cleanAuthor=rootRequest.getChildNodes().item(0).getTextContent();
+
                     
-                    break;
+                    //Sovrascrivo record nel database xml
+                    for (int i = 0; i < snippet.getLength(); i++) {
+                        if (snippet.item(i).getChildNodes().item(8).getTextContent().equals(cleanAuthor)) {
+                            //sostituzione nodo modificato dall'utente
+                            snippet.item(i).getChildNodes().item(8).setTextContent("");
+                            
+                            HTTPClient hc = new HTTPClient();
+                            hc.setBase(new URL(Util.BASE)); 
+                            Document cometdata = mngXML.newDocument("push");
+                            System.out.println(snippet.item(i).getChildNodes().item(1).getTextContent());
+                            cometdata.getDocumentElement().setTextContent(snippet.item(i).getChildNodes().item(1).getTextContent()); 
+                            //cometdata2.getDocumentElement().setTextContent("rete"); 
+                            System.out.println(cometdata.getDocumentElement());
+                            logoutList.add(cometdata);
+                            
+                        }
+                    }
+                    
+                    rootResponse.setTextContent("ok");
+                break;
             }
             
             DataOutputStream dos=new DataOutputStream(new BufferedOutputStream(new FileOutputStream(fileSnippet)));
@@ -273,6 +297,15 @@ public class ModifyServlet extends HttpServlet {
                 Document cometdata = mngXML.newDocument("push");
                 cometdata.getDocumentElement().setTextContent(userToNotify); 
                 hc.execute("Comet",cometdata);
+            }
+            
+            if(!logoutList.isEmpty()){
+                HTTPClient hc = new HTTPClient();
+                hc.setBase(new URL(Util.BASE)); 
+                for (Document logoutDocument : logoutList) {      
+                    System.out.println(logoutDocument.getDocumentElement());
+                    hc.execute("Comet",logoutDocument);    
+                }
             }
             
         } catch (Exception ex) {
