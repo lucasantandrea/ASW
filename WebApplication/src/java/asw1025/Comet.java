@@ -57,13 +57,15 @@ public class Comet extends HttpServlet {
                 synchronized (this) {
                     list = (LinkedList<AsyncContext>) hcontexts.get(userToUnlock);
                     
-                    for (AsyncContext asyncContext : list) {        
-                        if(asyncContext.getResponse()!=null){
-                            OutputStream aos = asyncContext.getResponse().getOutputStream();
-                            Document topass=getModifiedSnippet(mngXML,userToUnlock);
-                            mngXML.transform(aos,topass);
-                            aos.close();
-                            asyncContext.complete();
+                    if (list != null) {
+                        for (AsyncContext asyncContext : list) {        
+                            if(asyncContext.getResponse()!=null){
+                                OutputStream aos = asyncContext.getResponse().getOutputStream();
+                                Document topass=getModifiedSnippet(mngXML,userToUnlock);
+                                mngXML.transform(aos,topass);
+                                aos.close();
+                                asyncContext.complete();
+                            }
                         }
                     }
                     hcontexts.remove(userToUnlock);
@@ -111,7 +113,7 @@ public class Comet extends HttpServlet {
                                 
                                 //controllo che la lista non sia nulla (se ho rimosso da hcontexts in seguito a push)
                                 System.out.println(hcontexts.size());
-                                if (mylist != null) {                                
+                                if (mylist != null) {
                                     if ((confirm = mylist.contains(asyncContext))) {
                                         mylist.remove(asyncContext);
                                     }
