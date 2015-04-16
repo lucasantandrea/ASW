@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><dbsnippet><snippet><idSnippet>1</idSnippet><creator>rete</creator><title>Hello Word C++</title><code>#include &lt;iostream&gt;&#13;
-using namespace std;&#13;
-&#13;
-int main()&#13;
-{&#13;
-   cout &lt;&lt; ''Hello Wordl!'' &lt;&lt; endl;&#13;
-   return 0;&#13;
-}</code><language>C++</language><date_creation>16-01-2015 17:20:07</date_creation><mod>N</mod><code_mod/><user_mod/><lastusermod/><date_lastmodprop>16-01-2015 17:21:49</date_lastmodprop><date_lastmod>6-01-2015 17:21:49</date_lastmod></snippet><snippet><idSnippet>3</idSnippet><creator>rete</creator><title>Hello Word JS</title><code>&lt;script&gt;&#13;
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><dbsnippet><snippet><idSnippet>3</idSnippet><creator>rete</creator><title>Hello Word JS</title><code>&lt;script&gt;&#13;
 alert('Hello, World!')&#13; &lt;/script&gt;</code><language>JavaScript</language><dateCreation>26-01-2015 17:21:49</dateCreation><mod>Y</mod><codeMod>&lt;script&gt;&#13;
 alert("Hello, World!")&#13;
  &lt;/script&gt;</codeMod><userMod/><lastUserMod>anto</lastUserMod><dateLastModProp>09-03-2015 21:18:58</dateLastModProp><dateLastMod>09-03-2015 21:19:02</dateLastMod></snippet><snippet><idSnippet>4</idSnippet><creator>anto</creator><title>Hello Word C#</title><code>// Hello1.cs&#13;

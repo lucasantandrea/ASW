@@ -4,6 +4,19 @@
     Matricola: 0900050785
     Gruppo: 1025
 --%>
+<%@page import="asw1025.Util"%>
 <%@ page pageEncoding="UTF-8" %>
 <p><b>Snippet share</b> è stata realizzata da Luca Santandrea, Matteo Mariani, Antonio Leo Folliero e Francesco Degli Angeli<br/>
     per il corso di <b>Applicazioni e Servizi web</b> (A.A. 2014/2015)</p>
+
+    <script>    
+    /* chiamata logout forzato*/
+    window.onunload=function(){
+    xmlhttp2 = new XMLHttpRequest();
+    xmlhttp2.open("POST", "<%=Util.BASE%>ModifyServlet", false);
+    data = document.implementation.createDocument(null, "cleanRequest", null);                     
+    var datai = document.createTextNode('<%= session.getAttribute("user") %>');
+    data.documentElement.appendChild(datai);
+    xmlhttp2.send(data);
+    }
+    </script>

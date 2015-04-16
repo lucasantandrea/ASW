@@ -20,15 +20,54 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
         <title>Tutti gli Snippet | Snippet share</title>
+        <script type="text/javascript" src="<%=Util.BASE%>multimedia/knockout.js"></script>
     </head>
     <body onload="totalSnippet()">
         <div id="container">
             <%@ include file="../WEB-INF/jspf/header.jspf" %>
             <div id="content">
-                <div  id="result">
-
-
+            
+                <p> PROVA -------------------</p>
+                <!-- View -- TODO aggiungere corretto conteggio -->
+                <div data-bind="foreach: snippet">
+                    <div class="singleItem class">
+                        <h2 id="title" data-bind="text: title"></h2>
+                        <p>Scritto da <span data-bind="text: creator"></span></p>
+                        <div class="information">
+                                <p>Linguaggio: <span data-bind="text: language"></span></p>
+                                <p>Data di creazione: <span data-bind="text: dateCreation"></span></p>
+                                <p>Data di ultima modifica (generale): <span data-bind="text: dateLastMod"></span></p>
+                                <p>Data di ultima modifica (proprietario): <span data-bind="text: dateLastModProp"></span></p>
+                        </div>
+                        <div id="cd1" class="information">
+                                <p>Codice: </p>
+                                <textarea rows="13" cols="100" name="code" id="textArea1" disabled="" data-bind="text: code"></textarea>
+                                <p>Proposta di modifica:</p>
+                                <textarea rows="13" cols="100" name="codeMod" id="textAreaMod3" disabled="" data-bind="text: codeMod"></textarea>
+                                <p>di: <span data-bind="text: lastUserMod"></span></p>
+                        </div>
+                        <div class="actions">
+                                <button type="button" value="Vedi" id="btn1" onclick="hide(cd1.id, btn1.id);">Vedi</button>
+                        </div>
+                <div class="clear"></div>
                 </div>
+                </div>
+
+                
+                <script>
+                // ViewModel
+                var snippetViewModel ={
+                    snippet: ko.observableArray([
+                        {creator: 'creator', title: 'Title', code: 'code', language :'language', dateCreation : 'dateCreation', mod: 'mod', codeMod: 'codeMod', userMod:'userMod', lastUserMod:'lastUserMod',dateLastModProp:'dateLastModProp',dateLastMod:'dateLastMod'},
+                        {creator: 'creator', title: 'Title', code: 'code', language :'language', dateCreation : 'dateCreation', mod: 'mod', userMod:'userMod', lastUserMod:'lastUserMod',dateLastModProp:'dateLastModProp',dateLastMod:'dateLastMod'}  
+                    ])
+                }
+                ko.applyBindings(snippetViewModel);
+                </script>
+                <p> FINE PROVA -------------------</p>
+                
+                <div id="result"></div>            
+                
                 <script>
 
                     function totalSnippet() {
@@ -54,7 +93,6 @@
                     if (xmlhttp.readyState === 4) {
                         if (xmlhttp.status === 200) {
                             var x = xmlhttp.responseXML.getElementsByTagName("dbSnippet")[0];
-                            console.log(x);
                             document.getElementById("result").innerHTML = "";
                             if (x.childNodes.length > 0) {
                                 
@@ -120,7 +158,7 @@
                                         codiceMod.setAttribute("name", "codeMod");
                                         codiceMod.setAttribute("id", "textAreaMod" + loop);
                                         codiceMod.disabled = true;
-                                        codiceMod.innerHTML = codeMod.childNodes[0].nodeValue;
+                                        codiceMod.innerHTML = codeMod.childNodes[0] != undefined ? codeMod.childNodes[0].nodeValue : "";
                                         //autore modifica
                                         var autoreModP = document.createElement("P");
                                         var autoreModPText = document.createTextNode("di: " + lastUserMod.childNodes[0].nodeValue);
