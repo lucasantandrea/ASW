@@ -60,7 +60,7 @@
     //funzione che chiama in modalità asincrona il popolamento della lista degli snippet in modifica, prima che venga risposta dalla pop
     function getFirstMessages(){
             xmlhttp2 = new XMLHttpRequest();
-            xmlhttp2.open("POST", "<%=Util.BASE%>MyFinalComet", true);
+            xmlhttp2.open("POST", "<%=Util.BASE%>Comet", true);
             xmlhttp2.onreadystatechange=function(){
                 if (xmlhttp2.readyState == 4){
                     if(xmlhttp2.status == 200) {                            
@@ -101,5 +101,20 @@
     }
 
     getFirstMessages();
+    
+    
+    
+    /* chiamata logout forzato*/
+    window.onunload=function(){
+    xmlhttp2 = new XMLHttpRequest();
+    xmlhttp2.open("POST", "<%=Util.BASE%>ModifyServlet", false);
+    data = document.implementation.createDocument(null, "cleanRequest", null);                     
+    alert('<%= session.getAttribute("user") %>');
+    var datai = document.createTextNode('<%= session.getAttribute("user") %>');
+    data.documentElement.appendChild(datai);
+    xmlhttp2.send(data);
+    }
+    
+    
 </script>
                 
