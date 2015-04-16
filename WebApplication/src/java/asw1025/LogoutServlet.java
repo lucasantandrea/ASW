@@ -47,7 +47,7 @@ public class LogoutServlet extends HttpServlet {
             HttpSession session = request.getSession();
 
 
-            /*rimuovo il flag di modifica da tutti gli snippet attualmente in modfica dall'utente che si vuole sloggare*/*/
+            /*rimuovo il flag di modifica da tutti gli snippet attualmente in modfica dall'utente che si vuole sloggare*/
             
             HTTPClient hc=new HTTPClient();
             hc.setBase(new URL(Util.BASE));
