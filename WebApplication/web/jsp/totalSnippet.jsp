@@ -21,16 +21,15 @@
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
         <title>Tutti gli Snippet | Snippet share</title>
         <script type="text/javascript" src="<%=Util.BASE%>multimedia/knockout.js"></script>
+        <script type="text/javascript" src="<%=Util.BASE%>multimedia/jquery.min.js"></script>
     </head>
     <body onload="totalSnippet()">
         <div id="container">
             <%@ include file="../WEB-INF/jspf/header.jspf" %>
             <div id="content">
             
-                <p> PROVA -------------------</p>
-                <!-- View -- TODO aggiungere corretto conteggio -->
-                <div data-bind="foreach: snippet">
-                    <div class="singleItem class">
+                <div id="snippetList" data-bind="foreach: snippets">
+                    <div class="singleItem" data-bind="css: { class0: $index()%2 }">
                         <h2 id="title" data-bind="text: title"></h2>
                         <p>Scritto da <span data-bind="text: creator"></span></p>
                         <div class="information">
@@ -39,36 +38,52 @@
                                 <p>Data di ultima modifica (generale): <span data-bind="text: dateLastMod"></span></p>
                                 <p>Data di ultima modifica (proprietario): <span data-bind="text: dateLastModProp"></span></p>
                         </div>
-                        <div id="cd1" class="information">
+                        <div class="information codeDiv">
                                 <p>Codice: </p>
                                 <textarea rows="13" cols="100" name="code" id="textArea1" disabled="" data-bind="text: code"></textarea>
-                                <p>Proposta di modifica:</p>
-                                <textarea rows="13" cols="100" name="codeMod" id="textAreaMod3" disabled="" data-bind="text: codeMod"></textarea>
-                                <p>di: <span data-bind="text: lastUserMod"></span></p>
+                                <div data-bind="visible: isMod()">
+                                    <p>Proposta di modifica:</p>
+                                    <textarea rows="13" cols="100" name="codeMod" id="textAreaMod3" disabled="" data-bind="text: codeMod"></textarea>
+                                    <p>di: <span data-bind="text: lastUserMod"></span></p>
+                                </div>
                         </div>
                         <div class="actions">
-                                <button type="button" value="Vedi" id="btn1" onclick="hide(cd1.id, btn1.id);">Vedi</button>
+                                <button type="button" value="Vedi" class="vedi">Vedi</button>
                         </div>
-                <div class="clear"></div>
+                        <div class="clear"></div>
+                    </div>
                 </div>
-                </div>
+                
+                <script>
+                    //array globale di snippet che andranno a popolare l'observableArray
+                    var SnippetArray=[];
+                    
+                    //classe che descrive ogni snippet (view)
+                    function Snippet(creator,title,code,language,dateCreation,mod,codeMod,lastUserMod,dateLastModProp,dateLastMod) {
+                        var self = this;
+                        self.creator= creator;
+                        self.title= title;
+                        self.code= code;
+                        self.language= language;
+                        self.dateCreation= dateCreation;
+                        self.mod= mod;
+                        self.codeMod= codeMod; 
+                        self.lastUserMod= lastUserMod;
+                        self.dateLastModProp= dateLastModProp;
+                        self.dateLastMod= dateLastMod;
 
-                
-                <script>
-                // ViewModel
-                var snippetViewModel ={
-                    snippet: ko.observableArray([
-                        {creator: 'creator', title: 'Title', code: 'code', language :'language', dateCreation : 'dateCreation', mod: 'mod', codeMod: 'codeMod', userMod:'userMod', lastUserMod:'lastUserMod',dateLastModProp:'dateLastModProp',dateLastMod:'dateLastMod'},
-                        {creator: 'creator', title: 'Title', code: 'code', language :'language', dateCreation : 'dateCreation', mod: 'mod', userMod:'userMod', lastUserMod:'lastUserMod',dateLastModProp:'dateLastModProp',dateLastMod:'dateLastMod'}  
-                    ])
-                }
-                ko.applyBindings(snippetViewModel);
-                </script>
-                <p> FINE PROVA -------------------</p>
-                
-                <div id="result"></div>            
-                
-                <script>
+                        //metodo della classe che verifica se mostrare la parte della modifica
+                        self.isMod = ko.computed(function() {
+                           return (self.mod=="Y");
+                        });
+                    }
+                    
+                    //viewmodel (gli passo come parametro un array di istanze della classe Snippet)
+                    function SnippetViewModel(ByValSnippetArray) {
+                        var self = this;
+                        self.snippets = ko.observableArray(ByValSnippetArray);
+                    }
+
 
                     function totalSnippet() {
                         if (window.XMLHttpRequest)
@@ -88,159 +103,60 @@
                         var data = document.implementation.createDocument("", "total", null);
                         xmlhttp.send(data);
                     }
-
-                 function alertContents() {
-                    if (xmlhttp.readyState === 4) {
-                        if (xmlhttp.status === 200) {
-                            var x = xmlhttp.responseXML.getElementsByTagName("dbSnippet")[0];
-                            document.getElementById("result").innerHTML = "";
-                            if (x.childNodes.length > 0) {
+                    
+                    function alertContents(){
+                        if (xmlhttp.readyState === 4) {
+                            if (xmlhttp.status === 200) {
+                                var x = xmlhttp.responseXML.getElementsByTagName("dbSnippet")[0];
+                                if (x.childNodes.length > 0) {
                                 
-                                for (loop = 0; loop < x.childNodes.length; loop++) {
-                                    var snippet = x.childNodes[loop];
-                                    var idSnippet = snippet.getElementsByTagName("idSnippet")[0];
-                                    var creator = snippet.getElementsByTagName("creator")[0];
-                                    var title = snippet.getElementsByTagName("title")[0];
-                                    var code = snippet.getElementsByTagName("code")[0];
-                                    var language = snippet.getElementsByTagName("language")[0];
-                                    var creationDate = snippet.getElementsByTagName("dateCreation")[0];
-                                    var mod = snippet.getElementsByTagName("mod")[0];
-                                    var codeMod = snippet.getElementsByTagName("codeMod")[0];
-                                    var lastUserMod = snippet.getElementsByTagName("lastUserMod")[0];
-                                    var lastMod = snippet.getElementsByTagName("dateLastMod")[0];
-                                    var lastModProp = snippet.getElementsByTagName("dateLastModProp")[0];
-                                    var cont = document.createElement("DIV");
-                                    cont.setAttribute("class", "singleItem class" + loop % 2);
-                                    //titolo snippet
-                                    var titolo = document.createElement("H2"); //input element
-                                    titolo.setAttribute("id", "title");
-                                    titolo.innerHTML = title.childNodes[0].nodeValue;
-                                    //autore snippet
-                                    var scrittoDa = document.createElement("P");
-                                    var scrittoDaText = document.createTextNode("Scritto da " + creator.childNodes[0].nodeValue);
-                                    scrittoDa.appendChild(scrittoDaText);
-                                    //linguaggio snippet
-                                    var linguaggio = document.createElement("P");
-                                    var linguaggioText = document.createTextNode("Linguaggio: " + language.childNodes[0].nodeValue);
-                                    linguaggio.appendChild(linguaggioText);
-                                    //data creazione
-                                    var dataCreazione = document.createElement("P");
-                                    var dataCreazioneText = document.createTextNode("Data di creazione: " + creationDate.childNodes[0].nodeValue);
-                                    dataCreazione.appendChild(dataCreazioneText);
-                                    //data ultima modifica generale
-                                    var dataLastMod = document.createElement("P");
-                                    var dataLastModText = document.createTextNode("Data di ultima modifica (generale): " + lastMod.childNodes[0].nodeValue);
-                                    dataLastMod.appendChild(dataLastModText);
-                                    //data ultima modifica proprietario
-                                    var dataLastModProp = document.createElement("P");
-                                    var dataLastModPropText = document.createTextNode("Data di ultima modifica (proprietario): " + lastModProp.childNodes[0].nodeValue);
-                                    dataLastModProp.appendChild(dataLastModPropText);
-                                    //codice snippet
-                                    var codeP = document.createElement("P");
-                                    var codePText = document.createTextNode("Codice: ");
-                                    codeP.appendChild(codePText);
-                                    var codice = document.createElement("TEXTAREA");
-                                    codice.setAttribute("rows", "13");
-                                    codice.setAttribute("cols", "100");
-                                    codice.setAttribute("name", "code");
-                                    codice.setAttribute("id", "textArea" + loop);
-                                    codice.disabled = true;
-                                    codice.innerHTML = code.childNodes[0].nodeValue;
+                                    for (loop = 0; loop < x.childNodes.length; loop++) {
+                                        var snippet = x.childNodes[loop];
+                                        var idSnippet = snippet.getElementsByTagName("idSnippet")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("idSnippet")[0].childNodes[0].nodeValue:"";
+                                        var creator = snippet.getElementsByTagName("creator")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("creator")[0].childNodes[0].nodeValue:"";
+                                        var title = snippet.getElementsByTagName("title")[0].childNodes[0]!= undefined ? snippet.getElementsByTagName("title")[0].childNodes[0].nodeValue:"";
+                                        var code = snippet.getElementsByTagName("code")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("code")[0].childNodes[0].nodeValue:"";
+                                        var language = snippet.getElementsByTagName("language")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("language")[0].childNodes[0].nodeValue:"";
+                                        var creationDate = snippet.getElementsByTagName("dateCreation")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("dateCreation")[0].childNodes[0].nodeValue:"";
+                                        var mod = snippet.getElementsByTagName("mod")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("mod")[0].childNodes[0].nodeValue:"";
+                                        var codeMod = snippet.getElementsByTagName("codeMod")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("codeMod")[0].childNodes[0].nodeValue:"";
+                                        var lastUserMod = snippet.getElementsByTagName("lastUserMod")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("lastUserMod")[0].childNodes[0].nodeValue:"";
+                                        var lastMod = snippet.getElementsByTagName("dateLastMod")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("dateLastMod")[0].childNodes[0].nodeValue:"";
+                                        var lastModProp = snippet.getElementsByTagName("dateLastModProp")[0].childNodes[0] != undefined ? snippet.getElementsByTagName("dateLastModProp")[0].childNodes[0].nodeValue:"";
 
-                                    if ((mod.childNodes[0].nodeValue.toString()) === "Y") {
-                                        //codie proposta modifica
-                                        var codeModP = document.createElement("P");
-                                        var codeModPText = document.createTextNode("Proposta di modifica:");
-                                        codeModP.appendChild(codeModPText);
-                                        var codiceMod = document.createElement("TEXTAREA");
-                                        codiceMod.setAttribute("rows", "13");
-                                        codiceMod.setAttribute("cols", "100");
-                                        codiceMod.setAttribute("name", "codeMod");
-                                        codiceMod.setAttribute("id", "textAreaMod" + loop);
-                                        codiceMod.disabled = true;
-                                        codiceMod.innerHTML = codeMod.childNodes[0] != undefined ? codeMod.childNodes[0].nodeValue : "";
-                                        //autore modifica
-                                        var autoreModP = document.createElement("P");
-                                        var autoreModPText = document.createTextNode("di: " + lastUserMod.childNodes[0].nodeValue);
-                                        autoreModP.appendChild(autoreModPText);
+                                        SnippetArray.push(new Snippet(creator,title,code,language,creationDate,mod,codeMod,lastUserMod,lastModProp,lastMod));
                                     }
-
-
-                                    //bottone per visualizzare il codice dello snippet
-                                    var btnView = document.createElement("BUTTON");
-                                    var btnViewText = document.createTextNode("Vedi");
-                                    btnView.setAttribute("type", "button");
-                                    btnView.setAttribute("value", "Vedi");
-                                    btnView.setAttribute("id", "btn" + loop);
-                                    btnView.setAttribute("onclick", "hide(cd" + loop + ".id, btn" + loop + ".id);");
-                                    btnView.appendChild(btnViewText);
-
-                                    //Struttura visualizzazione snippet
-                                    cont.appendChild(titolo);
-                                    cont.appendChild(scrittoDa);
-                                    var info = document.createElement("DIV");
-                                    info.setAttribute("class", "information");
-                                    info.appendChild(linguaggio);
-                                    info.appendChild(dataCreazione);
-                                    info.appendChild(dataLastMod);
-                                    info.appendChild(dataLastModProp);
-                                    cont.appendChild(info);
-                                    var cd = document.createElement("DIV");
-                                    cd.setAttribute("id", "cd" + loop);
-                                    cd.setAttribute("class", "information");
-                                    cd.style.display = 'none';
-                                    cd.appendChild(codeP);
-                                    cd.appendChild(codice);
-
-                                    if ((mod.childNodes[0].nodeValue.toString()) === "Y") {
-                                        cd.appendChild(codeModP);
-                                        cd.appendChild(codiceMod);
-                                        cd.appendChild(autoreModP);
-                                    }
-                                    cont.appendChild(cd);
-
-
-                                    var actions = document.createElement("DIV");
-                                    actions.setAttribute("class", "actions");
-                                    actions.appendChild(btnView);
-                                    cont.appendChild(actions);
-                                    var clear = document.createElement("DIV");
-                                    clear.setAttribute("class", "clear");
-                                    cont.appendChild(clear);
-                                    document.getElementById('result').appendChild(cont);
+                                    ko.applyBindings(new SnippetViewModel(SnippetArray));
+                                    activateButtons();
                                 }
-
-                            }
-                            else {
-                                var noSnippet = document.createElement("P");
-                                var noSnippetText = document.createTextNode("Non è ancora stato inserito uno snippet in Snippet share!");
-                                noSnippet.appendChild(noSnippetText);
-                                document.getElementById('result').appendChild(noSnippet);
+                                else {
+                                    document.getElementById('snippetList').style.display="none";
+                                    var noSnippet = document.createElement("P");
+                                    var noSnippetText = document.createTextNode("Non è ancora stato inserito uno snippet in Snippet share!");
+                                    noSnippet.appendChild(noSnippetText);
+                                    document.getElementById('content').appendChild(noSnippet);
+                                }
                             }
                         }
                     }
+                    
+                    //funzione utilizzata per attivare il jquery del toggle dei bottoni mostra/nascondi
+                    function activateButtons(){
+                        $(".vedi").each(function(){
+                            $(this).click(function(){
+                                var btn=$(this);
 
-                }
-
-                function hide(idCnt, idBtn) {
-                    var div = document.getElementById(idCnt);
-
-                    if (div.style.display !== 'none') {
-                        div.style.display = 'none';
-                        var btn = document.getElementById(idBtn);
-                        btn.value = "Vedi";
-                        btn.textContent = "Vedi";
+                                if(!$(this).parents(".singleItem").find(".codeDiv").is(":visible")){
+                                    btn.text("Nascondi");
+                                }
+                                $(this).parents(".singleItem").find(".codeDiv").fadeToggle(100,function(){
+                                    if(!$(this).parents(".singleItem").find(".codeDiv").is(":visible")){
+                                        btn.text("Vedi");
+                                    }
+                                });                       
+                            });
+                        });
                     }
-                    else {
-                        div.style.display = 'block';
-                        var btn = document.getElementById(idBtn);
-                        btn.value = "Riduci";
-                        btn.textContent = "Riduci";
-                    }
-
-
-                }
-
                 </script> 
             </div>          
             <div id="sidebar">

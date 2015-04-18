@@ -168,6 +168,10 @@ div#content.home{
     box-sizing:border-box;
 }
 
+.singleItem .codeDiv{
+	display:none;
+}
+
 .singleItem .information{
     width:70%;
     float:left;

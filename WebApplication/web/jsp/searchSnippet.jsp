@@ -18,7 +18,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="<%=Util.BASE%>style-sheets/style.css" type="text/css">
         <title>Cerca codice | Snippet share</title>
-        <script type="text/javascript" src="../multimedia/jquery.min.js"></script>
+        <script type="text/javascript" src="<%=Util.BASE%>multimedia/jquery.min.js"></script>
     </head>
     <body>
         <%
