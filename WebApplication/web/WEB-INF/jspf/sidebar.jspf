@@ -103,18 +103,5 @@
     getFirstMessages();
     
     
-    
-    /* chiamata logout forzato*/
-    window.onunload=function(){
-    xmlhttp2 = new XMLHttpRequest();
-    xmlhttp2.open("POST", "<%=Util.BASE%>ModifyServlet", false);
-    data = document.implementation.createDocument(null, "cleanRequest", null);                     
-    alert('<%= session.getAttribute("user") %>');
-    var datai = document.createTextNode('<%= session.getAttribute("user") %>');
-    data.documentElement.appendChild(datai);
-    xmlhttp2.send(data);
-    }
-    
-    
 </script>
                 
