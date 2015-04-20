@@ -20,8 +20,8 @@
             xmlhttp2.onreadystatechange=function(){
                 if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {                            
                     answer = xmlhttp2.responseXML;
-                    if (answer.documentElement.tagName == "push") {
-                        var x = answer.getElementsByTagName("push")[0];
+                    if (answer.documentElement.tagName == "snippetModifiedList") {
+                        var x = answer.getElementsByTagName("snippetModifiedList")[0];
                         if (x.childNodes.length > 0) {
                             contentElement.innerHTML="";                
                             var p = document.createElement("p");
@@ -67,8 +67,8 @@
                 if (xmlhttp2.readyState == 4){
                     if(xmlhttp2.status == 200) {                            
                         answer = xmlhttp2.responseXML;
-                        if (answer.documentElement.tagName == "push") {
-                            var x = answer.getElementsByTagName("push")[0];
+                        if (answer.documentElement.tagName == "snippetModifiedList") {
+                            var x = answer.getElementsByTagName("snippetModifiedList")[0];
                             if (x.childNodes.length > 0) {
                                 contentElement.innerHTML="";                
                                 var p = document.createElement("p");

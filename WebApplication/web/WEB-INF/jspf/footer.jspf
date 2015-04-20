@@ -10,8 +10,8 @@
     per il corso di <b>Applicazioni e Servizi web</b> (A.A. 2014/2015)</p>
 
     <script>    
-    /* rimuovo il lock sui file dell'utente loggato ogni volta che cambio pagina */
-    if(('<%= session.getAttribute("user") %>')!="null"){
+    /* rimuovo il lock sui file dell'utente loggato se esco dalla pagina contenente l'applet di modifica*/
+    if(('<%= session.getAttribute("user") %>')!="null" && window.location.href.indexOf("EditServlet")>0){
         window.onunload=function(){
             xmlhttp2 = new XMLHttpRequest();
             xmlhttp2.open("POST", "<%=Util.BASE%>ModifyServlet", false);

@@ -272,7 +272,6 @@ public class ModifyServlet extends HttpServlet {
                             Document cometdata = mngXML.newDocument("push");
                             System.out.println(snippet.item(i).getChildNodes().item(1).getTextContent());
                             cometdata.getDocumentElement().setTextContent(snippet.item(i).getChildNodes().item(1).getTextContent()); 
-                            //cometdata2.getDocumentElement().setTextContent("rete"); 
                             System.out.println(cometdata.getDocumentElement());
                             logoutList.add(cometdata);
                             

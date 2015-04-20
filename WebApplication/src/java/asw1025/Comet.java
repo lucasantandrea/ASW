@@ -154,7 +154,7 @@ public class Comet extends HttpServlet {
         answer = mngXML.newDocument();
         try {     
             answer = mngXML.newDocument();
-            Element rootResponse= answer.createElement("push");
+            Element rootResponse= answer.createElement("snippetModifiedList");
             
             try {
                 // Lettura esclusiva
