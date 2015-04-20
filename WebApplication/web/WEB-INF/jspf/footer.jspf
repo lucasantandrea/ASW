@@ -10,13 +10,15 @@
     per il corso di <b>Applicazioni e Servizi web</b> (A.A. 2014/2015)</p>
 
     <script>    
-    /* chiamata logout forzato*/
-    window.onunload=function(){
-    xmlhttp2 = new XMLHttpRequest();
-    xmlhttp2.open("POST", "<%=Util.BASE%>ModifyServlet", false);
-    data = document.implementation.createDocument(null, "cleanRequest", null);                     
-    var datai = document.createTextNode('<%= session.getAttribute("user") %>');
-    data.documentElement.appendChild(datai);
-    xmlhttp2.send(data);
+    /* rimuovo il lock sui file dell'utente loggato ogni volta che cambio pagina */
+    if(('<%= session.getAttribute("user") %>')!="null"){
+        window.onunload=function(){
+            xmlhttp2 = new XMLHttpRequest();
+            xmlhttp2.open("POST", "<%=Util.BASE%>ModifyServlet", false);
+            data = document.implementation.createDocument(null, "cleanRequest", null);                     
+            var datai = document.createTextNode('<%= session.getAttribute("user") %>');
+            data.documentElement.appendChild(datai);
+            xmlhttp2.send(data);
+        }
     }
     </script>

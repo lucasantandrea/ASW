@@ -38,11 +38,12 @@ public class Applet extends JApplet {
     JTextArea editorModification,ownerCode;
     JButton salva,copy,continua;
     JLabel titleLabel,langLabel,message,done;
+    /*intero che indica quale testo inviare alla modifica (autore/modificante)*/
     static int textToSend=0;
     static SnippetData mySnippet;
     
-    //final String BASE = "http://isi-tomcat.csr.unibo.it:8080/~luca.santandrea6/";    
-    final String BASE = "http://localhost:8080/WebApplication/";    
+    final String BASE = "http://isi-tomcat.csr.unibo.it:8080/~luca.santandrea6/";    
+    //    final String BASE = "http://localhost:8080/WebApplication/";
     
     HTTPClient hc;
     ManageXML mx;
@@ -70,9 +71,10 @@ public class Applet extends JApplet {
                 }
             });
             
+            /*Caricamento iniziale dello snippet*/
             loadSnippet(false);
             
-            /*Comportamento del bottone di copia*/
+            /*Comportamento del bottone di copia (visibile solo dal proprietario) */
             copy.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {   
@@ -85,7 +87,7 @@ public class Applet extends JApplet {
                 }
             });
 
-            /*Comportamento del bottone continua*/
+            /*Comportamento del bottone continua (vibile dopo il salvataggio dello snippet o se lo snippet è bloccato in modifica)*/
             continua.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) { 
@@ -97,11 +99,11 @@ public class Applet extends JApplet {
             salva.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) { 
-                    //faccio il salvataggio della modifica sul file xml
+                    /*faccio il salvataggio della modifica sul file xml*/
                     try {
                         final Document answer = callService(hc, mx, "setRequest");
                         
-                        //gestione risposta
+                        /*gestione risposta*/
                         SwingUtilities.invokeLater(new Runnable() {
                             @Override
                             public void run() {
@@ -144,129 +146,138 @@ public class Applet extends JApplet {
      */
     private void loadSnippet(final boolean secondCall){
         try {                                                               
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        centerPanel.removeAll();
-                    }
-                });
-                
-                final Document answer = callService(hc, mx, "getRequest");
-                //controllo che la risposta non sia nulla
-                if(answer.getDocumentElement().getChildNodes().item(0)!=null){                         
-                    if(answer.getDocumentElement().getChildNodes().item(0).getTextContent().equals("error")){
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                workingPanel.setVisible(false);
-                                message.setText("Si è verificato un errore");
-                                messagePanel.setVisible(true);    
-                            }
-                        });
-                    }
-                    else if(answer.getDocumentElement().getChildNodes().item(0).getTextContent().equals("Y")){
-                        /*parsing della risposta ricevuta*/
-                        mySnippet =new SnippetData(answer.getDocumentElement().getChildNodes().item(1).getTextContent(), 
-                        answer.getDocumentElement().getChildNodes().item(2).getTextContent(), 
-                        answer.getDocumentElement().getChildNodes().item(3).getTextContent(), 
-                        answer.getDocumentElement().getChildNodes().item(4).getTextContent(), 
-                        answer.getDocumentElement().getChildNodes().item(5).getTextContent(),
-                        answer.getDocumentElement().getChildNodes().item(6).getTextContent(),
-                        answer.getDocumentElement().getChildNodes().item(7).getTextContent(),
-                        answer.getDocumentElement().getChildNodes().item(8).getTextContent(),
-                        answer.getDocumentElement().getChildNodes().item(9).getTextContent(),
-                        answer.getDocumentElement().getChildNodes().item(10).getTextContent(),
-                        answer.getDocumentElement().getChildNodes().item(11).getTextContent(),
-                        answer.getDocumentElement().getChildNodes().item(12).getTextContent());  
-
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                titleLabel.setText(mySnippet.getTitle());
-                                ownerTextarea.setText(mySnippet.getCode());
-                                langLabel.setText(mySnippet.getLanguage());
-                            }
-                        });
-
-                        //modifico la visualizzazione in base all'utente
-                        if(mySnippet.getCreator().equals(username)){
-                            //se sono autore e il testo è modificato, mostro l'ultima modifica
-                            SwingUtilities.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if(mySnippet.getMod().equals("Y")){  
-                                        editorModification.setText(mySnippet.getCodeMod());
-                                        String editorTitle="Proposta di modifica ("+mySnippet.getLastUserMod()+")";                                                
-                                        TitledBorder editorBorder = BorderFactory.createTitledBorder(editorTitle);
-                                        editorModification.setBorder(editorBorder);
-                                        editorModification.setVisible(true);
-                                        centerPanel.add(BorderLayout.CENTER,new JScrollPane(ownerModificationPanel));
-                                        ownerModificationPanel.setVisible(true);
-                                    }
-                                    else{
-                                        ownerModificationPanel.setVisible(false);
-                                    }
-                                    centerPanel.add(BorderLayout.NORTH,ownerPanel);
-                                }
-                            });
-                            textToSend=1;
-                        }
-                        else{
-                            //caso in cui non sono l'autore
-                            SwingUtilities.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ownerTextarea.setVisible(false);
-                                    ownerCode.setText(mySnippet.getCode());
-
-                                    centerPanel.add(BorderLayout.NORTH,new JScrollPane(ownerCode));
-                                    centerPanel.add(BorderLayout.CENTER,new JScrollPane(editorTextarea));
-
-                                    ownerModificationPanel.setVisible(false);
-
-                                    String editorTitle="Proposta di modifica";
-                                    TitledBorder editorBorder = BorderFactory.createTitledBorder(editorTitle);
-                                    editorTextarea.setBorder(editorBorder);
-                                    if(mySnippet.getLastUserMod().equals(username)){
-                                        editorTextarea.setText(mySnippet.getCodeMod());   
-                                    }
-                                }
-                            });
-                            textToSend=2;
-                        }
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(secondCall){
-                                    workingPanel.setVisible(true);
-                                    messagePanel.setVisible(false);   
-                                }
-                            }
-                        });
-                    }
-                    else{
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                workingPanel.setVisible(false);
-                                message.setText("Lo snippet è attualmente in modifica da parte di un'altro utente");
-                                messagePanel.setVisible(true);                            
-                                continua.setText("Riprova");
-                                continua.setVisible(true);
-                            }
-                        });
-                    }
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    /* pulisco il centerpanel da tutti gli elementi per non causare conflitto */
+                    centerPanel.removeAll();
                 }
-                else{
+            });
+
+            final Document answer = callService(hc, mx, "getRequest");
+            /*controllo che la risposta non sia nulla*/
+            if(answer.getDocumentElement().getChildNodes().item(0)!=null){                         
+                /*Gestione caso di errore caricamento scippet*/
+                if(answer.getDocumentElement().getChildNodes().item(0).getTextContent().equals("error")){
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
                             workingPanel.setVisible(false);
-                            messagePanel.setVisible(true);
+                            message.setText("Si è verificato un errore");
+                            messagePanel.setVisible(true);    
                         }
                     });
                 }
-                mx.transform(System.out,answer);
+                else if(answer.getDocumentElement().getChildNodes().item(0).getTextContent().equals("Y")){
+                    /*parsing della risposta ricevuta*/
+                    mySnippet =new SnippetData(answer.getDocumentElement().getChildNodes().item(1).getTextContent(), 
+                    answer.getDocumentElement().getChildNodes().item(2).getTextContent(), 
+                    answer.getDocumentElement().getChildNodes().item(3).getTextContent(), 
+                    answer.getDocumentElement().getChildNodes().item(4).getTextContent(), 
+                    answer.getDocumentElement().getChildNodes().item(5).getTextContent(),
+                    answer.getDocumentElement().getChildNodes().item(6).getTextContent(),
+                    answer.getDocumentElement().getChildNodes().item(7).getTextContent(),
+                    answer.getDocumentElement().getChildNodes().item(8).getTextContent(),
+                    answer.getDocumentElement().getChildNodes().item(9).getTextContent(),
+                    answer.getDocumentElement().getChildNodes().item(10).getTextContent(),
+                    answer.getDocumentElement().getChildNodes().item(11).getTextContent(),
+                    answer.getDocumentElement().getChildNodes().item(12).getTextContent());  
+
+                    /* popolamento dei dati negli elementi dell'applet */
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            titleLabel.setText(mySnippet.getTitle());
+                            ownerTextarea.setText(mySnippet.getCode());
+                            langLabel.setText(mySnippet.getLanguage());
+                        }
+                    });
+
+                    /*modifico la visualizzazione in base all'utente*/
+                    if(mySnippet.getCreator().equals(username)){
+                        /*se sono autore e il testo è modificato, mostro l'ultima modifica*/
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(mySnippet.getMod().equals("Y")){  
+                                    editorModification.setText(mySnippet.getCodeMod());
+                                    String editorTitle="Proposta di modifica ("+mySnippet.getLastUserMod()+")";                                                
+                                    TitledBorder editorBorder = BorderFactory.createTitledBorder(editorTitle);
+                                    editorModification.setBorder(editorBorder);
+                                    editorModification.setVisible(true);
+                                    centerPanel.add(BorderLayout.CENTER,new JScrollPane(ownerModificationPanel));
+                                    ownerModificationPanel.setVisible(true);
+                                }
+                                else{
+                                    ownerModificationPanel.setVisible(false);
+                                }
+                                centerPanel.add(BorderLayout.NORTH,ownerPanel);
+                            }
+                        });
+                        /*sono in modalità "autore"*/
+                        textToSend=1;
+                    }
+                    else{
+                        /*caso in cui non sono l'autore, mostro il pannello di modifica*/
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                ownerTextarea.setVisible(false);
+                                ownerCode.setText(mySnippet.getCode());
+
+                                centerPanel.add(BorderLayout.NORTH,new JScrollPane(ownerCode));
+                                centerPanel.add(BorderLayout.CENTER,new JScrollPane(editorTextarea));
+
+                                ownerModificationPanel.setVisible(false);
+
+                                String editorTitle="Proposta di modifica";
+                                TitledBorder editorBorder = BorderFactory.createTitledBorder(editorTitle);
+                                editorTextarea.setBorder(editorBorder);
+                                /* se il modificante è l'ultimo che aveva modificato lo snippet, prevalorizzo la textarea */
+                                if(mySnippet.getLastUserMod().equals(username)){
+                                    editorTextarea.setText(mySnippet.getCodeMod());   
+                                }
+                            }
+                        });
+                        /*sono in modalità "modificante"*/
+                        textToSend=2;
+                    }
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            /* in caso di secondo caricamento gestisco la visualizzazione*/
+                            if(secondCall){
+                                workingPanel.setVisible(true);
+                                messagePanel.setVisible(false);   
+                            }
+                        }
+                    });
+                }
+                else{
+                    /* caso in cui lo snippet sia in modifica da parte di un altro utente */
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            workingPanel.setVisible(false);
+                            message.setText("Lo snippet è attualmente in modifica da parte di un'altro utente");
+                            messagePanel.setVisible(true);                            
+                            continua.setText("Riprova");
+                            continua.setVisible(true);
+                        }
+                    });
+                }
+            }
+            else{
+                /* gestisco la risposta nulla */
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        workingPanel.setVisible(false);
+                        messagePanel.setVisible(true);
+                    }
+                });
+            }
+            mx.transform(System.out,answer);
         }
         catch (Exception ex){
             System.out.println(ex);
@@ -283,7 +294,7 @@ public class Applet extends JApplet {
     
     
     /**
-     * Funzione utilizzata per gestire le chiamate a servizio
+     * Funzione utilizzata per gestire le chiamate al servizio di ottenimento/modifica dello snippet
      * @param hc oggetto Httpclient
      * @param mx oggetto ManageXml
      * @param tipoRequest tipo di richiesta
@@ -361,6 +372,7 @@ public class Applet extends JApplet {
                     Element content = question.createElement("content");
                     Element usernameElement = question.createElement("username");
 
+                    /* imposto il testo da modificare (caso creatore o modificante) */
                     if(textToSend==1){
                         content.setTextContent(ownerTextarea.getText());
                     }else if (textToSend==2){

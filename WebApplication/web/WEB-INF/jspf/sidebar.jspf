@@ -50,7 +50,9 @@
                         // nel caso arrivi un timeout o un errore, mantengo console per il debug
                         console.log(answer.documentElement.tagName+(++i));
                     }
-                    getMessages();
+                    if(('<%= session.getAttribute("user") %>')!="null"){
+                        getMessages();
+                    }
                 }
             };
             data = document.implementation.createDocument(null, "pop", null);                     
@@ -100,7 +102,9 @@
             xmlhttp2.send(data);
     }
 
-    getFirstMessages();
+    if(('<%= session.getAttribute("user") %>')!="null"){
+        getFirstMessages();
+    }
     
     
 </script>

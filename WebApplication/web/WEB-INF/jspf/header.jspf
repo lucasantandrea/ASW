@@ -24,6 +24,6 @@
                 <li><a HREF="<%= Util.BASE %>jsp/registration.jsp">Registrazione</a></li>
 
             <%}%>
-             <li><a HREF="<%= Util.BASE %>StartSnippetServlet">Tutti gli Snippet</a></li>
+             <li><a HREF="<%= Util.BASE %>jsp/totalSnippet.jsp">Tutti gli Snippet</a></li>
         </ul>
     </div>
